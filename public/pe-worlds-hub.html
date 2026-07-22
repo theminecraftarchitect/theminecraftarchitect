@@ -1,0 +1,2041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minecraft PE Worlds: The Minecraft Architect</title>
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+    --ink: #182241;
+    --ink-deep: #182241;
+    --parchment: #FFF3D6;
+    --parchment-dim: rgba(123,148,156,0.12);
+    --ember: #536C7C;
+    --ember-bright: #7B949C;
+    --sky: #7B949C;
+    --sky-deep: #536C7C;
+    --charcoal: #182241;
+    --line: rgba(83,108,124,0.25);
+    --line-light: rgba(255,243,214,0.18);
+
+    /* Themeable tokens. Light mode defaults */
+    --surface: var(--parchment);
+    --surface-alt: var(--parchment-dim);
+    --text-strong: var(--charcoal);
+    --text-soft: rgba(24,34,65,0.68);
+    --text-faint: rgba(24,34,65,0.45);
+    --border-c: var(--line);
+    --icon-color: #182241;
+  }
+
+  html[data-theme="dark"] {
+    --surface: var(--ink-deep);
+    --surface-alt: var(--ink);
+    --text-strong: var(--parchment);
+    --text-soft: rgba(255,243,214,0.68);
+    --text-faint: rgba(255,243,214,0.45);
+    --border-c: var(--line-light);
+    --icon-color: #FFF3D6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--surface);
+    color: var(--text-strong);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .display { font-family: 'Fraunces', serif; font-optical-sizing: auto; }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+
+
+  /* ===== Social icons (in header) ===== */
+  .header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+  @media (min-width: 1000px) {
+    .header-right { align-items: center; }
+  }
+  .social-icons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .social-icons a {
+    color: var(--icon-color);
+    opacity: 1;
+    display: inline-flex;
+    transition: color 0.2s ease, transform 0.15s ease;
+  }
+  .social-icons a:hover {
+    color: var(--ember);
+    transform: translateY(-1px);
+  }
+  .social-icons svg { width: 18px; height: 18px; }
+
+  @media (max-width: 640px) {
+    .social-icons a:nth-child(4),
+    .social-icons a:nth-child(5) { display: none; }
+  }
+
+  /* ===== Theme toggle ===== */
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--surface-alt);
+    border: 1px solid var(--border-c);
+    border-radius: 20px;
+    cursor: pointer;
+    padding: 5px 10px;
+    color: var(--text-strong);
+    opacity: 0.85;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
+  }
+  .theme-toggle:hover { opacity: 1; border-color: var(--ember); }
+  .theme-toggle svg { width: 13px; height: 13px; flex-shrink: 0; }
+  .theme-toggle .icon-sun { opacity: 1; transition: opacity 0.2s ease; }
+  .theme-toggle .icon-moon { opacity: 0.4; transition: opacity 0.2s ease; }
+  html[data-theme="dark"] .theme-toggle .icon-sun { opacity: 0.4; }
+  html[data-theme="dark"] .theme-toggle .icon-moon { opacity: 1; }
+
+  .toggle-track {
+    width: 32px;
+    height: 17px;
+    border-radius: 10px;
+    background: var(--border-c);
+    border: 1px solid var(--border-c);
+    position: relative;
+    transition: background-color 0.25s ease;
+  }
+  .toggle-thumb {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--ember);
+    transition: transform 0.25s ease;
+  }
+  html[data-theme="dark"] .toggle-thumb { transform: translateX(15px); }
+
+  /* ===== Nav ===== */
+  header { position: sticky; top: 0; z-index: 50; }
+  .nav-main {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border-c);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px 32px;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  nav { flex-shrink: 0; }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+  }
+
+  nav ul { display: flex; gap: 30px; list-style: none; }
+  nav li { position: relative; display: flex; align-items: center; }
+  nav a {
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  nav a::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 0; height: 1px;
+    background: var(--ember);
+    transition: width 0.25s ease;
+  }
+  nav a:hover::after { width: 100%; }
+  nav .caret { font-size: 9px; opacity: 0.6; transition: transform 0.2s ease; }
+  nav li.has-dropdown:hover .caret { transform: rotate(180deg); }
+
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    min-width: 240px;
+    background: var(--surface);
+    border: 1px solid var(--border-c);
+    border-radius: 6px;
+    padding: 6px;
+    box-shadow: 0 10px 26px rgba(24,34,65,0.18);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+    z-index: 80;
+  }
+  li.has-dropdown:hover .dropdown-menu,
+  li.has-dropdown:focus-within .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .dropdown-menu a {
+    display: block;
+    padding: 9px 12px;
+    font-size: 12.5px;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    font-weight: 500;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .dropdown-menu a::after { display: none; }
+  .dropdown-menu a:hover {
+    background: rgba(83,108,124,0.14);
+    color: var(--ember);
+  }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: var(--text-strong);
+    flex-direction: column;
+    gap: 4px;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 20px;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .nav-toggle.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
+  .mobile-nav {
+    display: none;
+    flex-direction: column;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border-c);
+    padding: 8px 32px 16px;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    padding: 12px 0;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    border-bottom: 1px solid var(--border-c);
+  }
+  .mobile-nav a:last-child { border-bottom: none; }
+  .mobile-nav .mn-sub {
+    padding-left: 16px;
+    font-size: 13px;
+    color: var(--text-soft);
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .mobile-nav .mn-label {
+    padding-top: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  @media (max-width: 860px) {
+    nav ul { display: none; }
+    .nav-toggle { display: flex; }
+  }
+  @media (min-width: 861px) {
+    .mobile-nav { display: none !important; }
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    position: relative;
+    background:
+      url('/images/backgrounds/hero-bg.jpg') center/cover no-repeat,
+      var(--ink);
+    color: var(--parchment);
+    padding: 90px 0 70px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 78% 15%, rgba(123,148,156,0.22), transparent 55%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .hero h1 {
+    font-size: clamp(38px, 5.6vw, 66px);
+    font-weight: 600;
+    line-height: 1.03;
+    max-width: 820px;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 4px rgba(24,34,65,0.95), 0 6px 26px rgba(24,34,65,0.85);
+  }
+  .hero h1 em { font-style: italic; font-weight: 500; color: var(--parchment); }
+
+  .hero-sub {
+    margin-top: 18px;
+    font-size: 19px;
+    font-weight: 400;
+    font-style: italic;
+    color: rgba(255,243,214,0.6);
+    max-width: 460px;
+    text-shadow: 0 2px 4px rgba(24,34,65,0.95), 0 4px 20px rgba(24,34,65,0.8);
+  }
+
+  /* Quick links: the main event */
+
+
+
+  @media (max-width: 860px) {
+  }
+
+  /* ===== Section headers ===== */
+  .section { padding: 88px 0; position: relative; }
+
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 44px;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .section-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .section-head h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(26px, 3.2vw, 38px);
+    letter-spacing: -0.01em;
+    max-width: 560px;
+  }
+  .section-head .view-all {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--text-strong);
+    padding-bottom: 3px;
+    white-space: nowrap;
+  }
+
+  /* ===== Specimen cards ===== */
+  .specimen-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .specimen {
+    background: var(--surface-alt);
+    border: 1px solid var(--border-c);
+    border-radius: 2px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  .specimen-photo {
+    height: 168px;
+    background: #182241;
+    position: relative;
+    border-bottom: 1px dashed var(--border-c);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .specimen-photo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(255,243,214,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,243,214,0.06) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  .specimen-photo span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,243,214,0.4);
+    letter-spacing: 0.06em;
+    position: relative;
+    z-index: 1;
+  }
+  .specimen-photo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .specimen-body { padding: 22px 22px 20px; }
+  .specimen-cat {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--sky-deep);
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .specimen h3 { font-family: 'Fraunces', serif; font-size: 21px; font-weight: 600; margin-bottom: 8px; }
+  .specimen p { font-size: 14px; color: var(--text-soft); margin-bottom: 18px; }
+  .specimen-foot {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border-top: 1px dashed var(--border-c);
+    padding-top: 14px;
+  }
+  .specimen-foot .dl {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-strong);
+    border-bottom: 1px solid var(--text-strong);
+    padding-bottom: 2px;
+  }
+
+  @media (max-width: 860px) { .specimen-grid { grid-template-columns: 1fr; } }
+
+  /* ===== Discord band ===== */
+  .band {
+    background:
+      url('/images/backgrounds/discord-bg.jpg') center/cover no-repeat,
+      var(--ink);
+    color: var(--parchment);
+    padding: 80px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(123,148,156,0.28), transparent 55%);
+  }
+  .band-inner { position: relative; z-index: 2; }
+  .band .section-tag { color: var(--parchment); text-align: center; text-shadow: 0 1px 3px rgba(24,34,65,0.95), 0 3px 14px rgba(24,34,65,0.75); }
+  .band h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(26px, 3.4vw, 40px);
+    font-weight: 600;
+    margin: 0 auto 14px;
+    max-width: 560px;
+    text-shadow: 0 2px 4px rgba(24,34,65,0.95), 0 6px 26px rgba(24,34,65,0.85);
+  }
+  .band p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    color: rgba(255,243,214,0.7);
+    max-width: 460px;
+    margin: 0 auto 32px;
+    font-size: 18px;
+    text-shadow: 0 2px 4px rgba(24,34,65,0.95), 0 4px 20px rgba(24,34,65,0.8);
+  }
+  .btn-primary {
+    background: var(--ember);
+    color: var(--parchment);
+    padding: 14px 26px;
+    font-weight: 600;
+    font-size: 14.5px;
+    border-radius: 2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+  .btn-primary:hover { background: var(--ember-bright); transform: translateY(-1px); }
+
+  /* ===== Footer ===== */
+  footer {
+    background:
+      url('/images/Footer%20Royal%20Castle.png') center/cover no-repeat,
+      var(--ink-deep);
+    color: var(--parchment);
+    padding: 56px 0 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .foot-grid {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 32px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid rgba(255,243,214,0.1);
+  }
+  .foot-brand { max-width: 320px; }
+  .foot-brand .brand { color: var(--parchment); margin-bottom: 14px; text-shadow: 0 1px 3px rgba(24,34,65,0.95), 0 3px 14px rgba(24,34,65,0.75); }
+  .foot-brand p { font-size: 13.5px; line-height: 1.6; text-shadow: 0 1px 3px rgba(24,34,65,0.95), 0 3px 14px rgba(24,34,65,0.75); }
+  .foot-links { display: flex; gap: 48px; flex-wrap: wrap; }
+  .foot-col h4 {
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--parchment);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,243,214,0.25);
+  }
+  .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .foot-col a { font-size: 14px; }
+  .foot-col a:hover { color: var(--parchment); }
+  .foot-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 24px;
+    font-size: 12.5px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .foot-social { display: flex; gap: 18px; }
+  .foot-social a { font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+  .foot-social a:hover { color: var(--parchment); }
+
+  /* ===== Reveal on scroll ===== */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ===== Search bar ===== */
+  .search-box {
+    position: relative;
+    flex: 1 1 260px;
+    max-width: 340px;
+    margin: 0 20px;
+  }
+  .search-box.nav-search input {
+    background: var(--surface-alt);
+    border: 1px solid var(--border-c);
+    color: var(--text-strong);
+  }
+  .search-box.nav-search input::placeholder { color: var(--text-faint); }
+  .search-box.nav-search svg { color: var(--text-faint); }
+  .search-box.nav-search svg { color: var(--text-faint); }
+  .search-box.nav-search input:focus { border-color: var(--ember); background: var(--surface); }
+
+  @media (max-width: 1000px) {
+    .search-box { order: 3; flex-basis: calc(100% - 60px); max-width: 100%; margin: 10px 0 0; }
+    .nav-toggle { order: 4; margin: 10px 0 0 12px; }
+    .nav-inner { flex-wrap: wrap; }
+  }
+
+  .search-box svg {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    color: var(--parchment);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .search-box input {
+    width: 100%;
+    background: rgba(255,243,214,0.07);
+    border: 1.5px solid rgba(255,243,214,0.25);
+    border-radius: 20px;
+    padding: 11px 16px 11px 40px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14.5px;
+    color: var(--parchment);
+    outline: none;
+    position: relative;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+  .search-box input::placeholder { color: rgba(255,243,214,0.5); }
+  .search-box input:focus {
+    border-color: var(--ember-bright);
+    background: rgba(255,243,214,0.12);
+  }
+
+  .search-results {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(560px, 92vw);
+    background: var(--surface);
+    border: 1px solid var(--border-c);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(24,34,65,0.18);
+    overflow: hidden;
+    z-index: 60;
+    display: none;
+  }
+  .search-results.open { display: block; }
+
+  .search-result {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 11px 16px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+  .search-result:hover,
+  .search-result.active { background: rgba(83,108,124,0.12); }
+  .search-result + .search-result { border-top: 1px solid var(--border-c); }
+
+  .search-result .sr-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 14.5px;
+    color: var(--text-strong);
+  }
+  .search-result .sr-cat {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-top: 2px;
+  }
+
+
+  .search-empty {
+    padding: 16px;
+    font-size: 13px;
+    color: var(--text-faint);
+    text-align: center;
+  }
+
+  /* ===== Map detail page ===== */
+  .map-hero {
+    background:
+      url('/images/backgrounds/hero-bg.jpg') center/cover no-repeat,
+      var(--ink);
+    color: var(--parchment);
+    padding: 56px 0 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .map-crumb {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--parchment);
+    margin-bottom: 16px;
+    display: block;
+  }
+  .map-crumb a { border-bottom: 1px solid rgba(123,148,156,0.4); padding-bottom: 1px; }
+  .map-hero h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(32px, 5vw, 52px);
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 4px rgba(24,34,65,0.95), 0 6px 26px rgba(24,34,65,0.85);
+  }
+
+  .platforms-section { padding: 64px 0 96px; }
+  .platforms-section h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 26px;
+    margin-bottom: 28px;
+  }
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .platform-card {
+    background: var(--surface-alt);
+    border: 1px solid var(--border-c);
+    border-radius: 4px;
+    padding: 22px;
+    transition: border-color 0.2s ease, transform 0.15s ease;
+  }
+  .platform-card:hover { border-color: var(--ember); transform: translateY(-2px); }
+  .platform-card .pc-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+  .platform-card .pc-version {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: var(--text-faint);
+    margin-bottom: 16px;
+  }
+  .platform-card .pc-dl {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text-strong);
+    border-bottom: 1px solid var(--text-strong);
+    padding-bottom: 2px;
+  }
+  .map-not-found {
+    padding: 100px 32px;
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+  }
+
+  /* ===== Map detail: tagline, secrets, discord CTA ===== */
+  .map-hero .map-tagline {
+    margin-top: 14px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 19px;
+    color: var(--parchment);
+    text-shadow: 0 1px 3px rgba(24,34,65,0.95), 0 3px 14px rgba(24,34,65,0.75);
+  }
+
+
+  .discord-cta {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px dashed var(--border-c);
+  }
+  .discord-cta p {
+    font-size: 13.5px;
+    color: var(--text-faint);
+    margin-bottom: 14px;
+  }
+
+  /* ===== Tutorial Worlds list page: chronological timeline ===== */
+  .category-hero {
+    background:
+      url('/images/Metropolis%20Image%202.png') center/cover no-repeat,
+      var(--ink);
+    color: var(--parchment);
+    padding: 64px 0 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .category-hero .map-crumb {
+    color: var(--parchment);
+    text-shadow: 0 1px 3px rgba(24,34,65,0.95), 0 3px 14px rgba(24,34,65,0.75);
+  }
+  .category-hero h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(30px, 4.4vw, 46px);
+    letter-spacing: -0.01em;
+    margin-top: 14px;
+    text-shadow: 0 2px 4px rgba(24,34,65,0.95), 0 6px 26px rgba(24,34,65,0.85);
+  }
+  .category-hero p {
+    margin-top: 12px;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--parchment);
+    max-width: 100%;
+    white-space: nowrap;
+    text-shadow: 0 2px 4px rgba(24,34,65,0.95), 0 4px 20px rgba(24,34,65,0.8);
+  }
+  @media (max-width: 640px) {
+    .category-hero p { white-space: normal; }
+  }
+
+  .timeline-section { padding: 56px 0 96px; }
+
+  .mg-category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .mg-category-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-height: 175px;
+    gap: 6px;
+    background-color: var(--ink);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid var(--border-c);
+    border-radius: 8px;
+    padding: 22px 24px;
+    text-decoration: none;
+    color: var(--parchment);
+    transition: border-color 0.2s ease;
+    overflow: hidden;
+  }
+  .mg-category-card:hover { border-color: var(--ember); box-shadow: 0 6px 18px rgba(24,34,65,0.35); transform: translateY(-3px); }
+  .mg-category-card h2 {
+    text-shadow: 0 2px 3px rgba(24,34,65,1), 0 3px 8px rgba(24,34,65,1), 0 8px 28px rgba(24,34,65,0.95);
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 22px;
+    margin: 2px 0 2px;
+  }
+  .mg-category-card p {
+    font-size: 13.5px;
+    color: rgba(255,243,214,0.9);
+    margin-bottom: 10px;
+    text-shadow: 0 1px 3px rgba(24,34,65,1), 0 2px 7px rgba(24,34,65,1), 0 6px 22px rgba(24,34,65,0.95);
+  }
+
+
+  /* ===== Dark mode torch ambiance ===== */
+  .torch-widget {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 140px;
+    height: 200px;
+    pointer-events: none;
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease;
+  }
+  html[data-theme="dark"] .torch-widget {
+    opacity: 1;
+    visibility: visible;
+  }
+  .torch-glow {
+    position: fixed;
+    bottom: -420px;
+    right: -420px;
+    width: 1050px;
+    height: 1050px;
+    background: radial-gradient(circle, rgba(255,214,90,0.4) 0%, rgba(255,170,40,0.2) 30%, rgba(255,140,20,0.08) 50%, transparent 70%);
+    filter: blur(6px);
+    z-index: -1;
+    animation: torchFlicker 2.6s ease-in-out infinite;
+  }
+  @keyframes torchFlicker {
+    0%, 100% { opacity: 0.85; transform: scale(1); }
+    22% { opacity: 1; transform: scale(1.035); }
+    48% { opacity: 0.72; transform: scale(0.975); }
+    74% { opacity: 0.95; transform: scale(1.02); }
+  }
+  .torch-icon {
+    position: absolute;
+    bottom: 14px;
+    right: 20px;
+    width: 46px;
+    height: auto;
+    display: block;
+    image-rendering: pixelated;
+    transform-origin: bottom center;
+    animation: torchSway 2.6s ease-in-out infinite;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  @keyframes torchSway {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(1.5deg); }
+  }
+  .torch-particles {
+    position: absolute;
+    bottom: 68px;
+    right: 26px;
+    width: 30px;
+    height: 30px;
+  }
+  .torch-widget.torch-off .torch-glow {
+    animation: none;
+    opacity: 0;
+  }
+  .torch-widget.torch-off .torch-particles img {
+    animation: none;
+    opacity: 0;
+  }
+  .torch-widget.torch-off .torch-icon {
+    opacity: 0;
+  }
+  .torch-particles img {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    opacity: 0;
+    filter: brightness(0) invert(30%) drop-shadow(0 0 2px rgba(60,60,60,0.5));
+    animation: smokeRise 3.4s ease-out infinite;
+  }
+  .torch-particles img:nth-child(1) { left: 20%; animation-delay: 0s; --drift: 10px; }
+  .torch-particles img:nth-child(2) { left: 50%; animation-delay: 0.65s; --drift: -8px; }
+  .torch-particles img:nth-child(3) { left: 65%; animation-delay: 1.3s; --drift: 14px; }
+  .torch-particles img:nth-child(4) { left: 35%; animation-delay: 1.95s; --drift: -12px; }
+  .torch-particles img:nth-child(5) { left: 55%; animation-delay: 2.6s; --drift: 6px; }
+  @keyframes smokeRise {
+    0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+    15% { opacity: 0.85; }
+    100% { transform: translate(var(--drift), -150px) scale(2.4); opacity: 0; }
+  }
+  @media (max-width: 640px) {
+    .torch-widget { width: 90px; height: 140px; transform: scale(0.75); transform-origin: bottom right; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-main">
+    <div class="nav-inner">
+      <a href="/" class="brand">
+        The Minecraft Architect
+      </a>
+      <div class="search-box nav-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" id="mapSearch" placeholder="Search maps…" autocomplete="off">
+        <div class="search-results" id="searchResults"></div>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li class="has-dropdown">
+            <a href="index.html#downloads">Downloads <span class="caret">▾</span></a>
+            <div class="dropdown-menu">
+              <a href="/tutorial-worlds">Console Edition Tutorial Worlds</a>
+              <a href="/mini-game-maps">Console Edition Mini Game Maps</a>
+              <a href="/old-minecraft-worlds">Old Minecraft Worlds</a>
+              <a href="/mcpe-worlds">Minecraft PE Worlds</a>
+            </div>
+          </li>
+          <li><a href="/updates">Updates</a></li>
+          <li><a href="/credits">Credits</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+      </nav>
+      <div class="header-right">
+        <div class="social-icons">
+          <a href="https://discord.theminecraftarchitect.com" aria-label="Discord" title="Discord">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612"/></svg>
+          </a>
+          <a href="https://www.instagram.com/theminecraftarchitect1/" aria-label="Instagram" title="Instagram">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@theminecraftarchitect" aria-label="TikTok" title="TikTok">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/theminecraftarchitect" aria-label="YouTube" title="YouTube">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/></svg>
+          </a>
+          <a href="https://bsky.app/profile/theminecraftarchitect.com" aria-label="Bluesky" title="Bluesky">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.468 1.948C5.303 3.325 7.276 6.118 8 7.616c.725-1.498 2.698-4.29 4.532-5.668C13.855.955 16 .186 16 2.632c0 .489-.28 4.105-.444 4.692-.572 2.04-2.653 2.561-4.504 2.246 3.236.551 4.06 2.375 2.281 4.2-3.376 3.464-4.852-.87-5.23-1.98-.07-.204-.103-.3-.103-.218 0-.081-.033.014-.102.218-.379 1.11-1.855 5.444-5.231 1.98-1.778-1.825-.955-3.65 2.28-4.2-1.85.315-3.932-.205-4.503-2.246C.28 6.737 0 3.12 0 2.632 0 .186 2.145.955 3.468 1.948"/></svg>
+          </a>
+        </div>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="/">Home</a>
+    <div class="mn-label">Downloads</div>
+    <a href="/tutorial-worlds" class="mn-sub">Console Edition Tutorial Worlds</a>
+    <a href="/mini-game-maps" class="mn-sub">Console Edition Mini Game Maps</a>
+    <a href="/old-minecraft-worlds" class="mn-sub">Old Minecraft Worlds</a>
+    <a href="/mcpe-worlds" class="mn-sub">Minecraft PE Worlds</a>
+    <a href="/updates">Updates</a>
+    <a href="/credits">Credits</a>
+    <a href="/about">About</a>
+  </div>
+</header>
+
+<section class="category-hero">
+  <div class="wrap" style="position:relative; z-index:2;">
+    <span class="map-crumb"><a href="/">Archive</a> / Minecraft PE Worlds</span>
+    <h1 class="display">Minecraft PE Worlds</h1>
+    <p>Nostalgic Pocket Edition worlds and seeds, recovered and preserved.</p>
+  </div>
+</section>
+
+<section class="timeline-section">
+  <div class="wrap">
+    <div class="mg-category-grid">
+      <a href="/old-minecraft-worlds/mcpe-worlds" class="mg-category-card" style="background-image:url('/images/Herobrine%20Sighting%20World%20Image%201.png')">
+        <h2 class="display">Worlds</h2>
+      </a>
+      <a href="/mcpe-worlds/mcpe-seeds" class="mg-category-card" style="background-image:url('/images/dumbocow%20Image%201.png')">
+        <h2 class="display">Seeds</h2>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="brand">
+          The Minecraft Architect
+        </div>
+        <p>Preserving Minecraft maps from the past. Creating content for the future.</p>
+      </div>
+      <div class="foot-links">
+        <div class="foot-col">
+          <h4>Downloads</h4>
+          <ul>
+            <li><a href="index.html#downloads">Tutorial Worlds</a></li>
+            <li><a href="index.html#downloads">Mini Game Maps</a></li>
+            <li><a href="index.html#downloads">Old Minecraft Worlds</a></li>
+            <li><a href="index.html#downloads">Nostalgic Seeds</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Site</h4>
+          <ul>
+            <li><a href="/updates">Updates</a></li>
+            <li><a href="/credits">Credits</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/privacy">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 The Minecraft Architect</div>
+      <div class="foot-social">
+        <a href="https://discord.theminecraftarchitect.com">Discord</a>
+        <a href="https://www.instagram.com/theminecraftarchitect1/">Instagram</a>
+        <a href="https://www.tiktok.com/@theminecraftarchitect">TikTok</a>
+        <a href="https://www.youtube.com/theminecraftarchitect">YouTube</a>
+        <a href="https://bsky.app/profile/theminecraftarchitect.com">Bluesky</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// One entry per MAP, not per download. Every platform version lives
+// inside that single entry's `platforms` array. This is what makes
+// search naturally return one result per map. It's just iterating
+// over this list and never sees platforms as separate things.
+//
+// To add a new map to the whole site (search + its own page): add one
+// object here. Nothing else needs to change.
+
+const MAPS = [
+  // ===================================================================
+  // Console Edition Tutorial Worlds. The chronological run of official
+  // 4J Studios tutorial worlds. downloadType: "discord" means this map
+  // has no direct file link; instead the page shows platform/version
+  // compatibility and a "Join the Discord" CTA, matching how these are
+  // actually distributed. `order` drives the timeline sequence on
+  // tutorial-worlds.html. This is real chronological order, so the
+  // numbering on that page means something (unlike an arbitrary list).
+  // ===================================================================
+  {
+    slug: "pre-tu1",
+    name: "Pre-TU1 Prototype Tutorial World",
+    category: "Tutorial Worlds",
+    tags: ["tutorial", "console", "prototype", "lost media"],
+    order: 1,
+    tagline: "After 14 years, it's been found.",
+    description: "This is a prototype version of the original tutorial world from the Console Edition of Minecraft. It includes a tutorial area, village, two castles, a lighthouse, and the infamous water mill. This tutorial world was lost for 14 years, yet officially discovered on February 28, 2026.",
+    spawnPoint: "58, 66, -8 (Facing East)",
+    seed: "1171544198849424676",
+    saveDate: "~November 2011",
+    secrets: [
+      "Officially rediscovered on February 28, 2026, after being missing for 14 years."
+    ],
+    // Per-platform downloads: most platforms link directly, but PS3 is
+    // gated behind Discord. `versions` lets one platform (Java) offer
+    // more than one build as separate buttons.
+    platforms: [
+      {
+        name: "Java Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
+        versions: [
+          { label: "1.8+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/Pre-TU1%20Tutorial%20World%20%5BJE%201.8.8%5D.zip", note: "Designed with older versions of Minecraft in mind" },
+          { label: "Beta 1.6", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/Pre-TU1%20Tutorial%20World%20%5BBeta%201.6.6%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU0" }
+        ],
+        installGuideUrl: "https://youtu.be/VAmqDkCXj90"
+      },
+      {
+        name: "Bedrock Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/Pre-TU1%20Tutorial%20World%20%5BBE%5D.mcworld" }
+        ],
+        installGuideUrl: "https://www.youtube.com/watch?v=i941vICXfp0"
+      },
+      {
+        name: "Xbox 360 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
+        versions: [
+          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/Pre-TU1%20Tutorial%20World%20%5BXbox%20360%20Latest%5D.zip" }
+        ],
+        installGuideUrl: "https://www.youtube.com/watch?v=ZTHVUrqKm7Q"
+      },
+      {
+        name: "Wii U Edition",
+        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/Pre-TU1%20Tutorial%20World%20%5BWii%20U%20Latest%5D.zip" }
+        ],
+        installGuideUrl: "https://youtu.be/bTY0lPz5nas"
+      },
+      {
+        name: "PS3 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
+        discordGated: true,
+        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata.",
+        installGuideUrl: "https://youtu.be/StjXIrQavVk"
+      }
+    ],
+    // Gallery, map render, header photo, and footer image. Now
+    // self-hosted from images/ instead of hotlinked from Squarespace.
+    headerImage: "Pre-TU1 Image 1.png",
+    footerImage: "Footer Pre-TU1.png",
+    gallery: [
+      "Pre-TU1 Image 1.png",
+      "Pre-TU1 Image 2.png",
+      "Pre-TU1 Image 3.png",
+      "Pre-TU1 Image 4.png",
+      "Pre-TU1 Image 5.png",
+      "Pre-TU1 Image 6.png",
+      "Pre-TU1 Image 7.png",
+      "Pre-TU1 Image 8.png",
+      "Pre-TU1 Image 9.png"
+    ],
+    mapImageUrl: "Pre-TU1 Map.png",
+    videoUrl: "https://www.youtube.com/embed/C9x9izqfCgQ"
+  },
+    {
+    slug: "tu1",
+    name: "TU1 Tutorial World",
+    category: "Tutorial Worlds",
+    tags: ["tutorial", "console"],
+    order: 2,
+    tagline: "Simple yet nostalgic.",
+    description: "This is the original tutorial world from the Console Edition of Minecraft. It includes a tutorial area, two villages, a lighthouse, and the infamous castle with a library.",
+    spawnPoint: "3, 72, -37 (Facing South)",
+    seed: "1171544198849424676",
+    releaseDate: "May 9th, 2012",
+    secrets: [],
+    headerImage: "TU1 Image 1.png",
+    footerImage: "Footer TU1.png",
+    gallery: ["TU1 Image 1.png", "TU1 Image 2.png", "TU1 Image 3.png", "TU1 Image 4.png", "TU1 Image 5.png", "TU1 Image 6.png", "TU1 Image 7.png", "TU1 Image 8.png", "TU1 Image 9.png", "TU1 Image 10.png", "TU1 Image 11.png", "TU1 Image 12.png", "TU1 Image 13.png", "TU1 Image 14.png", "TU1 Image 15.png", "TU1 Image 16.png", "TU1 Image 17.png", "TU1 Image 18.png", "TU1 Image 19.png", "TU1 Image 20.png"],
+    mapImageUrl: "TU1 Map.png",
+    platforms: [
+      {
+        name: "Java Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU1%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
+          { label: "1.8+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU1%20Tutorial%20World%20%5BJE%201.8.8%5D%20%5BUNZIP%5D.zip", note: "Designed with older versions of Minecraft in mind" },
+          { label: "Beta 1.6", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU1%20Tutorial%20World%20%5BJE%20Beta%201.6.6%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU1" }
+        ]
+      },
+      {
+        name: "Bedrock Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU1%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
+        ]
+      },
+      {
+        name: "Xbox 360 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
+        versions: [
+          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU1%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "Wii U Edition",
+        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU1%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "PS3 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
+        discordGated: true,
+        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
+      }
+    ]
+  },
+    {
+    slug: "tu3",
+    name: "TU3 Tutorial World",
+    category: "Tutorial Worlds",
+    tags: ["tutorial", "console"],
+    order: 3,
+    tagline: "The original tutorial world, evolved.",
+    description: "This is the second tutorial world from the Console Edition of Minecraft. It includes a tutorial area, two villages, a lighthouse, and the infamous castle with a library.",
+    spawnPoint: "-3, 71, -41 (Facing South)",
+    seed: "1171544198849424676",
+    releaseDate: "July 13th, 2012",
+    secrets: [
+      "A lever on the Minecraft logo hides a concealed Nether portal.",
+      "A submerged tunnel beside the castle's main tower holds diamond gear.",
+      "A gravel X beyond the farming village marks a buried dungeon."
+    ],
+    headerImage: "TU3 Image 1.png",
+    footerImage: "Footer TU3.png",
+    gallery: ["TU3 Image 1.png", "TU3 Image 2.png", "TU3 Image 3.png", "TU3 Image 4.png", "TU3 Image 5.png", "TU3 Image 6.png", "TU3 Image 7.png", "TU3 Image 8.png", "TU3 Image 9.png", "TU3 Image 10.png", "TU3 Image 11.png", "TU3 Image 12.png", "TU3 Image 13.png", "TU3 Image 14.png", "TU3 Image 15.png", "TU3 Image 16.png", "TU3 Image 17.png", "TU3 Image 18.png", "TU3 Image 19.png", "TU3 Image 20.png"],
+    mapImageUrl: "TU3 Map.png",
+    platforms: [
+      {
+        name: "Java Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU3%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
+          { label: "1.8+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU3%20Tutorial%20World%20%5BJE%201.8.8%5D%20%5BUNZIP%5D.zip", note: "Designed with older versions of Minecraft in mind" },
+          { label: "Beta 1.7", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU3%20Tutorial%20World%20%5BJE%20Beta%201.7.3%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU3" }
+        ]
+      },
+      {
+        name: "Bedrock Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU3%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
+        ]
+      },
+      {
+        name: "Xbox 360 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
+        versions: [
+          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU3%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "Wii U Edition",
+        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU3%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "PS3 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
+        discordGated: true,
+        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
+      }
+    ]
+  },
+    {
+    slug: "tu5",
+    name: "TU5 Tutorial World",
+    category: "Tutorial Worlds",
+    tags: ["tutorial", "console"],
+    order: 4,
+    tagline: "It's time for adventure.",
+    description: "This is the third tutorial world from the Console Edition of Minecraft. It includes a tutorial area, three villages, a mountain fortress, and a couple of other structures throughout. This was the first tutorial world to feature the music disc quest.",
+    spawnPoint: "-85, 67, -65 (Facing Southwest)",
+    seed: "6173462",
+    releaseDate: "October 16th, 2012",
+    secrets: [
+      "A lever in the mountain fortress hides a concealed Nether portal.",
+      "12 music discs are hidden throughout the world. This is the first tutorial world to feature this quest.",
+      "A stronghold lies beneath the mountain, but no portal room. Those weren't added until TU7."
+    ],
+    headerImage: "TU5 Image 1.png",
+    footerImage: "Footer TU5.png",
+    gallery: ["TU5 Image 1.png", "TU5 Image 2.png", "TU5 Image 3.png", "TU5 Image 4.png", "TU5 Image 5.png", "TU5 Image 6.png", "TU5 Image 7.png", "TU5 Image 8.png", "TU5 Image 9.png", "TU5 Image 10.png", "TU5 Image 11.png", "TU5 Image 12.png", "TU5 Image 13.png", "TU5 Image 14.png", "TU5 Image 15.png", "TU5 Image 16.png", "TU5 Image 17.png", "TU5 Image 18.png", "TU5 Image 19.png", "TU5 Image 20.png"],
+    mapImageUrl: "TU5 Map.png",
+    platforms: [
+      {
+        name: "Java Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU5%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
+          { label: "1.8+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU5%20Tutorial%20World%20%5BJE%201.8.8%5D%20%5BUNZIP%5D.zip", note: "Designed with older versions of Minecraft in mind" },
+          { label: "Beta 1.8", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU5%20Tutorial%20World%20%5BJE%20Beta%201.8.1%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU5" }
+        ]
+      },
+      {
+        name: "Bedrock Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU5%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
+        ]
+      },
+      {
+        name: "Xbox 360 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
+        versions: [
+          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU5%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "Wii U Edition",
+        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU5%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "PS3 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
+        discordGated: true,
+        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
+      }
+    ]
+  },
+    {
+    slug: "tu7",
+    name: "TU7 Tutorial World",
+    category: "Tutorial Worlds",
+    tags: ["tutorial", "console"],
+    order: 5,
+    tagline: "The game is beginning to take shape.",
+    description: "This is the fourth tutorial world from the Console Edition of Minecraft. It includes a tutorial area, castle, and various other structures throughout.",
+    secrets: [
+      "A lever in the castle's left upstairs bedroom hides a concealed Nether portal.",
+      "12 music discs are hidden throughout the world.",
+      "A stronghold lies beyond the castle, but The End wasn't added until TU9."
+    ],
+    spawnPoint: "156, 75, 149 (Facing Southwest)",
+    seed: "96414766889474996",
+    releaseDate: "December 19th, 2012",
+    headerImage: "TU7 Image 1.png",
+    footerImage: "Footer TU7.png",
+    gallery: ["TU7 Image 1.png", "TU7 Image 2.png", "TU7 Image 3.png", "TU7 Image 4.png", "TU7 Image 5.png", "TU7 Image 6.png", "TU7 Image 7.png", "TU7 Image 8.png", "TU7 Image 9.png", "TU7 Image 10.png", "TU7 Image 11.png", "TU7 Image 12.png", "TU7 Image 13.png", "TU7 Image 14.png", "TU7 Image 15.png", "TU7 Image 16.png", "TU7 Image 17.png", "TU7 Image 18.png", "TU7 Image 19.png", "TU7 Image 20.png"],
+    mapImageUrl: "TU7 Map.png",
+    platforms: [
+      {
+        name: "Java Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU7%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
+          { label: "1.8+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU7%20Tutorial%20World%20%5BJE%201.8.8%5D%20%5BUNZIP%5D.zip", note: "Designed with older versions of Minecraft in mind" },
+          { label: "1.0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU7%20Tutorial%20World%20%5BJE%201.0.0%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU7" }
+        ]
+      },
+      {
+        name: "Bedrock Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU7%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
+        ]
+      },
+      {
+        name: "Xbox 360 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
+        versions: [
+          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU7%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "Wii U Edition",
+        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU7%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "PS3 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
+        discordGated: true,
+        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
+      }
+    ]
+  },
+    {
+    slug: "tu9",
+    name: "TU9 Tutorial World",
+    category: "Tutorial Worlds",
+    tags: ["tutorial", "console"],
+    order: 6,
+    tagline: "The end is here.",
+    description: "This is the fifth tutorial world from the Console Edition of Minecraft. It includes a tutorial area, castle, and various other structures throughout.",
+    spawnPoint: "156, 75, 149 (Facing Southwest)",
+    seed: "96414766889474996",
+    releaseDate: "April 4th, 2013",
+    secrets: [
+      "A lever in the castle's left upstairs bedroom hides a concealed Nether portal.",
+      "12 music discs are hidden throughout the world.",
+      "A stronghold beyond the castle now leads to The End."
+    ],
+    headerImage: "TU9 Image 1.png",
+    footerImage: "Footer TU9.png",
+    gallery: ["TU9 Image 1.png", "TU9 Image 2.png", "TU9 Image 3.png", "TU9 Image 4.png", "TU9 Image 5.png", "TU9 Image 6.png", "TU9 Image 7.png", "TU9 Image 8.png", "TU9 Image 9.png", "TU9 Image 10.png", "TU9 Image 11.png", "TU9 Image 12.png", "TU9 Image 13.png", "TU9 Image 14.png", "TU9 Image 15.png", "TU9 Image 16.png", "TU9 Image 17.png", "TU9 Image 18.png", "TU9 Image 19.png", "TU9 Image 20.png"],
+    mapImageUrl: "TU9 Map.png",
+    platforms: [
+      {
+        name: "Java Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU9%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
+          { label: "1.8+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU9%20Tutorial%20World%20%5BJE%201.8.8%5D%20%5BUNZIP%5D.zip", note: "Designed with older versions of Minecraft in mind" },
+          { label: "1.1", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU9%20Tutorial%20World%20%5BJE%201.1%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU9" }
+        ]
+      },
+      {
+        name: "Bedrock Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU9%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
+        ]
+      },
+      {
+        name: "Xbox 360 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
+        versions: [
+          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU9%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "Wii U Edition",
+        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU9%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "PS3 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
+        discordGated: true,
+        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
+      }
+    ]
+  },
+    {
+    slug: "tu12",
+    name: "TU12 Tutorial World",
+    category: "Tutorial Worlds",
+    tags: ["tutorial", "console"],
+    order: 7,
+    tagline: "Edinburgh Castle awaits you.",
+    description: "This is the sixth tutorial world from the Console Edition of Minecraft. It includes a tutorial area, The Edinburgh Castle, and various other structures throughout.",
+    spawnPoint: "97, 73, -106 (Facing West)",
+    seed: "1227750481513469519",
+    releaseDate: "August 23rd, 2013",
+    secrets: [
+      "A lever on the Minecraft logo hides a concealed Nether portal.",
+      "12 music discs are hidden throughout the world.",
+      "A suspicious lever in the castle reveals a hidden underground cave."
+    ],
+    headerImage: "TU12 Image 1.png",
+    footerImage: "Footer TU12.png",
+    gallery: ["TU12 Image 1.png", "TU12 Image 2.png", "TU12 Image 3.png", "TU12 Image 4.png", "TU12 Image 5.png", "TU12 Image 6.png", "TU12 Image 7.png", "TU12 Image 8.png", "TU12 Image 9.png", "TU12 Image 10.png", "TU12 Image 11.png", "TU12 Image 12.png", "TU12 Image 13.png", "TU12 Image 14.png", "TU12 Image 15.png", "TU12 Image 16.png", "TU12 Image 17.png", "TU12 Image 18.png", "TU12 Image 19.png", "TU12 Image 20.png"],
+    mapImageUrl: "TU12 Map.png",
+    platforms: [
+      {
+        name: "Java Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU12%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
+          { label: "1.8+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU12%20Tutorial%20World%20%5BJE%201.8.8%5D%20%5BUNZIP%5D.zip", note: "Designed with older versions of Minecraft in mind" },
+          { label: "1.4", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU12%20Tutorial%20World%20%5BJE%201.4.2%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU12" }
+        ]
+      },
+      {
+        name: "Bedrock Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU12%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
+        ]
+      },
+      {
+        name: "Xbox 360 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
+        versions: [
+          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU12%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "Wii U Edition",
+        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU12%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "PS3 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
+        discordGated: true,
+        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
+      }
+    ]
+  },
+    {
+    slug: "tu14",
+    name: "TU14 Tutorial World",
+    category: "Tutorial Worlds",
+    tags: ["tutorial", "console"],
+    order: 8,
+    tagline: "Edinburgh Castle and exotic structures await you.",
+    description: "This is the seventh tutorial world from the Console Edition of Minecraft. It includes a tutorial area, The Edinburgh Castle, and various other structures throughout.",
+    spawnPoint: "97, 73, -106 (Facing West)",
+    seed: "1227750481513469519",
+    releaseDate: "March 26th, 2014",
+    secrets: [
+      "12 music discs are hidden throughout the world.",
+      "A suspicious lever in the castle reveals a hidden underground cave."
+    ],
+    headerImage: "TU14 Image 1.png",
+    footerImage: "Footer TU14.png",
+    gallery: ["TU14 Image 1.png", "TU14 Image 2.png", "TU14 Image 3.png", "TU14 Image 4.png", "TU14 Image 5.png", "TU14 Image 6.png", "TU14 Image 7.png", "TU14 Image 8.png", "TU14 Image 9.png", "TU14 Image 10.png", "TU14 Image 11.png", "TU14 Image 12.png", "TU14 Image 13.png", "TU14 Image 14.png", "TU14 Image 15.png", "TU14 Image 16.png", "TU14 Image 17.png", "TU14 Image 18.png", "TU14 Image 19.png", "TU14 Image 20.png"],
+    mapImageUrl: "TU14 Map.png",
+    platforms: [
+      {
+        name: "Java Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU14%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
+          { label: "1.8+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU14%20Tutorial%20World%20%5BJE%201.8.8%5D%20%5BUNZIP%5D.zip", note: "Designed with older versions of Minecraft in mind" },
+          { label: "1.6", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU14%20Tutorial%20World%20%5BJE%201.6.1%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU14" }
+        ]
+      },
+      {
+        name: "Bedrock Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU14%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
+        ]
+      },
+      {
+        name: "Xbox 360 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
+        versions: [
+          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU14%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "Wii U Edition",
+        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU14%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "PS3 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
+        discordGated: true,
+        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
+      }
+    ]
+  },
+    {
+    slug: "tu19",
+    name: "TU19 Tutorial World",
+    category: "Tutorial Worlds",
+    tags: ["tutorial", "console"],
+    order: 9,
+    tagline: "Eilean Donan Castle awaits. Not to mention, horses.",
+    description: "This is the eighth tutorial world from the Console Edition of Minecraft. It includes a tutorial area, The Eilean Donan Castle, and various other structures throughout.",
+    spawnPoint: "216, 70, -199 (Facing Southwest)",
+    seed: "1227750481513469519",
+    seedNote: "Tutorial is an Artificially Created Amplified World, it Can't be Recreated with the Seed",
+    releaseDate: "December 18th, 2014",
+    secrets: [
+      "Catacombs beneath Eilean Donan Castle hide a concealed Nether portal.",
+      "12 music discs are hidden throughout the world.",
+      "A recreation of Stampy's House sits at the world's southern end."
+    ],
+    headerImage: "TU19 Image 1.png",
+    footerImage: "Footer TU19.png",
+    gallery: ["TU19 Image 1.png", "TU19 Image 2.png", "TU19 Image 3.png", "TU19 Image 4.png", "TU19 Image 5.png", "TU19 Image 6.png", "TU19 Image 7.png", "TU19 Image 8.png", "TU19 Image 9.png", "TU19 Image 10.png", "TU19 Image 11.png", "TU19 Image 12.png", "TU19 Image 13.png", "TU19 Image 14.png", "TU19 Image 15.png", "TU19 Image 16.png", "TU19 Image 17.png", "TU19 Image 18.png", "TU19 Image 19.png", "TU19 Image 20.png"],
+    mapImageUrl: "TU19 Map.png",
+    platforms: [
+      {
+        name: "Java Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU19%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
+          { label: "1.9+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU19%20Tutorial%20World%20%5BJE%201.9.4%5D%20%5BUNZIP%5D.zip", note: "Designed with older versions of Minecraft in mind" },
+          { label: "1.6", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU19%20Tutorial%20World%20%5BJE%201.6.4%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU19" }
+        ]
+      },
+      {
+        name: "Bedrock Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU19%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
+        ]
+      },
+      {
+        name: "Xbox 360 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
+        versions: [
+          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU19%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "Wii U Edition",
+        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU19%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "PS3 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
+        discordGated: true,
+        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
+      }
+    ]
+  },
+    {
+    slug: "tu31",
+    name: "TU31 Tutorial World",
+    category: "Tutorial Worlds",
+    tags: ["tutorial", "console"],
+    order: 10,
+    tagline: "Scotland welcomes you.",
+    description: "This is the ninth tutorial world from the Console Edition of Minecraft. It includes a tutorial area and a variety of real-world structures from Scotland throughout.",
+    spawnPoint: "41, 65, 107 (Facing North)",
+    seed: "0",
+    seedNote: "Tutorial is an Artificially Created Amplified World, it Can't be Recreated with the Seed",
+    releaseDate: "December 18th, 2015",
+    secrets: [
+      "Exploring the mushroom island to the north hides a concealed Nether portal.",
+      "12 music discs are hidden throughout the world.",
+      "A recreation of Edinburgh Castle from TU12 sits in the world's northwest."
+    ],
+    headerImage: "TU31 Image 1.png",
+    footerImage: "Footer TU31.png",
+    gallery: ["TU31 Image 1.png", "TU31 Image 2.png", "TU31 Image 3.png", "TU31 Image 4.png", "TU31 Image 5.png", "TU31 Image 6.png", "TU31 Image 7.png", "TU31 Image 8.png", "TU31 Image 9.png", "TU31 Image 10.png", "TU31 Image 11.png", "TU31 Image 12.png", "TU31 Image 13.png", "TU31 Image 14.png", "TU31 Image 15.png", "TU31 Image 16.png", "TU31 Image 17.png", "TU31 Image 18.png", "TU31 Image 19.png", "TU31 Image 20.png"],
+    mapImageUrl: "TU31 Map.png",
+    platforms: [
+      {
+        name: "Java Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU31%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
+          { label: "1.8+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU31%20Tutorial%20World%20%5BJE%201.8.8%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU31" }
+        ]
+      },
+      {
+        name: "Bedrock Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU31%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
+        ]
+      },
+      {
+        name: "Xbox 360 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
+        versions: [
+          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU31%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "Wii U Edition",
+        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU31%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "PS3 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
+        discordGated: true,
+        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
+      }
+    ]
+  },
+    {
+    slug: "tu46",
+    name: "TU46 Tutorial World",
+    category: "Tutorial Worlds",
+    tags: ["tutorial", "console"],
+    order: 11,
+    tagline: "The elytra has been discovered.",
+    description: "This is the tenth tutorial world from the Console Edition of Minecraft. It includes a tutorial area, an elytra course, and various other structures throughout, built on the ruins of an ancient civilization of Minecraft worshippers.",
+    spawnPoint: "-15, 72, 85 (Facing North)",
+    seed: "110485071283",
+    seedNote: "Tutorial is an Artificially Created Amplified World, it Can't be Recreated with the Seed",
+    releaseDate: "December 21st, 2016",
+    secrets: [
+      "Exploring the ruined tower to the north hides a concealed Nether portal.",
+      "12 music discs are hidden throughout the world."
+    ],
+    headerImage: "TU46 Image 1.png",
+    footerImage: "Footer TU46.png",
+    gallery: ["TU46 Image 1.png", "TU46 Image 2.png", "TU46 Image 3.png", "TU46 Image 4.png", "TU46 Image 5.png", "TU46 Image 6.png", "TU46 Image 7.png", "TU46 Image 8.png", "TU46 Image 9.png", "TU46 Image 10.png", "TU46 Image 11.png", "TU46 Image 12.png", "TU46 Image 13.png", "TU46 Image 14.png", "TU46 Image 15.png", "TU46 Image 16.png", "TU46 Image 17.png", "TU46 Image 18.png", "TU46 Image 19.png", "TU46 Image 20.png"],
+    mapImageUrl: "TU46 Map.png",
+    platforms: [
+      {
+        name: "Java Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU46%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
+          { label: "1.12", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU46%20Tutorial%20World%20%5BJE%201.12%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU46" }
+        ]
+      },
+      {
+        name: "Bedrock Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU46%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
+        ]
+      },
+      {
+        name: "Xbox 360 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
+        versions: [
+          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU46%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "Wii U Edition",
+        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU46%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "PS3 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
+        discordGated: true,
+        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
+      }
+    ]
+  },
+    {
+    slug: "tu69",
+    name: "TU69 Tutorial World",
+    category: "Tutorial Worlds",
+    tags: ["tutorial", "console"],
+    order: 12,
+    tagline: "Take a deep dive into this aquatic atmosphere.",
+    description: "This is the eleventh tutorial world from the Console Edition of Minecraft. It includes a tutorial area and a variety of aquatic structures, built on the ruins of an ancient civilization of Minecraft worshippers.",
+    spawnPoint: "7, 76, -330 (Facing South)",
+    seed: "22873568274",
+    seedNote: "Tutorial is an Artificially Created Amplified World, it Can't be Recreated with the Seed",
+    releaseDate: "September 11th, 2018",
+    secrets: [
+      "A concealed portal hides beneath the ruins of a savanna tower.",
+      "12 music discs are hidden throughout the world."
+    ],
+    headerImage: "TU69 Image 1.png",
+    footerImage: "Footer TU69.png",
+    gallery: ["TU69 Image 1.png", "TU69 Image 2.png", "TU69 Image 3.png", "TU69 Image 4.png", "TU69 Image 5.png", "TU69 Image 6.png", "TU69 Image 7.png", "TU69 Image 8.png", "TU69 Image 9.png", "TU69 Image 10.png", "TU69 Image 11.png", "TU69 Image 12.png", "TU69 Image 13.png", "TU69 Image 14.png", "TU69 Image 15.png", "TU69 Image 16.png", "TU69 Image 17.png", "TU69 Image 18.png", "TU69 Image 19.png", "TU69 Image 20.png"],
+    mapImageUrl: "TU69 Map.png",
+    platforms: [
+      {
+        name: "Java Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU69%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
+          { label: "1.13", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU69%20Tutorial%20World%20%5BJE%201.13.2%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU69" }
+        ]
+      },
+      {
+        name: "Bedrock Edition",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU69%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
+        ]
+      },
+      {
+        name: "Xbox 360 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
+        versions: [
+          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU69%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "Wii U Edition",
+        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
+        versions: [
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU69%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
+        ]
+      },
+      {
+        name: "PS3 Edition",
+        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
+        discordGated: true,
+        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
+      }
+    ]
+  },
+  { name: 'Battle Maps', category: 'Mini Game Maps', url: '/mini-game-maps/battle' },
+  { name: 'Tumble Maps', category: 'Mini Game Maps', url: '/mini-game-maps/tumble' },
+  { name: 'Glide Maps', category: 'Mini Game Maps', url: '/mini-game-maps/glide' },
+  { name: 'Mini Game Lobbies', category: 'Mini Game Maps', url: '/mini-game-maps/lobbies' },
+  { name: 'Minecraft Trailers', category: 'Old Minecraft Worlds', url: '/old-minecraft-worlds/trailers' },
+  { name: 'MCPE Worlds', category: 'Minecraft PE Worlds', url: '/old-minecraft-worlds/mcpe-worlds' },
+  { name: 'Minecraft PE Seeds', category: 'Minecraft PE Worlds', url: '/mcpe-worlds/mcpe-seeds' },
+  { name: 'Cavern', category: 'Battle Maps', url: '/mini-game-maps/battle' },
+  { name: 'Cove', category: 'Battle Maps', url: '/mini-game-maps/battle' },
+  { name: 'Crucible', category: 'Battle Maps', url: '/mini-game-maps/battle' },
+  { name: 'Lair', category: 'Battle Maps', url: '/mini-game-maps/battle' },
+  { name: 'Medusa', category: 'Battle Maps', url: '/mini-game-maps/battle' },
+  { name: 'Temple', category: 'Battle Maps', url: '/mini-game-maps/battle' },
+  { name: 'Atlantis', category: 'Battle Maps', url: '/mini-game-maps/battle' },
+  { name: 'Ruin', category: 'Battle Maps', url: '/mini-game-maps/battle' },
+  { name: 'Siege', category: 'Battle Maps', url: '/mini-game-maps/battle' },
+  { name: 'Castle', category: 'Battle Maps', url: '/mini-game-maps/battle' },
+  { name: 'Invasion!', category: 'Battle Maps', url: '/mini-game-maps/battle' },
+  { name: 'Shipyard', category: 'Battle Maps', url: '/mini-game-maps/battle' },
+  { name: 'Frontier', category: 'Battle Maps', url: '/mini-game-maps/battle' },
+  { name: 'Dig', category: 'Battle Maps', url: '/mini-game-maps/battle' },
+  { name: 'Shrunk', category: 'Battle Maps', url: '/mini-game-maps/battle' },
+  { name: 'Halloween', category: 'Battle Maps', url: '/mini-game-maps/battle' },
+  { name: 'Valley', category: 'Battle Maps', url: '/mini-game-maps/battle' },
+  { name: 'Festive', category: 'Battle Maps', url: '/mini-game-maps/battle' },
+  { name: 'Capitol', category: 'Battle Maps', url: '/mini-game-maps/battle' },
+  { name: 'Libertalia', category: 'Battle Maps', url: '/mini-game-maps/battle' },
+  { name: 'Atomics', category: 'Battle Maps', url: '/mini-game-maps/battle' },
+  { name: 'Default Arena', category: 'Tumble Maps', url: '/mini-game-maps/tumble' },
+  { name: 'Birthday Arena', category: 'Tumble Maps', url: '/mini-game-maps/tumble' },
+  { name: 'Festive Arena', category: 'Tumble Maps', url: '/mini-game-maps/tumble' },
+  { name: 'Halloween Arena', category: 'Tumble Maps', url: '/mini-game-maps/tumble' },
+  { name: 'Cavern', category: 'Glide Maps', url: '/mini-game-maps/glide' },
+  { name: 'Temple', category: 'Glide Maps', url: '/mini-game-maps/glide' },
+  { name: 'Canyon', category: 'Glide Maps', url: '/mini-game-maps/glide' },
+  { name: 'Dragon', category: 'Glide Maps', url: '/mini-game-maps/glide' },
+  { name: 'Kraken', category: 'Glide Maps', url: '/mini-game-maps/glide' },
+  { name: 'Yeti', category: 'Glide Maps', url: '/mini-game-maps/glide' },
+  { name: 'Body', category: 'Glide Maps', url: '/mini-game-maps/glide' },
+  { name: 'Mobs', category: 'Glide Maps', url: '/mini-game-maps/glide' },
+  { name: 'Shrunk', category: 'Glide Maps', url: '/mini-game-maps/glide' },
+  { name: 'Celts', category: 'Glide Maps', url: '/mini-game-maps/glide' },
+  { name: 'Excalibur', category: 'Glide Maps', url: '/mini-game-maps/glide' },
+  { name: 'Icarus', category: 'Glide Maps', url: '/mini-game-maps/glide' },
+  { name: 'Siege on Castle Steve', category: 'Minecraft Trailers', url: '/old-minecraft-worlds/trailers' },
+  { name: 'Minecraft Beta 1.7 Trailer', category: 'Minecraft Trailers', url: '/old-minecraft-worlds/trailers' },
+  { name: 'Minecon 2011 Trailer', category: 'Minecraft Trailers', url: '/old-minecraft-worlds/trailers' },
+  { name: 'Minecraft 1.2 Trailer', category: 'Minecraft Trailers', url: '/old-minecraft-worlds/trailers' },
+  { name: 'Minecraft 1.4 Trailer', category: 'Minecraft Trailers', url: '/old-minecraft-worlds/trailers' },
+  { name: 'Castle Von Fatalis', category: 'MCPE Worlds', url: '/old-minecraft-worlds/mcpe-worlds' },
+  { name: 'H2O Waterpark', category: 'MCPE Worlds', url: '/old-minecraft-worlds/mcpe-worlds' },
+  { name: 'Herobrine Sighting World', category: 'MCPE Worlds', url: '/old-minecraft-worlds/mcpe-worlds' },
+  { name: 'Metropolis', category: 'MCPE Worlds', url: '/old-minecraft-worlds/mcpe-worlds' },
+  { name: 'Temple of Notch', category: 'MCPE Worlds', url: '/old-minecraft-worlds/mcpe-worlds' },
+  { name: 'The City of MCPE', category: 'MCPE Worlds', url: '/old-minecraft-worlds/mcpe-worlds' },
+  { name: 'diamonds under spawn', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
+  { name: 'dumbocow', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
+  { name: 'it\'s a pig', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
+  { name: 'nyan', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
+  { name: 'Massive Village', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
+  { name: 'super pig', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
+  { name: '2016 Mini Game Lobby', category: 'Mini Game Lobbies', url: '/mini-game-maps/lobbies' },
+  { name: '2017 Mini Game Lobby', category: 'Mini Game Lobbies', url: '/mini-game-maps/lobbies' }
+];
+
+</script>
+<script>
+// Search over MAPS (see data/maps.js). Because MAPS has one entry per
+// map. Not one per platform download. This naturally returns a
+// single result for "Temple of Notch" even though that map has three
+// platform downloads nested inside it.
+document.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('mapSearch');
+  const resultsBox = document.getElementById('searchResults');
+  if (!input || !resultsBox || typeof MAPS === 'undefined') return;
+
+  function matches(map, query) {
+    const haystack = [map.name, map.category, ...(map.tags || [])]
+      .join(' ')
+      .toLowerCase();
+    return haystack.includes(query);
+  }
+
+  function render(query) {
+    const q = query.trim().toLowerCase();
+    if (!q) {
+      resultsBox.classList.remove('open');
+      resultsBox.innerHTML = '';
+      return;
+    }
+
+    const found = MAPS.filter(m => matches(m, q)).slice(0, 6);
+
+    if (found.length === 0) {
+      resultsBox.innerHTML = '<div class="search-empty">No maps found. Try a different name.</div>';
+      resultsBox.classList.add('open');
+      return;
+    }
+
+    resultsBox.innerHTML = found.map(m => `
+      <div class="search-result" data-slug="${m.slug || ''}" data-url="${m.url || ''}">
+        <div>
+          <div class="sr-name">${m.name}</div>
+          <div class="sr-cat">${m.category}</div>
+        </div>
+      </div>
+    `).join('');
+
+    resultsBox.classList.add('open');
+
+    resultsBox.querySelectorAll('.search-result').forEach(el => {
+      el.addEventListener('click', () => {
+        window.location.href = el.dataset.url || `/tutorial-worlds/${el.dataset.slug}`;
+      });
+    });
+  }
+
+  input.addEventListener('input', () => render(input.value));
+  input.addEventListener('focus', () => { if (input.value.trim()) render(input.value); });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-box')) {
+      resultsBox.classList.remove('open');
+    }
+  });
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { resultsBox.classList.remove('open'); input.blur(); }
+    if (e.key === 'Enter') {
+      const first = resultsBox.querySelector('.search-result');
+      if (first) window.location.href = first.dataset.url || `/tutorial-worlds/${first.dataset.slug}`;
+    }
+  });
+});
+
+</script>
+<script>
+// Mobile nav: hamburger opens/closes the drawer; closing on link click
+// or outside-click keeps it from feeling stuck open.
+document.addEventListener('DOMContentLoaded', () => {
+  const navToggle = document.getElementById('navToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  if (!navToggle || !mobileNav) return;
+
+  function closeMenu() {
+    mobileNav.classList.remove('open');
+    navToggle.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    navToggle.classList.toggle('open', isOpen);
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.mobile-nav') && !e.target.closest('.nav-toggle')) {
+      closeMenu();
+    }
+  });
+});
+
+// Dark mode: follow OS preference automatically, allow manual override for this session
+document.addEventListener('DOMContentLoaded', () => {
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+  let manualOverride = false;
+
+  function applyTheme(theme) {
+    root.setAttribute('data-theme', theme);
+  }
+
+  applyTheme(prefersDark.matches ? 'dark' : 'light');
+
+  prefersDark.addEventListener('change', (e) => {
+    if (!manualOverride) applyTheme(e.matches ? 'dark' : 'light');
+  });
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      manualOverride = true;
+      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+    });
+  }
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => obs.observe(el));
+});
+
+</script>
+<div class="torch-widget" id="torchWidget">
+  <div class="torch-glow"></div>
+  <div class="torch-particles">
+    <img class="smoke-particle" alt=""><img class="smoke-particle" alt=""><img class="smoke-particle" alt=""><img class="smoke-particle" alt=""><img class="smoke-particle" alt="">
+  </div>
+  <img class="torch-icon" id="torchIcon" src="/images/torch-minecraft.gif" alt="Toggle torch effect" title="Click to toggle the torch effect">
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var widget = document.getElementById('torchWidget');
+    var icon = document.getElementById('torchIcon');
+    if (!widget || !icon) return;
+
+    document.querySelectorAll('.smoke-particle').forEach(function (img) {
+      var n = Math.floor(Math.random() * 7) + 1;
+      img.onerror = function () { img.style.display = 'none'; };
+      img.src = '/images/Smoke_%28texture_' + n + '%29_JE1_BE1.png';
+    });
+
+    if (localStorage.getItem('torchEffectOff') === 'true') {
+      widget.classList.add('torch-off');
+    }
+
+    icon.addEventListener('click', function () {
+      var isOff = widget.classList.toggle('torch-off');
+      localStorage.setItem('torchEffectOff', isOff ? 'true' : 'false');
+    });
+  });
+</script>
+</body>
+</html>

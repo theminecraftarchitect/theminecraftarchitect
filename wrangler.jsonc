@@ -1,0 +1,10 @@
+{
+  "name": "theminecraftarchitect",
+  "compatibility_date": "2026-07-20",
+  "main": "src/index.js",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page"
+  }
+}
