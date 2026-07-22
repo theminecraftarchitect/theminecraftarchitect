@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="pageTitle">Mini Game Maps: The Minecraft Architect</title>
+<title id="pageTitle">Mini Game Lobbies: The Minecraft Architect</title>
+<meta name="description" content="The lobby worlds players landed in before picking a mini game.">
+<link rel="canonical" href="https://theminecraftarchitect.com/mini-game-maps/lobbies">
+<meta property="og:title" content="Mini Game Lobbies: The Minecraft Architect">
+<meta property="og:description" content="The lobby worlds players landed in before picking a mini game.">
+<meta property="og:url" content="https://theminecraftarchitect.com/mini-game-maps/lobbies">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Minecraft Architect">
 <link rel="icon" type="image/png" href="/images/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -282,6 +289,17 @@
   @media (max-width: 860px) {
     nav ul { display: none; }
     .nav-toggle { display: flex; }
+    .nav-inner {
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px 16px;
+      row-gap: 10px;
+    }
+    .brand { order: 1; font-size: 15px; }
+    .header-right { order: 2; margin-left: auto; gap: 10px; }
+    .social-icons { display: none; }
+    .search-box.nav-search { order: 3; flex: 1 1 auto; min-width: 0; }
+    .nav-toggle { order: 4; flex-shrink: 0; }
   }
   @media (min-width: 861px) {
     .mobile-nav { display: none !important; }
@@ -508,6 +526,7 @@
     padding: 56px 0 32px;
     position: relative;
     overflow: hidden;
+    text-shadow: 0 1px 3px rgba(24,34,65,0.95), 0 3px 14px rgba(24,34,65,0.75);
   }
   .foot-grid {
     display: flex;
@@ -746,10 +765,7 @@
   }
   .mg-slide {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 620px;
+    inset: 0;
     opacity: 0;
     transition: opacity 0.35s ease;
   }
@@ -875,6 +891,20 @@
     text-shadow: 0 1px 3px rgba(24,34,65,0.9), 0 3px 10px rgba(24,34,65,0.75);
   }
   .mg-platform-grid .pc-version-row .pc-dl { padding: 7px 10px; font-size: 12px; }
+
+  @media (max-width: 640px) {
+    .mg-map-block.expanded { padding-bottom: 0; }
+    .mg-map-content { padding-bottom: 70px; }
+    .mg-platform-grid .platform-card { padding: 8px 10px; gap: 2px; }
+    .mg-platform-grid .pc-icon { margin-bottom: 0; }
+    .mg-platform-grid .pc-icon svg { height: 15px; }
+    .mg-platform-grid .pc-name { font-size: 12.5px; margin-bottom: 1px; }
+    .mg-platform-grid .pc-version-row .pc-dl { padding: 5px 8px; font-size: 11px; }
+    .mg-resource-links { gap: 6px; margin-bottom: 12px; }
+    .mg-resource-chip { padding: 4px 10px 4px 6px; gap: 6px; }
+    .mg-resource-icon svg { width: 12px; height: 12px; }
+    .mg-resource-text { font-size: 10px; }
+  }
   .platform-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -1074,6 +1104,7 @@
   }
   @media (max-width: 640px) {
     .footer-notes { flex-direction: column; }
+    .footer-note { flex: none; }
   }
 
   /* ===== Detailed per-platform download cards ===== */
@@ -1469,10 +1500,10 @@
         <div class="foot-col">
           <h4>Downloads</h4>
           <ul>
-            <li><a href="index.html#downloads">Tutorial Worlds</a></li>
-            <li><a href="index.html#downloads">Mini Game Maps</a></li>
-            <li><a href="index.html#downloads">Old Minecraft Worlds</a></li>
-            <li><a href="index.html#downloads">Nostalgic Seeds</a></li>
+            <li><a href="/tutorial-worlds">Tutorial Worlds</a></li>
+            <li><a href="/mini-game-maps">Mini Game Maps</a></li>
+            <li><a href="/old-minecraft-worlds">Old Minecraft Worlds</a></li>
+            <li><a href="/mcpe-worlds">Minecraft PE Worlds</a></li>
           </ul>
         </div>
         <div class="foot-col">
@@ -3549,7 +3580,7 @@ const MAPS = [
 // into the real Discord CTA buttons instead of "#" placeholders.
 const SITE_LINKS = {
   discord: "https://discord.theminecraftarchitect.com",
-  github: "https://github.com/theminecraftarchitect/Minecraft-Console-Edition-Tutorial-Worlds/issues",
+  github: "https://github.com/theminecraftarchitect/theminecraftarchitect-comments/issues",
   credits: "https://www.theminecraftarchitect.com/credits"
 };
 
@@ -3782,7 +3813,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="wrap">
       <div class="footer-notes">
         <div class="footer-note">Have questions or feedback? Join <a href="https://discord.theminecraftarchitect.com">the Discord</a> to share your thoughts.</div>
-        <div class="footer-note">Found a bug? Report it on <a href="https://github.com/theminecraftarchitect/Minecraft-Console-Edition-Tutorial-Worlds/issues">GitHub</a>.</div>
+        <div class="footer-note">Found a bug? Report it on <a href="https://github.com/theminecraftarchitect/theminecraftarchitect-comments/issues">GitHub</a>.</div>
         <div class="footer-note">Ported to Java by AudiShare777. Want to play in Java Edition? Check out <a href="#">Legacy Edition Mini Games</a>.</div>
       </div>
     </div>`;
@@ -3810,7 +3841,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (utterancesContainer) {
     const script = document.createElement('script');
     script.src = 'https://utteranc.es/client.js';
-    script.setAttribute('repo', 'theminecraftarchitect/Minecraft-Console-Edition-Tutorial-Worlds');
+    script.setAttribute('repo', 'theminecraftarchitect/theminecraftarchitect-comments');
     script.setAttribute('issue-term', 'pathname');
     script.setAttribute('theme', 'preferred-color-scheme');
     script.crossOrigin = 'anonymous';
@@ -3845,9 +3876,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const blockEl = document.getElementById(`mg-block-${btn.dataset.block}`);
     const label = btn.querySelector('span');
     const iconEl = btn.querySelector('svg');
+    const expandLabel = () => window.innerWidth <= 640 ? 'See Image' : 'Extend Image';
+    label.textContent = expandLabel();
     btn.addEventListener('click', () => {
       const expanded = blockEl.classList.toggle('expanded');
-      label.textContent = expanded ? 'Show Downloads' : 'Extend Image';
+      label.textContent = expanded ? 'Show Downloads' : expandLabel();
       iconEl.innerHTML = expanded ? DOWNLOADS_PATHS : EXPAND_PATHS;
     });
   });
@@ -3883,28 +3916,29 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Dark mode: follow OS preference automatically, allow manual override for this session
+// Dark mode: follow OS preference until the user picks one manually,
+// then remember that choice permanently via localStorage.
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.documentElement;
   const themeToggle = document.getElementById('themeToggle');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-  let manualOverride = false;
 
   function applyTheme(theme) {
     root.setAttribute('data-theme', theme);
   }
 
-  applyTheme(prefersDark.matches ? 'dark' : 'light');
+  const savedTheme = localStorage.getItem('themePreference');
+  applyTheme(savedTheme === 'dark' || savedTheme === 'light' ? savedTheme : (prefersDark.matches ? 'dark' : 'light'));
 
   prefersDark.addEventListener('change', (e) => {
-    if (!manualOverride) applyTheme(e.matches ? 'dark' : 'light');
+    if (!localStorage.getItem('themePreference')) applyTheme(e.matches ? 'dark' : 'light');
   });
 
   if (themeToggle) {
     themeToggle.addEventListener('click', () => {
-      manualOverride = true;
       const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       applyTheme(next);
+      localStorage.setItem('themePreference', next);
     });
   }
 

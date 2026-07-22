@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Old Minecraft Worlds: The Minecraft Architect</title>
+<meta name="description" content="Historical trailer worlds, preserved for exploring.">
+<link rel="canonical" href="https://theminecraftarchitect.com/old-minecraft-worlds">
+<meta property="og:title" content="Old Minecraft Worlds: The Minecraft Architect">
+<meta property="og:description" content="Historical trailer worlds, preserved for exploring.">
+<meta property="og:url" content="https://theminecraftarchitect.com/old-minecraft-worlds">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Minecraft Architect">
 <link rel="icon" type="image/png" href="/images/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -282,6 +289,17 @@
   @media (max-width: 860px) {
     nav ul { display: none; }
     .nav-toggle { display: flex; }
+    .nav-inner {
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px 16px;
+      row-gap: 10px;
+    }
+    .brand { order: 1; font-size: 15px; }
+    .header-right { order: 2; margin-left: auto; gap: 10px; }
+    .social-icons { display: none; }
+    .search-box.nav-search { order: 3; flex: 1 1 auto; min-width: 0; }
+    .nav-toggle { order: 4; flex-shrink: 0; }
   }
   @media (min-width: 861px) {
     .mobile-nav { display: none !important; }
@@ -508,6 +526,7 @@
     padding: 56px 0 32px;
     position: relative;
     overflow: hidden;
+    text-shadow: 0 1px 3px rgba(24,34,65,0.95), 0 3px 14px rgba(24,34,65,0.75);
   }
   .foot-grid {
     display: flex;
@@ -1011,7 +1030,7 @@
   <div class="wrap" style="position:relative; z-index:2;">
     <span class="map-crumb"><a href="/">Archive</a> / Old Minecraft Worlds</span>
     <h1 class="display">Old Minecraft Worlds</h1>
-    <p>Recreated historical trailer worlds, preserved for exploring.</p>
+    <p>Historical trailer worlds, preserved for exploring.</p>
   </div>
 </section>
 
@@ -1038,10 +1057,10 @@
         <div class="foot-col">
           <h4>Downloads</h4>
           <ul>
-            <li><a href="index.html#downloads">Tutorial Worlds</a></li>
-            <li><a href="index.html#downloads">Mini Game Maps</a></li>
-            <li><a href="index.html#downloads">Old Minecraft Worlds</a></li>
-            <li><a href="index.html#downloads">Nostalgic Seeds</a></li>
+            <li><a href="/tutorial-worlds">Tutorial Worlds</a></li>
+            <li><a href="/mini-game-maps">Mini Game Maps</a></li>
+            <li><a href="/old-minecraft-worlds">Old Minecraft Worlds</a></li>
+            <li><a href="/mcpe-worlds">Minecraft PE Worlds</a></li>
           </ul>
         </div>
         <div class="foot-col">
@@ -1972,28 +1991,29 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Dark mode: follow OS preference automatically, allow manual override for this session
+// Dark mode: follow OS preference until the user picks one manually,
+// then remember that choice permanently via localStorage.
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.documentElement;
   const themeToggle = document.getElementById('themeToggle');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-  let manualOverride = false;
 
   function applyTheme(theme) {
     root.setAttribute('data-theme', theme);
   }
 
-  applyTheme(prefersDark.matches ? 'dark' : 'light');
+  const savedTheme = localStorage.getItem('themePreference');
+  applyTheme(savedTheme === 'dark' || savedTheme === 'light' ? savedTheme : (prefersDark.matches ? 'dark' : 'light'));
 
   prefersDark.addEventListener('change', (e) => {
-    if (!manualOverride) applyTheme(e.matches ? 'dark' : 'light');
+    if (!localStorage.getItem('themePreference')) applyTheme(e.matches ? 'dark' : 'light');
   });
 
   if (themeToggle) {
     themeToggle.addEventListener('click', () => {
-      manualOverride = true;
       const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       applyTheme(next);
+      localStorage.setItem('themePreference', next);
     });
   }
 
