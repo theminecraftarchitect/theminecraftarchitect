@@ -2564,14 +2564,26 @@ document.addEventListener('DOMContentLoaded', () => {
   // appended programmatically instead, or it silently never loads.
   const utterancesContainer = bodyRoot.querySelector('#utterances-container');
   if (utterancesContainer) {
+    const initialTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'github-dark' : 'github-light';
     const script = document.createElement('script');
     script.src = 'https://utteranc.es/client.js';
     script.setAttribute('repo', 'theminecraftarchitect/theminecraftarchitect-comments');
     script.setAttribute('issue-term', 'pathname');
-    script.setAttribute('theme', 'preferred-color-scheme');
+    script.setAttribute('theme', initialTheme);
     script.crossOrigin = 'anonymous';
     script.async = true;
     utterancesContainer.appendChild(script);
+
+    // Utterances doesn't watch the site's own dark mode toggle, so we
+    // watch <html data-theme> ourselves and push theme changes into the
+    // comments iframe via postMessage whenever it flips.
+    const themeObserver = new MutationObserver(() => {
+      const frame = utterancesContainer.querySelector('iframe.utterances-frame');
+      if (!frame) return;
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'github-dark' : 'github-light';
+      frame.contentWindow.postMessage({ type: 'set-theme', theme }, 'https://utteranc.es');
+    });
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   }
 
   // --- Slideshow behavior: prev/next + dots, no external library ---
