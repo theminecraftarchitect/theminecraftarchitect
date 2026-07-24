@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title id="pageTitle">Minecraft Trailers: The Minecraft Architect</title>
-<meta name="description" content="Minecraft trailer worlds, from Beta 1.7 through the 1.4 update.">
+<meta name="description" content="Minecraft trailer worlds, from Beta 1.7 through the 1.12 update.">
 <link rel="canonical" href="https://theminecraftarchitect.com/old-minecraft-worlds/trailers">
 <meta property="og:title" content="Minecraft Trailers: The Minecraft Architect">
-<meta property="og:description" content="Minecraft trailer worlds, from Beta 1.7 through the 1.4 update.">
+<meta property="og:description" content="Minecraft trailer worlds, from Beta 1.7 through the 1.12 update.">
 <meta property="og:url" content="https://theminecraftarchitect.com/old-minecraft-worlds/trailers">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Minecraft Architect">
@@ -757,6 +757,9 @@
   .mg-map-block.expanded .platform-grid {
     opacity: 0;
   }
+  .mg-map-block.expanded .pc-note {
+    display: none;
+  }
   .mg-map-photo {
     position: absolute;
     inset: 0;
@@ -1168,7 +1171,7 @@
     font-style: italic;
     margin-top: 3px;
     margin-bottom: 4px;
-    text-shadow: 0 1px 3px rgba(24,34,65,0.9);
+    text-shadow: 0 1px 3px rgba(24,34,65,1), 0 2px 7px rgba(24,34,65,1), 0 6px 22px rgba(24,34,65,0.95);
   }
   .pc-guide {
     display: inline-block;
@@ -1567,736 +1570,23 @@ const BEDROCK_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
 const XBOX_ICON = '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>';
 const WIIU_ICON = '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>';
 
+// Lightweight tutorial world entries -- only what the search bar on
+// this page needs (name, category, tags, slug). The full per-world
+// data (gallery, platforms, descriptions) lives on map.html; carrying
+// it here too was dead weight, since this page never renders any of it.
 const MAPS = [
-  // ===================================================================
-  // Console Edition Tutorial Worlds. The chronological run of official
-  // 4J Studios tutorial worlds. downloadType: "discord" means this map
-  // has no direct file link; instead the page shows platform/version
-  // compatibility and a "Join the Discord" CTA, matching how these are
-  // actually distributed. `order` drives the timeline sequence on
-  // tutorial-worlds.html. This is real chronological order, so the
-  // numbering on that page means something (unlike an arbitrary list).
-  // ===================================================================
-  {
-    slug: "pre-tu1",
-    name: "Pre-TU1 Prototype Tutorial World",
-    category: "Tutorial Worlds",
-    tags: ["tutorial", "console", "prototype", "lost media"],
-    order: 1,
-    tagline: "After 14 years, it's been found.",
-    description: "This is a prototype version of the original tutorial world from the Console Edition of Minecraft. It includes a tutorial area, village, two castles, a lighthouse, and the infamous water mill. This tutorial world was lost for 14 years, yet officially discovered on February 28, 2026.",
-    spawnPoint: "58, 66, -8 (Facing East)",
-    seed: "1171544198849424676",
-    saveDate: "~November 2011",
-    secrets: [
-      "Officially rediscovered on February 28, 2026, after being missing for 14 years."
-    ],
-    // Per-platform downloads: most platforms link directly, but PS3 is
-    // gated behind Discord. `versions` lets one platform (Java) offer
-    // more than one build as separate buttons.
-    platforms: [
-      {
-        name: "Java Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
-        versions: [
-          { label: "1.8+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/Pre-TU1%20Tutorial%20World%20%5BJE%201.8.8%5D.zip", note: "Designed with older versions of Minecraft in mind" },
-          { label: "Beta 1.6", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/Pre-TU1%20Tutorial%20World%20%5BBeta%201.6.6%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU0" }
-        ],
-        installGuideUrl: "https://youtu.be/VAmqDkCXj90"
-      },
-      {
-        name: "Bedrock Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/Pre-TU1%20Tutorial%20World%20%5BBE%5D.mcworld" }
-        ],
-        installGuideUrl: "https://www.youtube.com/watch?v=i941vICXfp0"
-      },
-      {
-        name: "Xbox 360 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
-        versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/Pre-TU1%20Tutorial%20World%20%5BXbox%20360%20Latest%5D.zip" }
-        ],
-        installGuideUrl: "https://www.youtube.com/watch?v=ZTHVUrqKm7Q"
-      },
-      {
-        name: "Wii U Edition",
-        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/Pre-TU1%20Tutorial%20World%20%5BWii%20U%20Latest%5D.zip" }
-        ],
-        installGuideUrl: "https://youtu.be/bTY0lPz5nas"
-      },
-      {
-        name: "PS3 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
-        discordGated: true,
-        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata.",
-        installGuideUrl: "https://youtu.be/StjXIrQavVk"
-      }
-    ],
-    // Gallery, map render, header photo, and footer image. Now
-    // self-hosted from images/ instead of hotlinked from Squarespace.
-    headerImage: "Pre-TU1 Image 1.png",
-    footerImage: "Footer Pre-TU1.png",
-    gallery: [
-      "Pre-TU1 Image 1.png",
-      "Pre-TU1 Image 2.png",
-      "Pre-TU1 Image 3.png",
-      "Pre-TU1 Image 4.png",
-      "Pre-TU1 Image 5.png",
-      "Pre-TU1 Image 6.png",
-      "Pre-TU1 Image 7.png",
-      "Pre-TU1 Image 8.png",
-      "Pre-TU1 Image 9.png"
-    ],
-    mapImageUrl: "Pre-TU1 Map.png",
-    videoUrl: "https://www.youtube.com/embed/C9x9izqfCgQ"
-  },
-    {
-    slug: "tu1",
-    name: "TU1 Tutorial World",
-    category: "Tutorial Worlds",
-    tags: ["tutorial", "console"],
-    order: 2,
-    tagline: "Simple yet nostalgic.",
-    description: "This is the original tutorial world from the Console Edition of Minecraft. It includes a tutorial area, two villages, a lighthouse, and the infamous castle with a library.",
-    spawnPoint: "3, 72, -37 (Facing South)",
-    seed: "1171544198849424676",
-    releaseDate: "May 9th, 2012",
-    secrets: [],
-    headerImage: "TU1 Image 1.png",
-    footerImage: "Footer TU1.png",
-    gallery: ["TU1 Image 1.png", "TU1 Image 2.png", "TU1 Image 3.png", "TU1 Image 4.png", "TU1 Image 5.png", "TU1 Image 6.png", "TU1 Image 7.png", "TU1 Image 8.png", "TU1 Image 9.png", "TU1 Image 10.png", "TU1 Image 11.png", "TU1 Image 12.png", "TU1 Image 13.png", "TU1 Image 14.png", "TU1 Image 15.png", "TU1 Image 16.png", "TU1 Image 17.png", "TU1 Image 18.png", "TU1 Image 19.png", "TU1 Image 20.png"],
-    mapImageUrl: "TU1 Map.png",
-    platforms: [
-      {
-        name: "Java Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU1%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
-          { label: "1.8+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU1%20Tutorial%20World%20%5BJE%201.8.8%5D%20%5BUNZIP%5D.zip", note: "Designed with older versions of Minecraft in mind" },
-          { label: "Beta 1.6", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU1%20Tutorial%20World%20%5BJE%20Beta%201.6.6%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU1" }
-        ]
-      },
-      {
-        name: "Bedrock Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU1%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
-        ]
-      },
-      {
-        name: "Xbox 360 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
-        versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU1%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "Wii U Edition",
-        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU1%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "PS3 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
-        discordGated: true,
-        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
-      }
-    ]
-  },
-    {
-    slug: "tu3",
-    name: "TU3 Tutorial World",
-    category: "Tutorial Worlds",
-    tags: ["tutorial", "console"],
-    order: 3,
-    tagline: "The original tutorial world, evolved.",
-    description: "This is the second tutorial world from the Console Edition of Minecraft. It includes a tutorial area, two villages, a lighthouse, and the infamous castle with a library.",
-    spawnPoint: "-3, 71, -41 (Facing South)",
-    seed: "1171544198849424676",
-    releaseDate: "July 13th, 2012",
-    secrets: [
-      "A lever on the Minecraft logo hides a concealed Nether portal.",
-      "A submerged tunnel beside the castle's main tower holds diamond gear.",
-      "A gravel X beyond the farming village marks a buried dungeon."
-    ],
-    headerImage: "TU3 Image 1.png",
-    footerImage: "Footer TU3.png",
-    gallery: ["TU3 Image 1.png", "TU3 Image 2.png", "TU3 Image 3.png", "TU3 Image 4.png", "TU3 Image 5.png", "TU3 Image 6.png", "TU3 Image 7.png", "TU3 Image 8.png", "TU3 Image 9.png", "TU3 Image 10.png", "TU3 Image 11.png", "TU3 Image 12.png", "TU3 Image 13.png", "TU3 Image 14.png", "TU3 Image 15.png", "TU3 Image 16.png", "TU3 Image 17.png", "TU3 Image 18.png", "TU3 Image 19.png", "TU3 Image 20.png"],
-    mapImageUrl: "TU3 Map.png",
-    platforms: [
-      {
-        name: "Java Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU3%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
-          { label: "1.8+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU3%20Tutorial%20World%20%5BJE%201.8.8%5D%20%5BUNZIP%5D.zip", note: "Designed with older versions of Minecraft in mind" },
-          { label: "Beta 1.7", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU3%20Tutorial%20World%20%5BJE%20Beta%201.7.3%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU3" }
-        ]
-      },
-      {
-        name: "Bedrock Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU3%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
-        ]
-      },
-      {
-        name: "Xbox 360 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
-        versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU3%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "Wii U Edition",
-        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU3%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "PS3 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
-        discordGated: true,
-        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
-      }
-    ]
-  },
-    {
-    slug: "tu5",
-    name: "TU5 Tutorial World",
-    category: "Tutorial Worlds",
-    tags: ["tutorial", "console"],
-    order: 4,
-    tagline: "It's time for adventure.",
-    description: "This is the third tutorial world from the Console Edition of Minecraft. It includes a tutorial area, three villages, a mountain fortress, and a couple of other structures throughout. This was the first tutorial world to feature the music disc quest.",
-    spawnPoint: "-85, 67, -65 (Facing Southwest)",
-    seed: "6173462",
-    releaseDate: "October 16th, 2012",
-    secrets: [
-      "A lever in the mountain fortress hides a concealed Nether portal.",
-      "12 music discs are hidden throughout the world. This is the first tutorial world to feature this quest.",
-      "A stronghold lies beneath the mountain, but no portal room. Those weren't added until TU7."
-    ],
-    headerImage: "TU5 Image 1.png",
-    footerImage: "Footer TU5.png",
-    gallery: ["TU5 Image 1.png", "TU5 Image 2.png", "TU5 Image 3.png", "TU5 Image 4.png", "TU5 Image 5.png", "TU5 Image 6.png", "TU5 Image 7.png", "TU5 Image 8.png", "TU5 Image 9.png", "TU5 Image 10.png", "TU5 Image 11.png", "TU5 Image 12.png", "TU5 Image 13.png", "TU5 Image 14.png", "TU5 Image 15.png", "TU5 Image 16.png", "TU5 Image 17.png", "TU5 Image 18.png", "TU5 Image 19.png", "TU5 Image 20.png"],
-    mapImageUrl: "TU5 Map.png",
-    platforms: [
-      {
-        name: "Java Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU5%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
-          { label: "1.8+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU5%20Tutorial%20World%20%5BJE%201.8.8%5D%20%5BUNZIP%5D.zip", note: "Designed with older versions of Minecraft in mind" },
-          { label: "Beta 1.8", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU5%20Tutorial%20World%20%5BJE%20Beta%201.8.1%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU5" }
-        ]
-      },
-      {
-        name: "Bedrock Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU5%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
-        ]
-      },
-      {
-        name: "Xbox 360 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
-        versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU5%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "Wii U Edition",
-        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU5%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "PS3 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
-        discordGated: true,
-        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
-      }
-    ]
-  },
-    {
-    slug: "tu7",
-    name: "TU7 Tutorial World",
-    category: "Tutorial Worlds",
-    tags: ["tutorial", "console"],
-    order: 5,
-    tagline: "The game is beginning to take shape.",
-    description: "This is the fourth tutorial world from the Console Edition of Minecraft. It includes a tutorial area, castle, and various other structures throughout.",
-    secrets: [
-      "A lever in the castle's left upstairs bedroom hides a concealed Nether portal.",
-      "12 music discs are hidden throughout the world.",
-      "A stronghold lies beyond the castle, but The End wasn't added until TU9."
-    ],
-    spawnPoint: "156, 75, 149 (Facing Southwest)",
-    seed: "96414766889474996",
-    releaseDate: "December 19th, 2012",
-    headerImage: "TU7 Image 1.png",
-    footerImage: "Footer TU7.png",
-    gallery: ["TU7 Image 1.png", "TU7 Image 2.png", "TU7 Image 3.png", "TU7 Image 4.png", "TU7 Image 5.png", "TU7 Image 6.png", "TU7 Image 7.png", "TU7 Image 8.png", "TU7 Image 9.png", "TU7 Image 10.png", "TU7 Image 11.png", "TU7 Image 12.png", "TU7 Image 13.png", "TU7 Image 14.png", "TU7 Image 15.png", "TU7 Image 16.png", "TU7 Image 17.png", "TU7 Image 18.png", "TU7 Image 19.png", "TU7 Image 20.png"],
-    mapImageUrl: "TU7 Map.png",
-    platforms: [
-      {
-        name: "Java Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU7%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
-          { label: "1.8+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU7%20Tutorial%20World%20%5BJE%201.8.8%5D%20%5BUNZIP%5D.zip", note: "Designed with older versions of Minecraft in mind" },
-          { label: "1.0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU7%20Tutorial%20World%20%5BJE%201.0.0%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU7" }
-        ]
-      },
-      {
-        name: "Bedrock Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU7%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
-        ]
-      },
-      {
-        name: "Xbox 360 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
-        versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU7%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "Wii U Edition",
-        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU7%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "PS3 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
-        discordGated: true,
-        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
-      }
-    ]
-  },
-    {
-    slug: "tu9",
-    name: "TU9 Tutorial World",
-    category: "Tutorial Worlds",
-    tags: ["tutorial", "console"],
-    order: 6,
-    tagline: "The end is here.",
-    description: "This is the fifth tutorial world from the Console Edition of Minecraft. It includes a tutorial area, castle, and various other structures throughout.",
-    spawnPoint: "156, 75, 149 (Facing Southwest)",
-    seed: "96414766889474996",
-    releaseDate: "April 4th, 2013",
-    secrets: [
-      "A lever in the castle's left upstairs bedroom hides a concealed Nether portal.",
-      "12 music discs are hidden throughout the world.",
-      "A stronghold beyond the castle now leads to The End."
-    ],
-    headerImage: "TU9 Image 1.png",
-    footerImage: "Footer TU9.png",
-    gallery: ["TU9 Image 1.png", "TU9 Image 2.png", "TU9 Image 3.png", "TU9 Image 4.png", "TU9 Image 5.png", "TU9 Image 6.png", "TU9 Image 7.png", "TU9 Image 8.png", "TU9 Image 9.png", "TU9 Image 10.png", "TU9 Image 11.png", "TU9 Image 12.png", "TU9 Image 13.png", "TU9 Image 14.png", "TU9 Image 15.png", "TU9 Image 16.png", "TU9 Image 17.png", "TU9 Image 18.png", "TU9 Image 19.png", "TU9 Image 20.png"],
-    mapImageUrl: "TU9 Map.png",
-    platforms: [
-      {
-        name: "Java Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU9%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
-          { label: "1.8+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU9%20Tutorial%20World%20%5BJE%201.8.8%5D%20%5BUNZIP%5D.zip", note: "Designed with older versions of Minecraft in mind" },
-          { label: "1.1", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU9%20Tutorial%20World%20%5BJE%201.1%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU9" }
-        ]
-      },
-      {
-        name: "Bedrock Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU9%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
-        ]
-      },
-      {
-        name: "Xbox 360 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
-        versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU9%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "Wii U Edition",
-        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU9%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "PS3 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
-        discordGated: true,
-        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
-      }
-    ]
-  },
-    {
-    slug: "tu12",
-    name: "TU12 Tutorial World",
-    category: "Tutorial Worlds",
-    tags: ["tutorial", "console"],
-    order: 7,
-    tagline: "Edinburgh Castle awaits you.",
-    description: "This is the sixth tutorial world from the Console Edition of Minecraft. It includes a tutorial area, The Edinburgh Castle, and various other structures throughout.",
-    spawnPoint: "97, 73, -106 (Facing West)",
-    seed: "1227750481513469519",
-    releaseDate: "August 23rd, 2013",
-    secrets: [
-      "A lever on the Minecraft logo hides a concealed Nether portal.",
-      "12 music discs are hidden throughout the world.",
-      "A suspicious lever in the castle reveals a hidden underground cave."
-    ],
-    headerImage: "TU12 Image 1.png",
-    footerImage: "Footer TU12.png",
-    gallery: ["TU12 Image 1.png", "TU12 Image 2.png", "TU12 Image 3.png", "TU12 Image 4.png", "TU12 Image 5.png", "TU12 Image 6.png", "TU12 Image 7.png", "TU12 Image 8.png", "TU12 Image 9.png", "TU12 Image 10.png", "TU12 Image 11.png", "TU12 Image 12.png", "TU12 Image 13.png", "TU12 Image 14.png", "TU12 Image 15.png", "TU12 Image 16.png", "TU12 Image 17.png", "TU12 Image 18.png", "TU12 Image 19.png", "TU12 Image 20.png"],
-    mapImageUrl: "TU12 Map.png",
-    platforms: [
-      {
-        name: "Java Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU12%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
-          { label: "1.8+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU12%20Tutorial%20World%20%5BJE%201.8.8%5D%20%5BUNZIP%5D.zip", note: "Designed with older versions of Minecraft in mind" },
-          { label: "1.4", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU12%20Tutorial%20World%20%5BJE%201.4.2%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU12" }
-        ]
-      },
-      {
-        name: "Bedrock Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU12%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
-        ]
-      },
-      {
-        name: "Xbox 360 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
-        versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU12%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "Wii U Edition",
-        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU12%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "PS3 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
-        discordGated: true,
-        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
-      }
-    ]
-  },
-    {
-    slug: "tu14",
-    name: "TU14 Tutorial World",
-    category: "Tutorial Worlds",
-    tags: ["tutorial", "console"],
-    order: 8,
-    tagline: "Edinburgh Castle and exotic structures await you.",
-    description: "This is the seventh tutorial world from the Console Edition of Minecraft. It includes a tutorial area, The Edinburgh Castle, and various other structures throughout.",
-    spawnPoint: "97, 73, -106 (Facing West)",
-    seed: "1227750481513469519",
-    releaseDate: "March 26th, 2014",
-    secrets: [
-      "12 music discs are hidden throughout the world.",
-      "A suspicious lever in the castle reveals a hidden underground cave."
-    ],
-    headerImage: "TU14 Image 1.png",
-    footerImage: "Footer TU14.png",
-    gallery: ["TU14 Image 1.png", "TU14 Image 2.png", "TU14 Image 3.png", "TU14 Image 4.png", "TU14 Image 5.png", "TU14 Image 6.png", "TU14 Image 7.png", "TU14 Image 8.png", "TU14 Image 9.png", "TU14 Image 10.png", "TU14 Image 11.png", "TU14 Image 12.png", "TU14 Image 13.png", "TU14 Image 14.png", "TU14 Image 15.png", "TU14 Image 16.png", "TU14 Image 17.png", "TU14 Image 18.png", "TU14 Image 19.png", "TU14 Image 20.png"],
-    mapImageUrl: "TU14 Map.png",
-    platforms: [
-      {
-        name: "Java Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU14%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
-          { label: "1.8+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU14%20Tutorial%20World%20%5BJE%201.8.8%5D%20%5BUNZIP%5D.zip", note: "Designed with older versions of Minecraft in mind" },
-          { label: "1.6", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU14%20Tutorial%20World%20%5BJE%201.6.1%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU14" }
-        ]
-      },
-      {
-        name: "Bedrock Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU14%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
-        ]
-      },
-      {
-        name: "Xbox 360 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
-        versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU14%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "Wii U Edition",
-        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU14%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "PS3 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
-        discordGated: true,
-        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
-      }
-    ]
-  },
-    {
-    slug: "tu19",
-    name: "TU19 Tutorial World",
-    category: "Tutorial Worlds",
-    tags: ["tutorial", "console"],
-    order: 9,
-    tagline: "Eilean Donan Castle awaits. Not to mention, horses.",
-    description: "This is the eighth tutorial world from the Console Edition of Minecraft. It includes a tutorial area, The Eilean Donan Castle, and various other structures throughout.",
-    spawnPoint: "216, 70, -199 (Facing Southwest)",
-    seed: "1227750481513469519",
-    seedNote: "Tutorial is an Artificially Created Amplified World, it Can't be Recreated with the Seed",
-    releaseDate: "December 18th, 2014",
-    secrets: [
-      "Catacombs beneath Eilean Donan Castle hide a concealed Nether portal.",
-      "12 music discs are hidden throughout the world.",
-      "A recreation of Stampy's House sits at the world's southern end."
-    ],
-    headerImage: "TU19 Image 1.png",
-    footerImage: "Footer TU19.png",
-    gallery: ["TU19 Image 1.png", "TU19 Image 2.png", "TU19 Image 3.png", "TU19 Image 4.png", "TU19 Image 5.png", "TU19 Image 6.png", "TU19 Image 7.png", "TU19 Image 8.png", "TU19 Image 9.png", "TU19 Image 10.png", "TU19 Image 11.png", "TU19 Image 12.png", "TU19 Image 13.png", "TU19 Image 14.png", "TU19 Image 15.png", "TU19 Image 16.png", "TU19 Image 17.png", "TU19 Image 18.png", "TU19 Image 19.png", "TU19 Image 20.png"],
-    mapImageUrl: "TU19 Map.png",
-    platforms: [
-      {
-        name: "Java Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU19%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
-          { label: "1.9+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU19%20Tutorial%20World%20%5BJE%201.9.4%5D%20%5BUNZIP%5D.zip", note: "Designed with older versions of Minecraft in mind" },
-          { label: "1.6", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU19%20Tutorial%20World%20%5BJE%201.6.4%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU19" }
-        ]
-      },
-      {
-        name: "Bedrock Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU19%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
-        ]
-      },
-      {
-        name: "Xbox 360 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
-        versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU19%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "Wii U Edition",
-        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU19%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "PS3 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
-        discordGated: true,
-        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
-      }
-    ]
-  },
-    {
-    slug: "tu31",
-    name: "TU31 Tutorial World",
-    category: "Tutorial Worlds",
-    tags: ["tutorial", "console"],
-    order: 10,
-    tagline: "Scotland welcomes you.",
-    description: "This is the ninth tutorial world from the Console Edition of Minecraft. It includes a tutorial area and a variety of real-world structures from Scotland throughout.",
-    spawnPoint: "41, 65, 107 (Facing North)",
-    seed: "0",
-    seedNote: "Tutorial is an Artificially Created Amplified World, it Can't be Recreated with the Seed",
-    releaseDate: "December 18th, 2015",
-    secrets: [
-      "Exploring the mushroom island to the north hides a concealed Nether portal.",
-      "12 music discs are hidden throughout the world.",
-      "A recreation of Edinburgh Castle from TU12 sits in the world's northwest."
-    ],
-    headerImage: "TU31 Image 1.png",
-    footerImage: "Footer TU31.png",
-    gallery: ["TU31 Image 1.png", "TU31 Image 2.png", "TU31 Image 3.png", "TU31 Image 4.png", "TU31 Image 5.png", "TU31 Image 6.png", "TU31 Image 7.png", "TU31 Image 8.png", "TU31 Image 9.png", "TU31 Image 10.png", "TU31 Image 11.png", "TU31 Image 12.png", "TU31 Image 13.png", "TU31 Image 14.png", "TU31 Image 15.png", "TU31 Image 16.png", "TU31 Image 17.png", "TU31 Image 18.png", "TU31 Image 19.png", "TU31 Image 20.png"],
-    mapImageUrl: "TU31 Map.png",
-    platforms: [
-      {
-        name: "Java Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU31%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
-          { label: "1.8+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU31%20Tutorial%20World%20%5BJE%201.8.8%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU31" }
-        ]
-      },
-      {
-        name: "Bedrock Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU31%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
-        ]
-      },
-      {
-        name: "Xbox 360 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
-        versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU31%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "Wii U Edition",
-        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU31%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "PS3 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
-        discordGated: true,
-        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
-      }
-    ]
-  },
-    {
-    slug: "tu46",
-    name: "TU46 Tutorial World",
-    category: "Tutorial Worlds",
-    tags: ["tutorial", "console"],
-    order: 11,
-    tagline: "The elytra has been discovered.",
-    description: "This is the tenth tutorial world from the Console Edition of Minecraft. It includes a tutorial area, an elytra course, and various other structures throughout, built on the ruins of an ancient civilization of Minecraft worshippers.",
-    spawnPoint: "-15, 72, 85 (Facing North)",
-    seed: "110485071283",
-    seedNote: "Tutorial is an Artificially Created Amplified World, it Can't be Recreated with the Seed",
-    releaseDate: "December 21st, 2016",
-    secrets: [
-      "Exploring the ruined tower to the north hides a concealed Nether portal.",
-      "12 music discs are hidden throughout the world."
-    ],
-    headerImage: "TU46 Image 1.png",
-    footerImage: "Footer TU46.png",
-    gallery: ["TU46 Image 1.png", "TU46 Image 2.png", "TU46 Image 3.png", "TU46 Image 4.png", "TU46 Image 5.png", "TU46 Image 6.png", "TU46 Image 7.png", "TU46 Image 8.png", "TU46 Image 9.png", "TU46 Image 10.png", "TU46 Image 11.png", "TU46 Image 12.png", "TU46 Image 13.png", "TU46 Image 14.png", "TU46 Image 15.png", "TU46 Image 16.png", "TU46 Image 17.png", "TU46 Image 18.png", "TU46 Image 19.png", "TU46 Image 20.png"],
-    mapImageUrl: "TU46 Map.png",
-    platforms: [
-      {
-        name: "Java Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU46%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
-          { label: "1.12", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU46%20Tutorial%20World%20%5BJE%201.12%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU46" }
-        ]
-      },
-      {
-        name: "Bedrock Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU46%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
-        ]
-      },
-      {
-        name: "Xbox 360 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
-        versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU46%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "Wii U Edition",
-        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU46%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "PS3 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
-        discordGated: true,
-        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
-      }
-    ]
-  },
-    {
-    slug: "tu69",
-    name: "TU69 Tutorial World",
-    category: "Tutorial Worlds",
-    tags: ["tutorial", "console"],
-    order: 12,
-    tagline: "Take a deep dive into this aquatic atmosphere.",
-    description: "This is the eleventh tutorial world from the Console Edition of Minecraft. It includes a tutorial area and a variety of aquatic structures, built on the ruins of an ancient civilization of Minecraft worshippers.",
-    spawnPoint: "7, 76, -330 (Facing South)",
-    seed: "22873568274",
-    seedNote: "Tutorial is an Artificially Created Amplified World, it Can't be Recreated with the Seed",
-    releaseDate: "September 11th, 2018",
-    secrets: [
-      "A concealed portal hides beneath the ruins of a savanna tower.",
-      "12 music discs are hidden throughout the world."
-    ],
-    headerImage: "TU69 Image 1.png",
-    footerImage: "Footer TU69.png",
-    gallery: ["TU69 Image 1.png", "TU69 Image 2.png", "TU69 Image 3.png", "TU69 Image 4.png", "TU69 Image 5.png", "TU69 Image 6.png", "TU69 Image 7.png", "TU69 Image 8.png", "TU69 Image 9.png", "TU69 Image 10.png", "TU69 Image 11.png", "TU69 Image 12.png", "TU69 Image 13.png", "TU69 Image 14.png", "TU69 Image 15.png", "TU69 Image 16.png", "TU69 Image 17.png", "TU69 Image 18.png", "TU69 Image 19.png", "TU69 Image 20.png"],
-    mapImageUrl: "TU69 Map.png",
-    platforms: [
-      {
-        name: "Java Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU69%20Tutorial%20World%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip" },
-          { label: "1.13", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU69%20Tutorial%20World%20%5BJE%201.13.2%5D%20%5BUNZIP%5D.zip", note: "The Minecraft Java Edition version mostly equivalent to TU69" }
-        ]
-      },
-      {
-        name: "Bedrock Edition",
-        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU69%20Tutorial%20World%20%5BBE%20Latest%5D.mcworld" }
-        ]
-      },
-      {
-        name: "Xbox 360 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
-        versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU69%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "Wii U Edition",
-        icon: '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>',
-        versions: [
-          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU69%20Tutorial%20World%20%5BWii%20U%20Latest%5D%20%5BUNZIP%5D.zip" }
-        ]
-      },
-      {
-        name: "PS3 Edition",
-        icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M15.858 11.451c-.313.395-1.079.676-1.079.676l-5.696 2.046v-1.509l4.192-1.493c.476-.17.549-.412.162-.538-.386-.127-1.085-.09-1.56.08l-2.794.984v-1.566l.161-.054s.807-.286 1.942-.412c1.135-.125 2.525.017 3.616.43 1.23.39 1.368.962 1.056 1.356M9.625 8.883v-3.86c0-.453-.083-.87-.508-.988-.326-.105-.528.198-.528.65v9.664l-2.606-.827V2c1.108.206 2.722.692 3.59.985 2.207.757 2.955 1.7 2.955 3.825 0 2.071-1.278 2.856-2.903 2.072Zm-8.424 3.625C-.061 12.15-.271 11.41.304 10.984c.532-.394 1.436-.69 1.436-.69l3.737-1.33v1.515l-2.69.963c-.474.17-.547.411-.161.538.386.126 1.085.09 1.56-.08l1.29-.469v1.356l-.257.043a8.45 8.45 0 0 1-4.018-.323Z"/></svg>',
-        discordGated: true,
-        discordNote: "Join the Discord for download instructions. Each world requires imported PlayStation metadata."
-      }
-    ]
-  },
+  { slug: "pre-tu1", name: "Pre-TU1 Prototype Tutorial World", category: "Tutorial Worlds", tags: ["tutorial", "console", "prototype", "lost media"] },
+  { slug: "tu1", name: "TU1 Tutorial World", category: "Tutorial Worlds", tags: ["tutorial", "console"] },
+  { slug: "tu3", name: "TU3 Tutorial World", category: "Tutorial Worlds", tags: ["tutorial", "console"] },
+  { slug: "tu5", name: "TU5 Tutorial World", category: "Tutorial Worlds", tags: ["tutorial", "console"] },
+  { slug: "tu7", name: "TU7 Tutorial World", category: "Tutorial Worlds", tags: ["tutorial", "console"] },
+  { slug: "tu9", name: "TU9 Tutorial World", category: "Tutorial Worlds", tags: ["tutorial", "console"] },
+  { slug: "tu12", name: "TU12 Tutorial World", category: "Tutorial Worlds", tags: ["tutorial", "console"] },
+  { slug: "tu14", name: "TU14 Tutorial World", category: "Tutorial Worlds", tags: ["tutorial", "console"] },
+  { slug: "tu19", name: "TU19 Tutorial World", category: "Tutorial Worlds", tags: ["tutorial", "console"] },
+  { slug: "tu31", name: "TU31 Tutorial World", category: "Tutorial Worlds", tags: ["tutorial", "console"] },
+  { slug: "tu46", name: "TU46 Tutorial World", category: "Tutorial Worlds", tags: ["tutorial", "console"] },
+  { slug: "tu69", name: "TU69 Tutorial World", category: "Tutorial Worlds", tags: ["tutorial", "console"] },
   { name: 'Battle Maps', category: 'Mini Game Maps', url: '/mini-game-maps/battle' },
   { name: 'Tumble Maps', category: 'Mini Game Maps', url: '/mini-game-maps/tumble' },
   { name: 'Glide Maps', category: 'Mini Game Maps', url: '/mini-game-maps/glide' },
@@ -2346,6 +1636,7 @@ const MAPS = [
   { name: 'Minecon 2011 Trailer', category: 'Minecraft Trailers', url: '/old-minecraft-worlds/trailers' },
   { name: 'Minecraft 1.2 Trailer', category: 'Minecraft Trailers', url: '/old-minecraft-worlds/trailers' },
   { name: 'Minecraft 1.4 Trailer', category: 'Minecraft Trailers', url: '/old-minecraft-worlds/trailers' },
+  { name: 'Minecraft 1.12 Trailer', category: 'Minecraft Trailers', url: '/old-minecraft-worlds/trailers' },
   { name: 'Castle Von Fatalis', category: 'MCPE Worlds', url: '/old-minecraft-worlds/mcpe-worlds' },
   { name: 'H2O Waterpark', category: 'MCPE Worlds', url: '/old-minecraft-worlds/mcpe-worlds' },
   { name: 'Herobrine Sighting World', category: 'MCPE Worlds', url: '/old-minecraft-worlds/mcpe-worlds' },
@@ -2360,39 +1651,6 @@ const MAPS = [
   { name: 'super pig', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
   { name: '2016 Mini Game Lobby', category: 'Mini Game Lobbies', url: '/mini-game-maps/lobbies' },
   { name: '2017 Mini Game Lobby', category: 'Mini Game Lobbies', url: '/mini-game-maps/lobbies' }
-];
-
-// Shared across every Console Edition tutorial world page. These are
-// the same three companion packs referenced site-wide, not per-map
-// data, so they live here once instead of being duplicated 12 times.
-// Shared site-wide links: Discord, GitHub issues, credits. Used in
-// the small footer-notes block on every map page, and now also wired
-// into the real Discord CTA buttons instead of "#" placeholders.
-const SITE_LINKS = {
-  discord: "https://discord.theminecraftarchitect.com",
-  github: "https://github.com/theminecraftarchitect/theminecraftarchitect-comments/issues",
-  credits: "https://www.theminecraftarchitect.com/credits"
-};
-
-const RESOURCE_PACKS = [
-  {
-    name: "Re-Console Modpack",
-    platform: "Java Edition",
-    url: "https://modrinth.com/modpack/legacy-minecraft",
-    description: "Changes Minecraft's look and feel to match Console Edition. GUI, graphics, animations, and more."
-  },
-  {
-    name: "Console Aspects Resource Pack",
-    platform: "Bedrock Edition",
-    url: "https://www.curseforge.com/minecraft-bedrock/addons/console-aspects",
-    description: "Changes gameplay aspects to function similarly to Console Edition."
-  },
-  {
-    name: "Music+ Resource Pack",
-    platform: "Bedrock Edition",
-    url: "https://www.curseforge.com/minecraft-bedrock/texture-packs/music-plus-pack",
-    description: "Adds tracks, a music player, and changes how in-game music plays to match Console Edition."
-  }
 ];
 
 </script>
@@ -2540,15 +1798,27 @@ document.addEventListener('DOMContentLoaded', () => {
         ] },
         { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Minecraft%201.4%20Trailer%20%5BBE%5D.mcworld' }] }
       ]
+    },
+    {
+      name: 'Minecraft 1.12 Trailer',
+      videoUrl: 'https://www.youtube.com/watch?v=k2dQuIIUT-o',
+      gallery: ['Soft Rain Image 1.png', 'Kuil Warna Image 1.png', "St Basil's Cathedral Image 1.png", 'Playful Castle Image 1.png', 'Mandala Image 1.png', 'Colorful World of Balloons Image 1.png', 'Villager Paint Factory Image 1.png'],
+      disclaimer: 'These worlds from the trailer are sadly lost to time: Prismatic Grounds, Rainbow Storage Room, and Giant Parrot.',
+      platforms: [
+        { name: 'Java Edition', icon: JAVA_ICON, versions: [
+          { label: '1.12+', url: 'https://downloads.theminecraftarchitect.com/old-worlds/1.12%20Trailer%20Worlds%20JE%20%5BUNZIP%5D.zip' }
+        ] },
+        { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/old-worlds/1.12%20Trailer%20Worlds%20BE%20%5BUNZIP%5D.zip' }] }
+      ]
     }
   ];
 
     const maps = TRAILER_MAPS;
   const info = {
     title: 'Minecraft Trailers',
-    tagline: 'Minecraft trailer worlds, from Beta 1.7 through the 1.4 update.',
+    tagline: 'Minecraft trailer worlds, from Beta 1.7 through the 1.12 update.',
     headerImage: 'Minecraft 1.4 Trailer Image 4.png',
-    footerImage: 'Minecraft 1.2 Trailer Image 5.png'
+    footerImage: 'Colorful World of Balloons Image 1.png'
   };
 
   document.getElementById('pageTitle').textContent = `${info.title}: The Minecraft Architect`;
@@ -2632,6 +1902,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
           </div>
           <div class="platform-grid platform-grid-detailed mg-platform-grid">${platformCards}</div>
+          ${m.disclaimer ? `<p class="pc-note" style="margin-top:16px;">${m.disclaimer}</p>` : ''}
         </div>
       </div>`;
   }).join('');
@@ -2641,7 +1912,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="footer-notes">
         <div class="footer-note">Have questions or feedback? Join <a href="https://discord.theminecraftarchitect.com">the Discord</a> to share your thoughts.</div>
         <div class="footer-note">Found a bug? Report it on <a href="https://github.com/theminecraftarchitect/theminecraftarchitect-comments/issues">GitHub</a>.</div>
-        <div class="footer-note">Worlds created by Hat Films and J!NX. \u0040Dartn (Omniarchive Discord) archived the 1.2 trailer map after the original download was taken down.</div>
+        <div class="footer-note">Worlds created by Hat Films, J!NX, and various others. \u0040Dartn (Omniarchive Discord) archived the 1.2 trailer map after the original download was taken down, and \u0040Lester archived the 1.12 trailer maps.</div>
       </div>
     </div>`;
 

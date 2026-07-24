@@ -883,6 +883,16 @@
     font-size: 17px;
     color: var(--text-strong);
   }
+  a.credit-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s ease, transform 0.15s ease;
+  }
+  a.credit-card-link:hover {
+    border-color: var(--ember);
+    transform: translateY(-2px);
+  }
   @media (max-width: 700px) {
     .credits-grid { grid-template-columns: 1fr; }
     .credits-strip-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1118,32 +1128,88 @@
   <div class="wrap">
     <div class="credits-grid">
       <div class="credit-card">
-        <p>The unparalleled creators and developers of Minecraft. Thank you for building one of the greatest games of all time.</p>
-        <h3>Notch &amp; Mojang Studios</h3>
-      </div>
-      <div class="credit-card">
         <p>The exceptional developers behind Minecraft Console Edition and its tutorial worlds.</p>
         <h3>4J Studios</h3>
+      </div>
+      <div class="credit-card">
+        <p>Created the Console Aspects and Music+ resource packs for Bedrock Edition, bringing many aspects of Console Edition to that platform.</p>
+        <h3>AgentMindStorm</h3>
+      </div>
+      <a href="https://minecraftathome.com/projects/skull-painting.html" class="credit-card credit-card-link" target="_blank" rel="noopener">
+        <p>Found the seed behind the world shown in Minecraft's Skull on Fire painting.</p>
+        <h3>andrew_555, Kristoffer Zetterstrand, and others</h3>
+      </a>
+      <a href="https://minecraftathome.com/projects/herobrine.html" class="credit-card credit-card-link" target="_blank" rel="noopener">
+        <p>Found the seed behind the original Herobrine creepypasta image.</p>
+        <h3>andrew_555 and others</h3>
+      </a>
+      <div class="credit-card">
+        <p>Improved the quality of the tutorial world and mini game map conversions by fixing block lighting, chest loot, and monster spawner data.</p>
+        <h3>AudiShare777</h3>
+      </div>
+      <div class="credit-card">
+        <p>Improved the tutorial world conversions with the endless ocean border and by converting NBT data from Console Edition.</p>
+        <h3>AvrgDerk</h3>
       </div>
       <div class="credit-card">
         <p>The brilliant composer behind Minecraft's unmistakable soundtrack.</p>
         <h3>C418</h3>
       </div>
       <div class="credit-card">
-        <p>Two invaluable tools that made it possible to convert the maps on this site across every platform.</p>
-        <h3>Universal Minecraft Tool &amp; MCC Tool Chest</h3>
+        <p>Created clear, straightforward tutorials for importing worlds into Java and Bedrock Edition.</p>
+        <h3>Catmanjoe</h3>
+      </div>
+      <a href="https://minecraftathome.com/projects/beta-panorama.html" class="credit-card credit-card-link" target="_blank" rel="noopener">
+        <p>Found the seed behind Minecraft's Beta 1.8 through 1.13 main menu panorama.</p>
+        <h3>Earthcomputer, Cortex, Neil, and others</h3>
+      </a>
+      <div class="credit-card">
+        <p>Created straightforward tutorials for importing worlds into Xbox 360, PS3, and Wii U Edition.</p>
+        <h3>ECKOSOLDIER, Skippy 6 Gaming, &amp; Nobledez</h3>
+      </div>
+      <a href="https://www.legacyminigames.net/" class="credit-card credit-card-link" target="_blank" rel="noopener">
+        <p>Recreated the mini games in Minecraft Java Edition.</p>
+        <h3>Emmie</h3>
+      </a>
+      <div class="credit-card">
+        <p>Powers the mods listed above, simplifying the modding experience.</p>
+        <h3>Fabric</h3>
+      </div>
+      <div class="credit-card">
+        <p>The original creators of the trailer worlds preserved on this site.</p>
+        <h3>Hat Films &amp; J!NX</h3>
       </div>
       <div class="credit-card">
         <p>Bringing out the beauty in the screenshots and panoramas featured throughout this site.</p>
         <h3>Iris &amp; BSL Shaders</h3>
+      </div>
+      <a href="https://www.reddit.com/r/Minecraft/comments/5z5c7f/submit_your_colourful_builds_and_get_featured_in/" class="credit-card credit-card-link" target="_blank" rel="noopener">
+        <p>Community-submitted builds featured in Minecraft's 1.12 trailer.</p>
+        <h3>Lester, various contributors</h3>
+      </a>
+      <div class="credit-card">
+        <p>Tracked down every Xbox 360 title update, making it possible to extract every tutorial world and mini game map featured on this site.</p>
+        <h3>MinecraftDigger</h3>
+      </div>
+      <div class="credit-card">
+        <p>The unparalleled creators and developers of Minecraft. Thank you for building one of the greatest games of all time.</p>
+        <h3>Notch &amp; Mojang Studios</h3>
+      </div>
+      <div class="credit-card">
+        <p>Created the Re-Console Modpack for Java Edition, which reshapes the game's look and feel to match Console Edition.</p>
+        <h3>omoso</h3>
       </div>
       <div class="credit-card">
         <p>Substantially improved the performance of Minecraft Java Edition.</p>
         <h3>Sodium</h3>
       </div>
       <div class="credit-card">
-        <p>Powers the mods listed above, simplifying the modding experience.</p>
-        <h3>Fabric</h3>
+        <p>Archived the MCPE worlds featured on this site and ported them to Java and Bedrock Edition.</p>
+        <h3>u/Direct_Class_1418</h3>
+      </div>
+      <div class="credit-card">
+        <p>Two invaluable tools that made it possible to convert the maps on this site across every platform.</p>
+        <h3>Universal Minecraft Tool &amp; MCC Tool Chest</h3>
       </div>
       <div class="credit-card">
         <p>Created the hyper-detailed map renders used for every world on this site.</p>
@@ -1153,49 +1219,13 @@
         <p>Powers the clean, minimal comment section at the bottom of most pages.</p>
         <h3>utterances</h3>
       </div>
-      <div class="credit-card">
-        <p>Created the Re-Console Modpack for Java Edition, which reshapes the game's look and feel to match Console Edition.</p>
-        <h3>omoso</h3>
-      </div>
-      <div class="credit-card">
-        <p>Created the Console Aspects and Music+ resource packs for Bedrock Edition, bringing many aspects of Console Edition to that platform.</p>
-        <h3>AgentMindStorm</h3>
-      </div>
-      <div class="credit-card">
-        <p>Created clear, straightforward tutorials for importing worlds into Java and Bedrock Edition.</p>
-        <h3>Catmanjoe</h3>
-      </div>
-      <div class="credit-card">
-        <p>Improved the tutorial world conversions with the endless ocean border and by converting NBT data from Console Edition.</p>
-        <h3>AvrgDerk</h3>
-      </div>
-      <div class="credit-card">
-        <p>Created straightforward tutorials for importing worlds into Xbox 360, PS3, and Wii U Edition.</p>
-        <h3>ECKOSOLDIER, Skippy 6 Gaming, &amp; Nobledez</h3>
-      </div>
-      <div class="credit-card">
-        <p>Improved the quality of the tutorial world and mini game map conversions by fixing block lighting, chest loot, and monster spawner data.</p>
-        <h3>AudiShare777</h3>
-      </div>
+      <a href="https://packpng.com/contributors/" class="credit-card credit-card-link" target="_blank" rel="noopener">
+        <p>Found the seed behind Minecraft's iconic pack.png icon.</p>
+        <h3>Various contributors</h3>
+      </a>
       <div class="credit-card">
         <p>Built the historic Royal Palace featured in this site's footer. The same palace appears in a few frames of the original Minecraft Trailer.</p>
         <h3>Zyph</h3>
-      </div>
-      <div class="credit-card">
-        <p>Tracked down every Xbox 360 title update, making it possible to extract every tutorial world and mini game map featured on this site.</p>
-        <h3>MinecraftDigger</h3>
-      </div>
-      <div class="credit-card">
-        <p>Recreated the mini games in Minecraft Java Edition.</p>
-        <h3>Emmie</h3>
-      </div>
-      <div class="credit-card">
-        <p>The original creators of the trailer worlds preserved on this site.</p>
-        <h3>Hat Films &amp; J!NX</h3>
-      </div>
-      <div class="credit-card">
-        <p>Archived the MCPE worlds featured on this site and ported them to Java and Bedrock Edition.</p>
-        <h3>u/Direct_Class_1418</h3>
       </div>
     </div>
   </div>
@@ -1377,7 +1407,7 @@ const MAPS = [
         name: "Xbox 360 Edition",
         icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
         versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU1%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU1%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
         ]
       },
       {
@@ -1436,7 +1466,7 @@ const MAPS = [
         name: "Xbox 360 Edition",
         icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
         versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU3%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU3%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
         ]
       },
       {
@@ -1495,7 +1525,7 @@ const MAPS = [
         name: "Xbox 360 Edition",
         icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
         versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU5%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU5%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
         ]
       },
       {
@@ -1554,7 +1584,7 @@ const MAPS = [
         name: "Xbox 360 Edition",
         icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
         versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU7%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU7%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
         ]
       },
       {
@@ -1613,7 +1643,7 @@ const MAPS = [
         name: "Xbox 360 Edition",
         icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
         versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU9%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU9%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
         ]
       },
       {
@@ -1672,7 +1702,7 @@ const MAPS = [
         name: "Xbox 360 Edition",
         icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
         versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU12%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU12%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
         ]
       },
       {
@@ -1730,7 +1760,7 @@ const MAPS = [
         name: "Xbox 360 Edition",
         icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
         versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU14%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU14%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
         ]
       },
       {
@@ -1790,7 +1820,7 @@ const MAPS = [
         name: "Xbox 360 Edition",
         icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
         versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU19%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU19%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
         ]
       },
       {
@@ -1849,7 +1879,7 @@ const MAPS = [
         name: "Xbox 360 Edition",
         icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
         versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU31%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU31%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
         ]
       },
       {
@@ -1907,7 +1937,7 @@ const MAPS = [
         name: "Xbox 360 Edition",
         icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
         versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU46%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU46%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
         ]
       },
       {
@@ -1965,7 +1995,7 @@ const MAPS = [
         name: "Xbox 360 Edition",
         icon: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>',
         versions: [
-          { label: "TU0+", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU69%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
+          { label: "Latest Version", url: "https://downloads.theminecraftarchitect.com/tutorial-worlds/TU69%20Tutorial%20World%20%5BXbox%20360%20Latest%5D%20%5BUNZIP%5D.zip" }
         ]
       },
       {
