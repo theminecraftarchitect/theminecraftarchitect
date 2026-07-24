@@ -1058,7 +1058,7 @@
             <div class="dropdown-menu">
               <a href="/tutorial-worlds">Console Edition Tutorial Worlds</a>
               <a href="/mini-game-maps">Console Edition Mini Game Maps</a>
-              <a href="/old-minecraft-worlds">Old Minecraft Worlds</a>
+              <a href="/java-edition-worlds">Java Edition Worlds</a>
               <a href="/mcpe-worlds">Minecraft PE Worlds</a>
             </div>
           </li>
@@ -1098,7 +1098,7 @@
     <div class="mn-label">Downloads</div>
     <a href="/tutorial-worlds" class="mn-sub">Console Edition Tutorial Worlds</a>
     <a href="/mini-game-maps" class="mn-sub">Console Edition Mini Game Maps</a>
-    <a href="/old-minecraft-worlds" class="mn-sub">Old Minecraft Worlds</a>
+    <a href="/java-edition-worlds" class="mn-sub">Java Edition Worlds</a>
     <a href="/mcpe-worlds" class="mn-sub">Minecraft PE Worlds</a>
     <a href="/updates">Updates</a>
     <a href="/credits">Credits</a>
@@ -1185,7 +1185,7 @@
       </div>
       <a href="https://www.reddit.com/r/Minecraft/comments/5z5c7f/submit_your_colourful_builds_and_get_featured_in/" class="credit-card credit-card-link" target="_blank" rel="noopener">
         <p>Community-submitted builds featured in Minecraft's 1.12 trailer.</p>
-        <h3>Lester, various contributors</h3>
+        <h3>Letser, various contributors</h3>
       </a>
       <div class="credit-card">
         <p>Tracked down every Xbox 360 title update, making it possible to extract every tutorial world and mini game map featured on this site.</p>
@@ -1246,7 +1246,7 @@
           <ul>
             <li><a href="/tutorial-worlds">Tutorial Worlds</a></li>
             <li><a href="/mini-game-maps">Mini Game Maps</a></li>
-            <li><a href="/old-minecraft-worlds">Old Minecraft Worlds</a></li>
+            <li><a href="/java-edition-worlds">Java Edition Worlds</a></li>
             <li><a href="/mcpe-worlds">Minecraft PE Worlds</a></li>
           </ul>
         </div>
@@ -2017,8 +2017,8 @@ const MAPS = [
   { name: 'Tumble Maps', category: 'Mini Game Maps', url: '/mini-game-maps/tumble' },
   { name: 'Glide Maps', category: 'Mini Game Maps', url: '/mini-game-maps/glide' },
   { name: 'Mini Game Lobbies', category: 'Mini Game Maps', url: '/mini-game-maps/lobbies' },
-  { name: 'Minecraft Trailers', category: 'Old Minecraft Worlds', url: '/old-minecraft-worlds/trailers' },
-  { name: 'MCPE Worlds', category: 'Minecraft PE Worlds', url: '/old-minecraft-worlds/mcpe-worlds' },
+  { name: 'Minecraft Trailers', category: 'Java Edition Worlds', url: '/java-edition-worlds/trailers' },
+  { name: 'MCPE Worlds', category: 'Minecraft PE Worlds', url: '/java-edition-worlds/mcpe-worlds' },
   { name: 'Minecraft PE Seeds', category: 'Minecraft PE Worlds', url: '/mcpe-worlds/mcpe-seeds' },
   { name: 'Cavern', category: 'Battle Maps', url: '/mini-game-maps/battle' },
   { name: 'Cove', category: 'Battle Maps', url: '/mini-game-maps/battle' },
@@ -2057,17 +2057,18 @@ const MAPS = [
   { name: 'Celts', category: 'Glide Maps', url: '/mini-game-maps/glide' },
   { name: 'Excalibur', category: 'Glide Maps', url: '/mini-game-maps/glide' },
   { name: 'Icarus', category: 'Glide Maps', url: '/mini-game-maps/glide' },
-  { name: 'Siege on Castle Steve', category: 'Minecraft Trailers', url: '/old-minecraft-worlds/trailers' },
-  { name: 'Minecraft Beta 1.7 Trailer', category: 'Minecraft Trailers', url: '/old-minecraft-worlds/trailers' },
-  { name: 'Minecon 2011 Trailer', category: 'Minecraft Trailers', url: '/old-minecraft-worlds/trailers' },
-  { name: 'Minecraft 1.2 Trailer', category: 'Minecraft Trailers', url: '/old-minecraft-worlds/trailers' },
-  { name: 'Minecraft 1.4 Trailer', category: 'Minecraft Trailers', url: '/old-minecraft-worlds/trailers' },
-  { name: 'Castle Von Fatalis', category: 'MCPE Worlds', url: '/old-minecraft-worlds/mcpe-worlds' },
-  { name: 'H2O Waterpark', category: 'MCPE Worlds', url: '/old-minecraft-worlds/mcpe-worlds' },
-  { name: 'Herobrine Sighting World', category: 'MCPE Worlds', url: '/old-minecraft-worlds/mcpe-worlds' },
-  { name: 'Metropolis', category: 'MCPE Worlds', url: '/old-minecraft-worlds/mcpe-worlds' },
-  { name: 'Temple of Notch', category: 'MCPE Worlds', url: '/old-minecraft-worlds/mcpe-worlds' },
-  { name: 'The City of MCPE', category: 'MCPE Worlds', url: '/old-minecraft-worlds/mcpe-worlds' },
+  { name: 'Siege on Castle Steve', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
+  { name: 'Minecraft Beta 1.7 Trailer', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
+  { name: 'Minecon 2011 Trailer', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
+  { name: 'Minecraft 1.2 Trailer', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
+  { name: 'Minecraft 1.4 Trailer', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
+  { name: 'Minecraft 1.12 Trailer', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
+  { name: 'Castle Von Fatalis', category: 'MCPE Worlds', url: '/java-edition-worlds/mcpe-worlds' },
+  { name: 'H2O Waterpark', category: 'MCPE Worlds', url: '/java-edition-worlds/mcpe-worlds' },
+  { name: 'Herobrine Sighting World', category: 'MCPE Worlds', url: '/java-edition-worlds/mcpe-worlds' },
+  { name: 'Metropolis', category: 'MCPE Worlds', url: '/java-edition-worlds/mcpe-worlds' },
+  { name: 'Temple of Notch', category: 'MCPE Worlds', url: '/java-edition-worlds/mcpe-worlds' },
+  { name: 'The City of MCPE', category: 'MCPE Worlds', url: '/java-edition-worlds/mcpe-worlds' },
   { name: 'diamonds under spawn', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
   { name: 'dumbocow', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
   { name: 'it\'s a pig', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },

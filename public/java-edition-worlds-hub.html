@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="pageTitle">MCPE Worlds: The Minecraft Architect</title>
-<meta name="description" content="Preserved worlds from the earliest days of Minecraft Pocket Edition.">
-<link rel="canonical" href="https://theminecraftarchitect.com/java-edition-worlds/mcpe-worlds">
-<meta property="og:title" content="MCPE Worlds: The Minecraft Architect">
-<meta property="og:description" content="Preserved worlds from the earliest days of Minecraft Pocket Edition.">
-<meta property="og:url" content="https://theminecraftarchitect.com/java-edition-worlds/mcpe-worlds">
+<title>Java Edition Worlds: The Minecraft Architect</title>
+<meta name="description" content="Trailer worlds, historic seeds, and more.">
+<link rel="canonical" href="https://theminecraftarchitect.com/java-edition-worlds">
+<meta property="og:title" content="Java Edition Worlds: The Minecraft Architect">
+<meta property="og:description" content="Trailer worlds, historic seeds, and more.">
+<meta property="og:url" content="https://theminecraftarchitect.com/java-edition-worlds">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Minecraft Architect">
 <link rel="icon" type="image/png" href="/images/favicon.png">
@@ -690,22 +690,6 @@
     position: relative;
     overflow: hidden;
   }
-  .next-world-bar {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border-c);
-    padding: 10px 0;
-  }
-  .next-world-link {
-    display: block;
-    text-align: right;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12.5px;
-    letter-spacing: 0.02em;
-    color: var(--sky-deep);
-    border-bottom: none;
-  }
-  .next-world-link:hover { color: var(--ember); }
-
   .map-crumb {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 12px;
@@ -714,7 +698,6 @@
     color: var(--parchment);
     margin-bottom: 16px;
     display: block;
-    text-shadow: 0 1px 3px rgba(24,34,65,0.95), 0 3px 14px rgba(24,34,65,0.75);
   }
   .map-crumb a { border-bottom: 1px solid rgba(123,148,156,0.4); padding-bottom: 1px; }
   .map-hero h1 {
@@ -725,185 +708,12 @@
     text-shadow: 0 2px 4px rgba(24,34,65,0.95), 0 6px 26px rgba(24,34,65,0.85);
   }
 
-  .platforms-section { padding: 64px 0 24px; }
+  .platforms-section { padding: 64px 0 96px; }
   .platforms-section h2 {
     font-family: 'Fraunces', serif;
     font-weight: 600;
     font-size: 26px;
     margin-bottom: 28px;
-  }
-
-  .mg-map-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  .mg-map-block {
-    position: relative;
-    overflow: hidden;
-    border: 1px solid var(--border-c);
-    border-radius: 8px;
-    background: var(--ink-deep);
-    color: var(--parchment);
-    padding-bottom: 0;
-    transition: padding-bottom 0.4s ease;
-  }
-  .mg-map-block.expanded {
-    padding-bottom: 240px;
-  }
-  .platform-grid {
-    transition: opacity 0.3s ease;
-  }
-  .mg-map-block.expanded .platform-grid {
-    opacity: 0;
-  }
-  .mg-map-photo {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    z-index: 0;
-  }
-  .mg-slide {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity 0.35s ease;
-  }
-  .mg-slide.active { opacity: 1; }
-  .mg-slide img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
-
-  .mg-photo-controls {
-    position: absolute;
-    bottom: 14px;
-    right: 14px;
-    z-index: 4;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .mg-extend-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(255,243,214,0.14);
-    border: 1px solid rgba(255,243,214,0.4);
-    border-radius: 20px;
-    padding: 6px 12px;
-    color: var(--parchment);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.02em;
-    cursor: pointer;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-    white-space: nowrap;
-  }
-  .mg-extend-btn:hover { background: rgba(255,243,214,0.28); border-color: var(--parchment); }
-  .mg-extend-btn svg { width: 12px; height: 12px; flex-shrink: 0; }
-
-  .mg-skip-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: rgba(255,243,214,0.14);
-    border: 1px solid rgba(255,243,214,0.4);
-    color: var(--parchment);
-    cursor: pointer;
-    flex-shrink: 0;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-  }
-  .mg-skip-btn:hover { background: rgba(255,243,214,0.28); border-color: var(--parchment); }
-  .mg-skip-btn svg { width: 15px; height: 15px; }
-
-  .mg-map-content {
-    position: relative;
-    z-index: 1;
-    padding: 22px 24px 56px;
-  }
-  .mg-map-header h3 {
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: 21px;
-    margin-bottom: 6px;
-    text-shadow: 0 2px 3px rgba(24,34,65,1), 0 3px 8px rgba(24,34,65,1), 0 8px 28px rgba(24,34,65,0.95);
-  }
-  .mg-map-meta {
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11.5px;
-    color: var(--parchment);
-    margin-bottom: 10px;
-    text-shadow: 0 1px 3px rgba(24,34,65,1), 0 2px 7px rgba(24,34,65,1), 0 6px 22px rgba(24,34,65,0.95);
-  }
-  .mg-resource-links {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 18px;
-  }
-  .mg-resource-chip {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(24,34,65,0.55);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border: 1px solid rgba(255,243,214,0.3);
-    border-radius: 20px;
-    padding: 6px 12px 6px 8px;
-    text-decoration: none;
-    transition: border-color 0.2s ease, background-color 0.2s ease;
-  }
-  .mg-resource-chip:hover { border-color: var(--parchment); background: rgba(24,34,65,0.75); }
-  .mg-resource-icon { display: flex; color: var(--parchment); flex-shrink: 0; }
-  .mg-resource-icon svg { width: 14px; height: 14px; }
-  .mg-resource-text {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    color: var(--parchment);
-    line-height: 1.3;
-  }
-  .mg-resource-text strong { display: block; font-weight: 600; font-size: 10px; opacity: 0.85; }
-
-  .mg-platform-grid {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  }
-  .mg-platform-grid .platform-card {
-    min-height: 0;
-    padding: 12px 14px;
-    gap: 4px;
-    background: rgba(24,34,65,0.55);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-color: rgba(255,243,214,0.25);
-  }
-  .mg-platform-grid .platform-card:hover { border-color: var(--ember-bright); }
-  .mg-platform-grid .pc-icon { margin-bottom: 2px; color: var(--parchment); }
-  .mg-platform-grid .pc-icon svg { height: 18px; }
-  .mg-platform-grid .pc-name {
-    font-size: 14px;
-    margin-bottom: 2px;
-    color: var(--parchment);
-    text-shadow: 0 1px 3px rgba(24,34,65,0.9), 0 3px 10px rgba(24,34,65,0.75);
-  }
-  .mg-platform-grid .pc-version-row .pc-dl { padding: 7px 10px; font-size: 12px; }
-
-  @media (max-width: 640px) {
-    .mg-map-block.expanded { padding-bottom: 0; }
-    .mg-map-content { padding-bottom: 70px; }
-    .mg-platform-grid .platform-card { padding: 8px 10px; gap: 2px; }
-    .mg-platform-grid .pc-icon { margin-bottom: 0; }
-    .mg-platform-grid .pc-icon svg { height: 15px; }
-    .mg-platform-grid .pc-name { font-size: 12.5px; margin-bottom: 1px; }
-    .mg-platform-grid .pc-version-row .pc-dl { padding: 5px 8px; font-size: 11px; }
-    .mg-resource-links { gap: 6px; margin-bottom: 12px; }
-    .mg-resource-chip { padding: 4px 10px 4px 6px; gap: 6px; }
-    .mg-resource-icon svg { width: 12px; height: 12px; }
-    .mg-resource-text { font-size: 10px; }
   }
   .platform-grid {
     display: grid;
@@ -970,333 +780,21 @@
     color: var(--text-faint);
     margin-bottom: 14px;
   }
-  .discord-cta .platform-note {
-    font-size: 12.5px;
-    color: var(--text-faint);
-    font-style: italic;
-    margin-top: -6px;
-    margin-bottom: 14px;
-  }
-
-  /* ===== Description section ===== */
-  .description-section { padding: 48px 0 0; }
-  .description-section .desc-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--ember);
-    display: block;
-    margin-bottom: 10px;
-  }
-  .description-section p {
-    font-size: 16px;
-    line-height: 1.65;
-    color: var(--text-soft);
-    max-width: 640px;
-  }
-
-  /* ===== Quick facts panel ===== */
-  .facts-panel {
-    margin-top: 28px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 28px;
-    padding: 18px 0;
-    border-top: 1px dashed var(--border-c);
-    border-bottom: 1px dashed var(--border-c);
-  }
-  .facts-panel div {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    color: var(--text-faint);
-  }
-  .facts-panel span {
-    display: block;
-    margin-top: 3px;
-    color: var(--text-strong);
-    font-size: 13px;
-  }
-  .info-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-faint);
-    cursor: pointer;
-    margin-left: 4px;
-    vertical-align: middle;
-    transition: color 0.2s ease;
-  }
-  .info-icon:hover { color: var(--ember); }
-  .info-icon svg { width: 14px; height: 14px; display: block; }
-  .facts-panel a { color: var(--sky-deep); border-bottom: 1px solid var(--sky-deep); }
-
-  /* ===== Resource packs ===== */
-  .packs-section { padding: 40px 0 0; }
-  .packs-section h2 {
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: 26px;
-    margin-bottom: 28px;
-  }
-  .packs-section .packs-sub {
-    font-size: 13.5px;
-    color: var(--text-faint);
-    margin-bottom: 22px;
-  }
-  .pack-group { margin-top: 22px; }
-  .pack-group-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11.5px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--sky-deep);
-    margin-bottom: 10px;
-  }
-  .pack-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 16px;
-  }
-  .pack-card {
-    display: block;
-    background: var(--surface-alt);
-    border: 1px solid var(--border-c);
-    border-radius: 4px;
-    padding: 16px 18px;
-    text-decoration: none;
-    color: inherit;
-    transition: border-color 0.2s ease, transform 0.15s ease;
-  }
-  .pack-card:hover { border-color: var(--ember); transform: translateY(-2px); }
-  .pack-card .pack-name {
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: 15px;
-    margin-bottom: 5px;
-  }
-  .pack-card .pack-desc {
-    font-size: 12.5px;
-    color: var(--text-soft);
-    line-height: 1.5;
-  }
-
-  /* ===== Credits line ===== */
-  .footer-notes {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 32px 0 64px;
-  }
-  .footer-note {
-    flex: 1 1 200px;
-    background: var(--surface-alt);
-    border: 1px solid var(--border-c);
-    border-radius: 6px;
-    padding: 12px 14px;
-    font-size: 12px;
-    line-height: 1.5;
-    color: var(--text-faint);
-  }
-  .footer-note a {
-    color: var(--sky-deep);
-    border-bottom: 1px solid var(--sky-deep);
-  }
-  @media (max-width: 640px) {
-    .footer-notes { flex-direction: column; }
-    .footer-note { flex: none; }
-  }
-
-  /* ===== Detailed per-platform download cards ===== */
-  .platform-grid-detailed {
-    align-items: start;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  }
-  .platform-grid-detailed .platform-card {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 16px;
-  }
-  .pc-icon {
-    display: inline-flex;
-    color: var(--ember);
-    margin-bottom: 6px;
-    align-self: flex-start;
-    height: 22px;
-  }
-  .pc-icon svg { height: 22px; width: auto; max-width: 70px; }
-  .pc-version-row {
-  }
-  .pc-version-row .pc-dl {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    background: var(--ember);
-    color: var(--parchment);
-    padding: 10px 16px;
-    font-weight: 600;
-    font-size: 13px;
-    border-radius: 2px;
-    border-bottom: none;
-    transition: background 0.2s ease, transform 0.15s ease;
-  }
-  .pc-version-row .pc-dl:hover { background: var(--ember-bright); transform: translateY(-1px); }
-  .pc-note {
-    font-size: 11.5px;
-    color: rgba(255,243,214,0.8);
-    font-style: italic;
-    margin-top: 3px;
-    margin-bottom: 4px;
-    text-shadow: 0 1px 3px rgba(24,34,65,0.9);
-  }
-  .pc-guide {
-    display: inline-block;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    color: var(--sky-deep);
-    border-bottom: 1px solid var(--sky-deep);
-    align-self: flex-start;
-  }
-  .platform-card-discord .btn-primary {
-    margin-top: 8px;
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    font-size: 13px;
-    padding: 10px 18px;
-  }
-
-  /* ===== Gallery: slideshow, map image, video ===== */
-  .gallery-section { padding: 48px 0 0; }
-  .gallery-section h2 {
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: 26px;
-    margin-bottom: 28px;
-  }
-
-  .gallery-row {
-    display: grid;
-    grid-template-columns: 3fr 2fr;
-    align-items: start;
-    gap: 24px;
-    max-width: 880px;
-    margin: 0 auto;
-  }
-  .gallery-label {
-    display: block;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--ember);
-    margin-bottom: 8px;
-  }
-  @media (max-width: 640px) {
-    .gallery-row { grid-template-columns: 1fr; }
-  }
-
-  .slideshow {
-    position: relative;
-    border-radius: 6px;
-    overflow: hidden;
-    border: 1px solid var(--border-c);
-    background: var(--surface-alt);
-  }
-  .slide-track {
-    position: relative;
-    aspect-ratio: 16 / 9;
-    width: 100%;
-  }
-  .slide {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
-  .slide.active { opacity: 1; pointer-events: auto; }
-  .slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-  .slide-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(24,34,65,0.55);
-    color: #FFF3D6;
-    border: none;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    font-size: 15px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s ease;
-    z-index: 3;
-  }
-  .slide-nav:hover { background: rgba(24,34,65,0.8); }
-  .slide-prev { left: 8px; }
-  .slide-next { right: 8px; }
-
-  .slide-dots {
-    position: absolute;
-    bottom: 8px;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-    z-index: 3;
-  }
-  .slide-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: rgba(255,243,214,0.5);
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-  }
-  .slide-dot.active { background: #FFF3D6; transform: scale(1.3); }
-
-  .map-image-frame {
-    border-radius: 6px;
-    overflow: hidden;
-    border: 1px solid var(--border-c);
-    background: var(--surface-alt);
-    aspect-ratio: 1 / 1;
-  }
-  .map-image-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-  /* ===== Comments ===== */
-  .comments-section { padding: 56px 0 8px; }
-  .comments-section h2 {
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: 26px;
-    margin-bottom: 4px;
-  }
-  .comments-sub {
-    font-size: 13px;
-    color: var(--text-faint);
-    margin-bottom: 20px;
-  }
 
   /* ===== Tutorial Worlds list page: chronological timeline ===== */
   .category-hero {
     background:
-      url('/images/backgrounds/hero-bg.jpg') center/cover no-repeat,
+      url('/images/Minecon%202011%20Trailer%20Image%202.png') center/cover no-repeat,
       var(--ink);
     color: var(--parchment);
     padding: 64px 0 56px;
     position: relative;
     overflow: hidden;
   }
-  .category-hero .map-crumb { color: var(--parchment); }
+  .category-hero .map-crumb {
+    color: var(--parchment);
+    text-shadow: 0 1px 3px rgba(24,34,65,0.95), 0 3px 14px rgba(24,34,65,0.75);
+  }
   .category-hero h1 {
     font-family: 'Fraunces', serif;
     font-weight: 600;
@@ -1309,11 +807,58 @@
     margin-top: 12px;
     font-size: 16px;
     font-style: italic;
-    color: rgba(255,243,214,0.65);
-    max-width: 520px;
+    color: var(--parchment);
+    max-width: 100%;
+    white-space: nowrap;
+    text-shadow: 0 2px 4px rgba(24,34,65,0.95), 0 4px 20px rgba(24,34,65,0.8);
+  }
+  @media (max-width: 640px) {
+    .category-hero p { white-space: normal; }
   }
 
   .timeline-section { padding: 56px 0 96px; }
+
+  .mg-category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .mg-category-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-height: 175px;
+    gap: 6px;
+    background-color: var(--ink);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid var(--border-c);
+    border-radius: 8px;
+    padding: 22px 24px;
+    text-decoration: none;
+    color: var(--parchment);
+    transition: border-color 0.2s ease;
+    overflow: hidden;
+  }
+  .mg-category-card:hover { border-color: var(--ember); box-shadow: 0 6px 18px rgba(24,34,65,0.35); transform: translateY(-3px); }
+  .mg-category-card h2 {
+    text-shadow: 0 2px 3px rgba(24,34,65,1), 0 3px 8px rgba(24,34,65,1), 0 8px 28px rgba(24,34,65,0.95);
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 22px;
+    margin: 2px 0 2px;
+  }
+  .mg-category-card p {
+    font-size: 13.5px;
+    color: rgba(255,243,214,0.9);
+    margin-bottom: 10px;
+    text-shadow: 0 1px 3px rgba(24,34,65,1), 0 2px 7px rgba(24,34,65,1), 0 6px 22px rgba(24,34,65,0.95);
+  }
+
 
   /* ===== Dark mode torch ambiance ===== */
   .torch-widget {
@@ -1481,11 +1026,23 @@
   </div>
 </header>
 
-<div id="mgHeroRoot">
-  <!-- Populated by mini-game-detail.js based on ?category= in the URL -->
-</div>
+<section class="category-hero">
+  <div class="wrap" style="position:relative; z-index:2;">
+    <span class="map-crumb"><a href="/">Archive</a> / Java Edition Worlds</span>
+    <h1 class="display">Java Edition Worlds</h1>
+    <p>Trailer worlds, historic seeds, and more.</p>
+  </div>
+</section>
 
-<div id="mgBodyRoot"></div>
+<section class="timeline-section">
+  <div class="wrap">
+    <div class="mg-category-grid">
+      <a href="/java-edition-worlds/trailers" class="mg-category-card" style="background-image:url('/images/Minecraft%201.2%20Trailer%20Image%201.png')">
+        <h2 class="display">Minecraft Trailers</h2>
+      </a>
+    </div>
+  </div>
+</section>
 
 <footer>
   <div class="wrap">
@@ -1538,14 +1095,6 @@
 //
 // To add a new map to the whole site (search + its own page): add one
 // object here. Nothing else needs to change.
-
-// Shared platform icons for mini game maps (same visual language as
-// the tutorial world pages -- no PS3 here, since mini games were never
-// ported to PS3 on the live site).
-const JAVA_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 5.3c0-1 1-1 1-2M12 5.3c0-1 1-1 1-2"/></svg>';
-const BEDROCK_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><circle cx="12" cy="18.3" r="0.9" fill="currentColor" stroke="none"/></svg>';
-const XBOX_ICON = '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M7.202 15.967a8 8 0 0 1-3.552-1.26c-.898-.585-1.101-.826-1.101-1.306 0-.965 1.062-2.656 2.879-4.583C6.459 7.723 7.897 6.44 8.052 6.475c.302.068 2.718 2.423 3.622 3.531 1.43 1.753 2.088 3.189 1.754 3.829-.254.486-1.83 1.437-2.987 1.802-.954.301-2.207.429-3.239.33m-5.866-3.57C.589 11.253.212 10.127.03 8.497c-.06-.539-.038-.846.137-1.95.218-1.377 1.002-2.97 1.945-3.95.401-.417.437-.427.926-.263.595.2 1.23.638 2.213 1.528l.574.519-.313.385C4.056 6.553 2.52 9.086 1.94 10.653c-.315.852-.442 1.707-.306 2.063.091.24.007.15-.3-.319Zm13.101.195c.074-.36-.019-1.02-.238-1.687-.473-1.443-2.055-4.128-3.508-5.953l-.457-.575.494-.454c.646-.593 1.095-.948 1.58-1.25.381-.237.927-.448 1.161-.448.145 0 .654.528 1.065 1.104a8.4 8.4 0 0 1 1.343 3.102c.153.728.166 2.286.024 3.012a9.5 9.5 0 0 1-.6 1.893c-.179.393-.624 1.156-.82 1.404-.1.128-.1.127-.043-.148ZM7.335 1.952c-.67-.34-1.704-.705-2.276-.803a4 4 0 0 0-.759-.043c-.471.024-.45 0 .306-.358A7.8 7.8 0 0 1 6.47.128c.8-.169 2.306-.17 3.094-.005.85.18 1.853.552 2.418.9l.168.103-.385-.02c-.766-.038-1.88.27-3.078.853-.361.176-.676.316-.699.312a12 12 0 0 1-.654-.319Z"/></svg>';
-const WIIU_ICON = '<svg viewBox="0 0 60 24" fill="currentColor"><text x="0" y="17" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">Wii U</text></svg>';
 
 const MAPS = [
   // ===================================================================
@@ -2343,39 +1892,6 @@ const MAPS = [
   { name: '2017 Mini Game Lobby', category: 'Mini Game Lobbies', url: '/mini-game-maps/lobbies' }
 ];
 
-// Shared across every Console Edition tutorial world page. These are
-// the same three companion packs referenced site-wide, not per-map
-// data, so they live here once instead of being duplicated 12 times.
-// Shared site-wide links: Discord, GitHub issues, credits. Used in
-// the small footer-notes block on every map page, and now also wired
-// into the real Discord CTA buttons instead of "#" placeholders.
-const SITE_LINKS = {
-  discord: "https://discord.theminecraftarchitect.com",
-  github: "https://github.com/theminecraftarchitect/theminecraftarchitect-comments/issues",
-  credits: "https://www.theminecraftarchitect.com/credits"
-};
-
-const RESOURCE_PACKS = [
-  {
-    name: "Re-Console Modpack",
-    platform: "Java Edition",
-    url: "https://modrinth.com/modpack/legacy-minecraft",
-    description: "Changes Minecraft's look and feel to match Console Edition. GUI, graphics, animations, and more."
-  },
-  {
-    name: "Console Aspects Resource Pack",
-    platform: "Bedrock Edition",
-    url: "https://www.curseforge.com/minecraft-bedrock/addons/console-aspects",
-    description: "Changes gameplay aspects to function similarly to Console Edition."
-  },
-  {
-    name: "Music+ Resource Pack",
-    platform: "Bedrock Edition",
-    url: "https://www.curseforge.com/minecraft-bedrock/texture-packs/music-plus-pack",
-    description: "Adds tracks, a music player, and changes how in-game music plays to match Console Edition."
-  }
-];
-
 </script>
 <script>
 // Search over MAPS (see data/maps.js). Because MAPS has one entry per
@@ -2443,274 +1959,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const first = resultsBox.querySelector('.search-result');
       if (first) window.location.href = first.dataset.url || `/tutorial-worlds/${first.dataset.slug}`;
     }
-  });
-});
-
-</script>
-<script>
-// Renders every MCPE world from MCPE_WORLDS. All shown inline on this
-// one page, matching how these were actually organized on the live
-// site rather than linking out to a detail page per world.
-document.addEventListener('DOMContentLoaded', () => {
-  const heroRoot = document.getElementById('mgHeroRoot');
-  const bodyRoot = document.getElementById('mgBodyRoot');
-  if (!heroRoot || !bodyRoot) return;
-
-  // Each world here has a direct Java and Bedrock port, plus a third
-  // "Original Version" download preserving the actual historical
-  // MCPE alpha release for that world.
-  const ARCHIVE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12M6 21h12M7 3c0 4 4 6 5 8-1 2-5 4-5 8M17 3c0 4-4 6-5 8 1 2 5 4 5 8"/></svg>';
-
-  const MCPE_WORLDS = [
-    {
-      name: 'Castle Von Fatalis',
-      creator: 'Von_Fatalis',
-      releaseDate: 'December 14, 2012',
-      gallery: ['Castle Von Fatalis Image 1.png', 'Castle Von Fatalis Image 2.png', 'Castle Von Fatalis Image 3.png', 'Castle Von Fatalis Image 4.png', 'Castle Von Fatalis Image 5.png'],
-      platforms: [
-        { name: 'Java Edition', icon: JAVA_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/mcpe-worlds/Castle%20Von%20Fatalis%20%5BJE%2026.1%2B%5D.zip' }] },
-        { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/mcpe-worlds/Castle%20Von%20Fatalis.mcworld' }] },
-        { name: 'Original Version', icon: ARCHIVE_ICON, versions: [{ label: 'MCPE v0.5.0 alpha', url: 'https://downloads.theminecraftarchitect.com/mcpe-worlds/Castle%20Von%20Fatalis%20%5BMCPE%200.5.0%5D.zip' }] }
-      ]
-    },
-    {
-      name: 'H2O Waterpark',
-      creator: 'christianmcpe14',
-      releaseDate: 'April 10, 2013',
-      gallery: ['H2O Waterpark Image 1.png', 'H2O Waterpark Image 2.png', 'H2O Waterpark Image 3.png', 'H2O Waterpark Image 4.png'],
-      platforms: [
-        { name: 'Java Edition', icon: JAVA_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/mcpe-worlds/H2O%20Waterpark%20%5BJE%2026.1%2B%5D.zip' }] },
-        { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/mcpe-worlds/H2O%20Waterpark.mcworld' }] },
-        { name: 'Original Version', icon: ARCHIVE_ICON, versions: [{ label: 'MCPE v0.6.0 alpha', url: 'https://downloads.theminecraftarchitect.com/mcpe-worlds/H2O%20Waterpark%20%5BMCPE%200.6.0%5D.zip' }] }
-      ]
-    },
-    {
-      name: 'Herobrine Sighting World',
-      creator: 'A.C.E.',
-      releaseDate: 'December 15, 2013',
-      gallery: ['Herobrine Sighting World Image 1.png', 'Herobrine Sighting World Image 2.png', 'Herobrine Sighting World Image 3.png', 'Herobrine Sighting World Image 4.png'],
-      platforms: [
-        { name: 'Java Edition', icon: JAVA_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/mcpe-worlds/Herobrine%20Sighting%20World%20%5BJE%2026.1%2B%5D.zip' }] },
-        { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/mcpe-worlds/Herobrine%20Sighting%20World.mcworld' }] },
-        { name: 'Original Version', icon: ARCHIVE_ICON, versions: [{ label: 'MCPE v0.8.0 alpha', url: 'https://downloads.theminecraftarchitect.com/mcpe-worlds/Herobrine%20Sighting%20World%20%5BMCPE%200.8.0%5D.zip' }] }
-      ]
-    },
-    {
-      name: 'Metropolis',
-      creator: 'Meepster101',
-      releaseDate: 'February 16, 2013',
-      gallery: ['Metropolis Image 1.png', 'Metropolis Image 2.png', 'Metropolis Image 3.png', 'Metropolis Image 4.png'],
-      platforms: [
-        { name: 'Java Edition', icon: JAVA_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/mcpe-worlds/Metropolis%20%5BJE%2026.1%2B%5D.zip' }] },
-        { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/mcpe-worlds/Metropolis.mcworld' }] },
-        { name: 'Original Version', icon: ARCHIVE_ICON, versions: [{ label: 'MCPE v0.6.0 alpha', url: 'https://downloads.theminecraftarchitect.com/mcpe-worlds/Metropolis%20%5BMCPE%200.6.0%5D.zip' }] }
-      ]
-    },
-    {
-      name: 'Temple of Notch',
-      creator: 'SPL1TR',
-      releaseDate: 'April 15, 2013',
-      gallery: ['Temple of Notch Image 1.png', 'Temple of Notch Image 2.png', 'Temple of Notch Image 3.png', 'Temple of Notch Image 4.png'],
-      platforms: [
-        { name: 'Java Edition', icon: JAVA_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/mcpe-worlds/Temple%20of%20Notch%20%5BJE%2026.1%2B%5D.zip' }] },
-        { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/mcpe-worlds/Temple%20of%20Notch.mcworld' }] },
-        { name: 'Original Version', icon: ARCHIVE_ICON, versions: [{ label: 'MCPE v0.6.0 alpha', url: 'https://downloads.theminecraftarchitect.com/mcpe-worlds/Temple%20of%20Notch%20%5BMCPE%200.6.0%5D.zip' }] }
-      ]
-    },
-    {
-      name: 'The City of MCPE',
-      creator: 'TheMarvCraftProject',
-      releaseDate: 'May 27, 2012',
-      gallery: ['The City of MCPE Image 1.png', 'The City of MCPE Image 2.png', 'The City of MCPE Image 3.png', 'The City of MCPE Image 4.png', 'The City of MCPE Image 5.png'],
-      platforms: [
-        { name: 'Java Edition', icon: JAVA_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/mcpe-worlds/The%20City%20of%20MCPE%20%5BJE%2026.1%2B%5D.zip' }] },
-        { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/mcpe-worlds/The%20City%20of%20MCPE.mcworld' }] },
-        { name: 'Original Version', icon: ARCHIVE_ICON, versions: [{ label: 'MCPE v0.3.0 alpha', url: 'https://downloads.theminecraftarchitect.com/mcpe-worlds/The%20City%20of%20MCPE%20%5BMCPE%200.3.0%5D.zip' }] }
-      ]
-    }
-  ];
-
-    const maps = MCPE_WORLDS;
-  const info = {
-    title: 'MCPE Worlds',
-    tagline: 'Preserved worlds from the earliest days of Minecraft Pocket Edition.',
-    headerImage: 'Metropolis Image 1.png',
-    footerImage: 'Temple of Notch Image 3.png'
-  };
-
-  document.getElementById('pageTitle').textContent = `${info.title}: The Minecraft Architect`;
-
-  heroRoot.innerHTML = `
-    <section class="map-hero" style="background-image:url('/images/${encodeURIComponent(info.headerImage)}')">
-      <div class="wrap" style="position:relative; z-index:2;">
-        <span class="map-crumb"><a href="/">Archive</a> / <a href="/mcpe-worlds">Minecraft PE Worlds</a> / ${info.title}</span>
-        <h1 class="display">${info.title}</h1>
-        <p class="map-tagline">${info.tagline}</p>
-      </div>
-    </section>
-  `;
-
-  const footerEl = document.querySelector('footer');
-  if (footerEl && info.footerImage) {
-    footerEl.style.backgroundImage = `url('/images/${encodeURIComponent(info.footerImage)}')`;
-  }
-
-  const mapBlocks = maps.map((m, mapIdx) => {
-    const platformCards = m.platforms.map(p => {
-      const versionRows = p.versions.map(v => `
-        <div class="pc-version-row">
-          <a href="${v.url}" class="pc-dl">${v.label}</a>
-        </div>
-      `).join('');
-      return `
-        <div class="platform-card">
-          <span class="pc-icon">${p.icon}</span>
-          <div class="pc-name">${p.name}</div>
-          ${versionRows}
-        </div>`;
-    }).join('');
-
-    const resourcePacksHTML = (m.resourcePacks && m.resourcePacks.length) ? `
-      <div class="mg-resource-links">
-        ${m.resourcePacks.map(r => {
-          const platformLabel = r.label.split(' - ')[0];
-          const packLabel = r.label.split(' - ')[1] || r.label;
-          const icon = platformLabel.includes('Java') ? JAVA_ICON : BEDROCK_ICON;
-          return `
-            <a href="${r.url}" class="mg-resource-chip">
-              <span class="mg-resource-icon">${icon}</span>
-              <span class="mg-resource-text"><strong>${platformLabel}</strong>${packLabel}</span>
-            </a>`;
-        }).join('')}
-      </div>` : '';
-
-    const gallery = m.gallery || [];
-    const slides = gallery.map((src, i) => `
-      <div class="mg-slide${i === 0 ? ' active' : ''}" data-index="${i}">
-        <img ${i === 0 ? `src="/images/${encodeURIComponent(src)}" loading="eager"` : `data-src="/images/${encodeURIComponent(src)}" loading="lazy"`} alt="${m.name} screenshot ${i + 1}" onerror="this.style.display='none'">
-      </div>
-    `).join('');
-
-    return `
-      <div class="mg-map-block" id="mg-block-${mapIdx}">
-        <div class="mg-map-photo">${slides}</div>
-        <div class="mg-photo-controls">
-          <button class="mg-extend-btn" data-block="${mapIdx}" aria-label="Extend image" title="See the full image size">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
-            <span>Extend Image</span>
-          </button>
-          <button class="mg-skip-btn" data-block="${mapIdx}" aria-label="Next photo" title="Next photo">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
-          </button>
-        </div>
-        <div class="mg-map-content">
-          <div class="mg-map-header">
-            <div>
-              <h3 class="display">${m.name}</h3>
-              <div class="mg-map-meta">
-                ${(() => {
-                  const facts = [];
-                  if (m.creator) facts.push(`Creator: ${m.creator}`);
-                  if (m.pack) facts.push(m.pack);
-                  if (m.releaseDate) facts.push(`Released ${m.releaseDate}`);
-                  if (m.texturePack) facts.push(`Texture Pack: ${m.texturePack}`);
-                  return facts.length ? `<span>${facts.join(' \u2022 ')}</span>` : '';
-                })()}
-              </div>
-              ${resourcePacksHTML}
-            </div>
-          </div>
-          <div class="platform-grid platform-grid-detailed mg-platform-grid">${platformCards}</div>
-        </div>
-      </div>`;
-  }).join('');
-
-  const footerNotesHTML = `
-    <div class="wrap">
-      <div class="footer-notes">
-        <div class="footer-note">Have questions or feedback? Join <a href="https://discord.theminecraftarchitect.com">the Discord</a> to share your thoughts.</div>
-        <div class="footer-note">Found a bug? Report it on <a href="https://github.com/theminecraftarchitect/theminecraftarchitect-comments/issues">GitHub</a>.</div>
-        <div class="footer-note">u/Direct_Class_1418 archived these maps and ported them to Java and Bedrock Edition.</div>
-      </div>
-    </div>`;
-
-  const commentsHTML = `
-    <section class="comments-section">
-      <div class="wrap">
-        <h2 class="display">Comments</h2>
-        <p class="comments-sub">Sign in with GitHub to leave a comment.</p>
-        <div id="utterances-container"></div>
-      </div>
-    </section>`;
-
-  bodyRoot.innerHTML = `
-    <section class="platforms-section">
-      <div class="wrap">
-        <div class="mg-map-list">${mapBlocks}</div>
-      </div>
-    </section>
-    ${commentsHTML}
-    ${footerNotesHTML}
-  `;
-
-  const utterancesContainer = bodyRoot.querySelector('#utterances-container');
-  if (utterancesContainer) {
-    const initialTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'github-dark' : 'github-light';
-    const script = document.createElement('script');
-    script.src = 'https://utteranc.es/client.js';
-    script.setAttribute('repo', 'theminecraftarchitect/theminecraftarchitect-comments');
-    script.setAttribute('issue-term', 'pathname');
-    script.setAttribute('theme', initialTheme);
-    script.crossOrigin = 'anonymous';
-    script.async = true;
-    utterancesContainer.appendChild(script);
-
-    // Utterances doesn't watch the site's own dark mode toggle, so we
-    // watch <html data-theme> ourselves and push theme changes into the
-    // comments iframe via postMessage whenever it flips.
-    const themeObserver = new MutationObserver(() => {
-      const frame = utterancesContainer.querySelector('iframe.utterances-frame');
-      if (!frame) return;
-      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'github-dark' : 'github-light';
-      frame.contentWindow.postMessage({ type: 'set-theme', theme }, 'https://utteranc.es');
-    });
-    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-  }
-
-  // Each map's photo advances one image per click on its skip button.
-  // Only the active slide's image ever gets a real src -- the rest sit
-  // as data-src until skipped to, same lazy-load pattern as the map pages.
-  bodyRoot.querySelectorAll('.mg-skip-btn').forEach(btn => {
-    const blockEl = document.getElementById(`mg-block-${btn.dataset.block}`);
-    const slides = Array.from(blockEl.querySelectorAll('.mg-slide'));
-    let current = 0;
-    btn.addEventListener('click', () => {
-      if (slides.length < 2) return;
-      slides[current].classList.remove('active');
-      current = (current + 1) % slides.length;
-      const img = slides[current].querySelector('img');
-      if (img && img.dataset.src) {
-        img.src = img.dataset.src;
-        delete img.dataset.src;
-      }
-      slides[current].classList.add('active');
-    });
-  });
-
-  const EXPAND_PATHS = '<path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/>';
-  const DOWNLOADS_PATHS = '<path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/>';
-
-  bodyRoot.querySelectorAll('.mg-extend-btn').forEach(btn => {
-    const blockEl = document.getElementById(`mg-block-${btn.dataset.block}`);
-    const label = btn.querySelector('span');
-    const iconEl = btn.querySelector('svg');
-    const expandLabel = () => window.innerWidth <= 640 ? 'See Image' : 'Extend Image';
-    label.textContent = expandLabel();
-    btn.addEventListener('click', () => {
-      const expanded = blockEl.classList.toggle('expanded');
-      label.textContent = expanded ? 'Show Downloads' : expandLabel();
-      iconEl.innerHTML = expanded ? DOWNLOADS_PATHS : EXPAND_PATHS;
-    });
   });
 });
 
