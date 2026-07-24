@@ -12,6 +12,9 @@ export default {
     const redirects = {
       '/nostalgic-seeds': '/mcpe-worlds',
       '/nostalgic-seeds/minecraft-pe-seeds': '/mcpe-worlds/mcpe-seeds',
+      '/old-minecraft-worlds': '/java-edition-worlds',
+      '/old-minecraft-worlds/trailers': '/java-edition-worlds/trailers',
+      '/old-minecraft-worlds/mcpe-worlds': '/java-edition-worlds/mcpe-worlds',
     };
     if (redirects[path]) {
       return Response.redirect(url.origin + redirects[path] + url.search, 301);
@@ -22,15 +25,15 @@ export default {
     const pageMap = {
       '/tutorial-worlds': '/tutorial-worlds.html',
       '/mini-game-maps': '/mini-game-hub.html',
-      '/old-minecraft-worlds': '/old-worlds-hub.html',
+      '/java-edition-worlds': '/java-edition-worlds-hub.html',
       '/mcpe-worlds': '/pe-worlds-hub.html',
       '/updates': '/updates.html',
       '/credits': '/credits.html',
       '/about': '/about.html',
       '/privacy': '/privacy.html',
       '/mini-game-maps/lobbies': '/mini-game-lobbies-list.html',
-      '/old-minecraft-worlds/trailers': '/minecraft-trailers-list.html',
-      '/old-minecraft-worlds/mcpe-worlds': '/mcpe-worlds-list.html',
+      '/java-edition-worlds/trailers': '/minecraft-trailers-list.html',
+      '/java-edition-worlds/mcpe-worlds': '/mcpe-worlds-list.html',
       '/mcpe-worlds/mcpe-seeds': '/pe-seeds-list.html',
     };
     if (pageMap[path]) {
