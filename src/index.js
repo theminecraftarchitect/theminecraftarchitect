@@ -14,7 +14,8 @@ export default {
       '/nostalgic-seeds/minecraft-pe-seeds': '/mcpe-worlds/mcpe-seeds',
       '/old-minecraft-worlds': '/java-edition-worlds',
       '/old-minecraft-worlds/trailers': '/java-edition-worlds/trailers',
-      '/old-minecraft-worlds/mcpe-worlds': '/java-edition-worlds/mcpe-worlds',
+      '/old-minecraft-worlds/mcpe-worlds': '/mcpe-worlds/mcpe-worlds',
+      '/java-edition-worlds/mcpe-worlds': '/mcpe-worlds/mcpe-worlds',
     };
     if (redirects[path]) {
       return Response.redirect(url.origin + redirects[path] + url.search, 301);
@@ -33,7 +34,7 @@ export default {
       '/privacy': '/privacy.html',
       '/mini-game-maps/lobbies': '/mini-game-lobbies-list.html',
       '/java-edition-worlds/trailers': '/minecraft-trailers-list.html',
-      '/java-edition-worlds/mcpe-worlds': '/mcpe-worlds-list.html',
+      '/mcpe-worlds/mcpe-worlds': '/mcpe-worlds-list.html',
       '/mcpe-worlds/mcpe-seeds': '/pe-seeds-list.html',
     };
     if (pageMap[path]) {
