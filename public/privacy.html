@@ -2012,6 +2012,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const resultsBox = document.getElementById('searchResults');
   if (!input || !resultsBox || typeof MAPS === 'undefined') return;
 
+  // Turns a name into a stable, URL-safe anchor id, matching how
+  // individual entries are identified on their own pages (e.g.
+  // #dumbocow), so search results can jump straight to them.
+  function slugify(name) {
+    return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+
   function matches(map, query) {
     const haystack = [map.name, map.category, ...(map.tags || [])]
       .join(' ')
@@ -2036,7 +2043,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     resultsBox.innerHTML = found.map(m => `
-      <div class="search-result" data-slug="${m.slug || ''}" data-url="${m.url || ''}">
+      <div class="search-result" data-slug="${m.slug || ''}" data-url="${m.url || ''}" data-name="${m.name}">
         <div>
           <div class="sr-name">${m.name}</div>
           <div class="sr-cat">${m.category}</div>
@@ -2048,7 +2055,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     resultsBox.querySelectorAll('.search-result').forEach(el => {
       el.addEventListener('click', () => {
-        window.location.href = el.dataset.url || `/tutorial-worlds/${el.dataset.slug}`;
+        window.location.href = el.dataset.url ? `${el.dataset.url}#${slugify(el.dataset.name)}` : `/tutorial-worlds/${el.dataset.slug}`;
       });
     });
   }
@@ -2066,7 +2073,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') { resultsBox.classList.remove('open'); input.blur(); }
     if (e.key === 'Enter') {
       const first = resultsBox.querySelector('.search-result');
-      if (first) window.location.href = first.dataset.url || `/tutorial-worlds/${first.dataset.slug}`;
+      if (first) window.location.href = first.dataset.url ? `${first.dataset.url}#${slugify(first.dataset.name)}` : `/tutorial-worlds/${first.dataset.slug}`;
     }
   });
 });

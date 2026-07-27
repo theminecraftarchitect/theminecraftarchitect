@@ -747,6 +747,7 @@
     color: var(--parchment);
     padding-bottom: 0;
     transition: padding-bottom 0.4s ease;
+    scroll-margin-top: 100px;
   }
   .mg-map-block.expanded {
     padding-bottom: 240px;
@@ -3629,7 +3630,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const resultsBox = document.getElementById('searchResults');
   if (!input || !resultsBox || typeof MAPS === 'undefined') return;
 
-  function matches(map, query) {
+    function matches(map, query) {
     const haystack = [map.name, map.category, ...(map.tags || [])]
       .join(' ')
       .toLowerCase();
@@ -3653,7 +3654,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     resultsBox.innerHTML = found.map(m => `
-      <div class="search-result" data-slug="${m.slug || ''}" data-url="${m.url || ''}">
+      <div class="search-result" data-slug="${m.slug || ''}" data-url="${m.url || ''}" data-name="${m.name}">
         <div>
           <div class="sr-name">${m.name}</div>
           <div class="sr-cat">${m.category}</div>
@@ -3665,7 +3666,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     resultsBox.querySelectorAll('.search-result').forEach(el => {
       el.addEventListener('click', () => {
-        window.location.href = el.dataset.url || `/tutorial-worlds/${el.dataset.slug}`;
+        window.location.href = el.dataset.url ? `${el.dataset.url}#${slugify(el.dataset.name)}` : `/tutorial-worlds/${el.dataset.slug}`;
       });
     });
   }
@@ -3683,7 +3684,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') { resultsBox.classList.remove('open'); input.blur(); }
     if (e.key === 'Enter') {
       const first = resultsBox.querySelector('.search-result');
-      if (first) window.location.href = first.dataset.url || `/tutorial-worlds/${first.dataset.slug}`;
+      if (first) window.location.href = first.dataset.url ? `${first.dataset.url}#${slugify(first.dataset.name)}` : `/tutorial-worlds/${first.dataset.slug}`;
     }
   });
 });
@@ -3748,6 +3749,13 @@ document.addEventListener('DOMContentLoaded', () => {
     footerEl.style.backgroundImage = `url('/images/${encodeURIComponent(info.footerImage)}')`;
   }
 
+  // Turns a map name into a stable, URL-safe anchor id, so individual
+  // entries can be linked directly (e.g. #dumbocow) rather than by
+  // array position, which would shift if entries are reordered.
+  function slugify(name) {
+    return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+
   const mapBlocks = maps.map((m, mapIdx) => {
     const platformCards = m.platforms.map(p => {
       const versionRows = p.versions.map(v => `
@@ -3785,14 +3793,14 @@ document.addEventListener('DOMContentLoaded', () => {
     `).join('');
 
     return `
-      <div class="mg-map-block" id="mg-block-${mapIdx}">
+      <div class="mg-map-block" id="${slugify(m.name)}">
         <div class="mg-map-photo">${slides}</div>
         <div class="mg-photo-controls">
-          <button class="mg-extend-btn" data-block="${mapIdx}" aria-label="Extend image" title="See the full image size">
+          <button class="mg-extend-btn" data-block="${slugify(m.name)}" aria-label="Extend image" title="See the full image size">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
             <span>Extend Image</span>
           </button>
-          <button class="mg-skip-btn" data-block="${mapIdx}" aria-label="Next photo" title="Next photo">
+          <button class="mg-skip-btn" data-block="${slugify(m.name)}" aria-label="Next photo" title="Next photo">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
           </button>
         </div>
@@ -3845,6 +3853,15 @@ document.addEventListener('DOMContentLoaded', () => {
     ${footerNotesHTML}
   `;
 
+  // If the URL links directly to one entry (e.g. #dumbocow), scroll to
+  // it now that the content actually exists in the DOM. A plain browser
+  // anchor jump won't work here since these blocks don't exist yet at
+  // the moment the page first parses the URL.
+  if (window.location.hash) {
+    const target = document.getElementById(window.location.hash.slice(1));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   const utterancesContainer = bodyRoot.querySelector('#utterances-container');
   if (utterancesContainer) {
     const initialTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'github-dark' : 'github-light';
@@ -3873,7 +3890,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Only the active slide's image ever gets a real src -- the rest sit
   // as data-src until skipped to, same lazy-load pattern as the map pages.
   bodyRoot.querySelectorAll('.mg-skip-btn').forEach(btn => {
-    const blockEl = document.getElementById(`mg-block-${btn.dataset.block}`);
+    const blockEl = document.getElementById(btn.dataset.block);
     const slides = Array.from(blockEl.querySelectorAll('.mg-slide'));
     let current = 0;
     btn.addEventListener('click', () => {
@@ -3896,7 +3913,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const DOWNLOADS_PATHS = '<path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/>';
 
   bodyRoot.querySelectorAll('.mg-extend-btn').forEach(btn => {
-    const blockEl = document.getElementById(`mg-block-${btn.dataset.block}`);
+    const blockEl = document.getElementById(btn.dataset.block);
     const label = btn.querySelector('span');
     const iconEl = btn.querySelector('svg');
     const expandLabel = () => window.innerWidth <= 640 ? 'See Image' : 'Extend Image';
