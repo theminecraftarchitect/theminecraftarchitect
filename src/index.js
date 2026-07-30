@@ -35,6 +35,7 @@ export default {
       '/mini-game-maps/lobbies': '/mini-game-lobbies-list.html',
       '/java-edition-worlds/trailers': '/minecraft-trailers-list.html',
       '/java-edition-worlds/seeds': '/minecraft-seeds-list.html',
+      '/java-edition-worlds/community-worlds': '/community-worlds-list.html',
       '/mcpe-worlds/mcpe-worlds': '/mcpe-worlds-list.html',
       '/mcpe-worlds/mcpe-seeds': '/pe-seeds-list.html',
     };

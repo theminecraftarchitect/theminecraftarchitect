@@ -1637,8 +1637,15 @@ const MAPS = [
   { name: 'Minecon 2011 Trailer', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
   { name: 'Minecraft 1.2 Trailer', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
   { name: 'Minecraft 1.4 Trailer', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
+  { name: 'Minecraft 1.5 Trailer', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
+  { name: 'Minecraft 1.6 Trailer', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
   { name: 'Minecraft 1.12 Trailer', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
   { name: 'Minecraft Seeds', category: 'Java Edition Worlds', url: '/java-edition-worlds/seeds' },
+  { name: 'Community Worlds', category: 'Java Edition Worlds', url: '/java-edition-worlds/community-worlds' },
+  { name: 'Ez\'s World', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
+  { name: 'Royal Palace by Zyph', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
+  { name: 'The Shadow of Israphel by Yogscast', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
+  { name: 'The Temple of Notch by Disco', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
   { name: 'Beta 1.8 Panorama', category: 'Minecraft Seeds', url: '/java-edition-worlds/seeds' },
   { name: 'Skull on Fire', category: 'Minecraft Seeds', url: '/java-edition-worlds/seeds' },
   { name: 'The World of Herobrine', category: 'Minecraft Seeds', url: '/java-edition-worlds/seeds' },
@@ -1750,7 +1757,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // versions, Bedrock with one) except Siege on Castle Steve, which
   // has real-world seed + coordinates instead of a third download.
   const TRAILER_MAPS = [
-    {
+{
       name: 'Siege on Castle Steve',
       videoUrl: 'https://www.youtube.com/watch?v=SBjkQvQv8CU',
       gallery: ['Siege on Castle Steve Image 1.png', 'Siege on Castle Steve Image 2.png', 'Siege on Castle Steve Image 3.png', 'Siege on Castle Steve Image 4.png', 'Siege on Castle Steve Image 5.png', 'Siege on Castle Steve Image 6.png', 'Siege on Castle Steve Image 7.png'],
@@ -1764,7 +1771,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Siege%20on%20Castle%20Steve.mcworld' }] }
       ]
     },
-    {
+{
       name: 'Minecraft Beta 1.7 Trailer',
       videoUrl: 'https://www.youtube.com/watch?v=uo4UFb2YKI0',
       gallery: ['Minecraft Beta 1.7 Trailer Image 1.png', 'Minecraft Beta 1.7 Trailer Image 2.png', 'Minecraft Beta 1.7 Trailer Image 3.png', 'Minecraft Beta 1.7 Trailer Image 4.png', 'Minecraft Beta 1.7 Trailer Image 5.png'],
@@ -1776,7 +1783,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Minecraft%20Beta%201.7%20Trailer%20%5BBE%5D.mcworld' }] }
       ]
     },
-    {
+{
       name: 'Minecon 2011 Trailer',
       videoUrl: 'https://www.youtube.com/watch?v=-y2NACUlwmE',
       gallery: ['Minecon 2011 Trailer Image 1.png', 'Minecon 2011 Trailer Image 2.png', 'Minecon 2011 Trailer Image 3.png', 'Minecon 2011 Trailer Image 4.png', 'Minecon 2011 Trailer Image 5.png', 'Minecon 2011 Trailer Image 6.png', 'Minecon 2011 Trailer Image 7.png', 'Minecon 2011 Trailer Image 8.png'],
@@ -1788,7 +1795,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Minecon%202011%20Trailer%20%5BBE%5D.mcworld' }] }
       ]
     },
-    {
+{
       name: 'Minecraft 1.2 Trailer',
       videoUrl: 'https://www.youtube.com/watch?v=pRZQiCCIqiE',
       gallery: ['Minecraft 1.2 Trailer Image 1.png', 'Minecraft 1.2 Trailer Image 2.png', 'Minecraft 1.2 Trailer Image 3.png', 'Minecraft 1.2 Trailer Image 4.png', 'Minecraft 1.2 Trailer Image 5.png', 'Minecraft 1.2 Trailer Image 6.png', 'Minecraft 1.2 Trailer Image 7.png', 'Minecraft 1.2 Trailer Image 8.png', 'Minecraft 1.2 Trailer Image 9.png', 'Minecraft 1.2 Trailer Image 10.png', 'Minecraft 1.2 Trailer Image 11.png', 'Minecraft 1.2 Trailer Image 12.png'],
@@ -1800,7 +1807,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Minecraft%201.2%20Trailer%20%5BBE%5D.mcworld' }] }
       ]
     },
-    {
+{
       name: 'Minecraft 1.4 Trailer',
       videoUrl: 'https://www.youtube.com/watch?app=desktop&v=p-tzEu02P-k&t=0s',
       gallery: ['Minecraft 1.4 Trailer Image 8.png', 'Minecraft 1.4 Trailer Image 1.png', 'Minecraft 1.4 Trailer Image 2.png', 'Minecraft 1.4 Trailer Image 3.png', 'Minecraft 1.4 Trailer Image 4.png', 'Minecraft 1.4 Trailer Image 5.png', 'Minecraft 1.4 Trailer Image 6.png', 'Minecraft 1.4 Trailer Image 7.png'],
@@ -1812,7 +1819,25 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Minecraft%201.4%20Trailer%20%5BBE%5D.mcworld' }] }
       ]
     },
-    {
+{
+      name: 'Minecraft 1.5 Trailer',
+      videoUrl: 'https://www.youtube.com/watch?v=fDgEa6MKHpY',
+      gallery: ['Minecraft 1.5 Trailer Image 1.png', 'Minecraft 1.5 Trailer Image 2.png', 'Minecraft 1.5 Trailer Image 3.png', 'Minecraft 1.5 Trailer Image 4.png'],
+      platforms: [
+        { name: 'Java Edition', icon: JAVA_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Minecraft%201.5%20Trailer%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip' }, { label: '1.5', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Minecraft%201.5%20Trailer%20%5BJE%201.5%5D%20%5BUNZIP%5D.zip' }] },
+        { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Minecraft%201.5%20Trailer.mcworld' }] }
+      ]
+    },
+{
+      name: 'Minecraft 1.6 Trailer',
+      videoUrl: 'https://www.youtube.com/watch?v=FFvTdRjwqt4',
+      gallery: ['Minecraft 1.6 Trailer Image 1.png', 'Minecraft 1.6 Trailer Image 2.png', 'Minecraft 1.6 Trailer Image 3.png', 'Minecraft 1.6 Trailer Image 4.png'],
+      platforms: [
+        { name: 'Java Edition', icon: JAVA_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Minecraft%201.6%20Trailer%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip' }, { label: '1.6', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Minecraft%201.6%20Trailer%20%5BJE%201.6%5D%20%5BUNZIP%5D.zip' }] },
+        { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Minecraft%201.6%20Trailer.mcworld' }] }
+      ]
+    },
+{
       name: 'Minecraft 1.12 Trailer',
       videoUrl: 'https://www.youtube.com/watch?v=k2dQuIIUT-o',
       gallery: ['Soft Rain Image 1.png', 'Kuil Warna Image 1.png', "St Basil's Cathedral Image 1.png", 'Playful Castle Image 1.png', 'Mandala Image 1.png', 'Colorful World of Balloons Image 1.png', 'Villager Paint Factory Image 1.png'],
@@ -1932,7 +1957,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="footer-notes">
         <div class="footer-note">Have questions or feedback? Join <a href="https://discord.theminecraftarchitect.com">the Discord</a> to share your thoughts.</div>
         <div class="footer-note">Found a bug? Report it on <a href="https://github.com/theminecraftarchitect/theminecraftarchitect-comments/issues">GitHub</a>.</div>
-        <div class="footer-note">Worlds created by Hat Films, J!NX, and various others. \u0040Dartn (Omniarchive Discord) archived the 1.2 trailer map after the original download was taken down, and \u0040Ietser archived the 1.12 trailer maps.</div>
+        <div class="footer-note">Worlds created by Hat Films, J!NX, The Farlanders, and various others. \u0040Dartn (Omniarchive Discord) archived the 1.2 trailer map after the original download was taken down, and \u0040Ietser archived the 1.12 trailer maps.</div>
       </div>
     </div>`;
 

@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="pageTitle">Minecraft Seeds: The Minecraft Architect</title>
-<meta name="description" content="Nostalgic seeds recreated from the earliest days of Java Edition.">
-<link rel="canonical" href="https://theminecraftarchitect.com/java-edition-worlds/seeds">
-<meta property="og:title" content="Minecraft Seeds: The Minecraft Architect">
-<meta property="og:description" content="Nostalgic seeds recreated from the earliest days of Java Edition.">
-<meta property="og:url" content="https://theminecraftarchitect.com/java-edition-worlds/seeds">
+<title id="pageTitle">Community Worlds: The Minecraft Architect</title>
+<meta name="description" content="Community-built Java Edition worlds, preserved for exploring.">
+<link rel="canonical" href="https://theminecraftarchitect.com/java-edition-worlds/community-worlds">
+<meta property="og:title" content="Community Worlds: The Minecraft Architect">
+<meta property="og:description" content="Community-built Java Edition worlds, preserved for exploring.">
+<meta property="og:url" content="https://theminecraftarchitect.com/java-edition-worlds/community-worlds">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Minecraft Architect">
 <link rel="icon" type="image/png" href="/images/favicon.png">
@@ -758,6 +758,9 @@
   .mg-map-block.expanded .platform-grid {
     opacity: 0;
   }
+  .mg-map-block.expanded .pc-note {
+    display: none;
+  }
   .mg-map-photo {
     position: absolute;
     inset: 0;
@@ -840,7 +843,7 @@
   .mg-map-content {
     position: relative;
     z-index: 1;
-    padding: 22px 24px 56px;
+    padding: 22px 24px 26px;
   }
   .mg-map-header h3 {
     font-family: 'Fraunces', serif;
@@ -1164,13 +1167,12 @@
   }
   .pc-version-row .pc-dl:hover { background: var(--ember-bright); transform: translateY(-1px); }
   .pc-note {
-    font-family: 'IBM Plex Mono', monospace;
     font-size: 11.5px;
     color: rgba(255,243,214,0.8);
     font-style: italic;
     margin-top: 3px;
     margin-bottom: 4px;
-    text-shadow: 0 1px 3px rgba(24,34,65,0.9);
+    text-shadow: 0 1px 3px rgba(24,34,65,1), 0 2px 7px rgba(24,34,65,1), 0 6px 22px rgba(24,34,65,0.95);
   }
   .pc-guide {
     display: inline-block;
@@ -1586,32 +1588,13 @@ const MAPS = [
   { slug: "tu31", name: "TU31 Tutorial World", category: "Tutorial Worlds", tags: ["tutorial", "console"] },
   { slug: "tu46", name: "TU46 Tutorial World", category: "Tutorial Worlds", tags: ["tutorial", "console"] },
   { slug: "tu69", name: "TU69 Tutorial World", category: "Tutorial Worlds", tags: ["tutorial", "console"] },
-{ name: 'Battle Maps', category: 'Mini Game Maps', url: '/mini-game-maps/battle' },
+  { name: 'Battle Maps', category: 'Mini Game Maps', url: '/mini-game-maps/battle' },
   { name: 'Tumble Maps', category: 'Mini Game Maps', url: '/mini-game-maps/tumble' },
   { name: 'Glide Maps', category: 'Mini Game Maps', url: '/mini-game-maps/glide' },
   { name: 'Mini Game Lobbies', category: 'Mini Game Maps', url: '/mini-game-maps/lobbies' },
   { name: 'Minecraft Trailers', category: 'Java Edition Worlds', url: '/java-edition-worlds/trailers' },
   { name: 'MCPE Worlds', category: 'Minecraft PE Worlds', url: '/mcpe-worlds/mcpe-worlds' },
   { name: 'Minecraft PE Seeds', category: 'Minecraft PE Worlds', url: '/mcpe-worlds/mcpe-seeds' },
-  { name: 'diamonds under spawn', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
-  { name: 'dumbocow', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
-  { name: 'epic', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
-  { name: 'herobrine', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
-  { name: 'I Am A Belieber', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
-  { name: 'infinity', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
-  { name: 'it\'s a pig', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
-  { name: 'jpgaming', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
-  { name: 'Massive Village', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
-  { name: 'nether', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
-  { name: 'nyan', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
-  { name: 'raygun', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
-  { name: 'super pig', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
-  { name: 'Minecraft Seeds', category: 'Java Edition Worlds', url: '/java-edition-worlds/seeds' },
-  { name: 'Community Worlds', category: 'Java Edition Worlds', url: '/java-edition-worlds/community-worlds' },
-  { name: 'Ez\'s World', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
-  { name: 'Royal Palace by Zyph', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
-  { name: 'The Shadow of Israphel by Yogscast', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
-  { name: 'The Temple of Notch by Disco', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
   { name: 'Cavern', category: 'Battle Maps', url: '/mini-game-maps/battle' },
   { name: 'Cove', category: 'Battle Maps', url: '/mini-game-maps/battle' },
   { name: 'Crucible', category: 'Battle Maps', url: '/mini-game-maps/battle' },
@@ -1657,16 +1640,35 @@ const MAPS = [
   { name: 'Minecraft 1.5 Trailer', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
   { name: 'Minecraft 1.6 Trailer', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
   { name: 'Minecraft 1.12 Trailer', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
+  { name: 'Minecraft Seeds', category: 'Java Edition Worlds', url: '/java-edition-worlds/seeds' },
+  { name: 'Community Worlds', category: 'Java Edition Worlds', url: '/java-edition-worlds/community-worlds' },
+  { name: 'Ez\'s World', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
+  { name: 'Royal Palace by Zyph', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
+  { name: 'The Shadow of Israphel by Yogscast', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
+  { name: 'The Temple of Notch by Disco', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
+  { name: 'Beta 1.8 Panorama', category: 'Minecraft Seeds', url: '/java-edition-worlds/seeds' },
+  { name: 'Skull on Fire', category: 'Minecraft Seeds', url: '/java-edition-worlds/seeds' },
+  { name: 'The World of Herobrine', category: 'Minecraft Seeds', url: '/java-edition-worlds/seeds' },
+  { name: 'Pack.png', category: 'Minecraft Seeds', url: '/java-edition-worlds/seeds' },
   { name: 'Castle Von Fatalis', category: 'MCPE Worlds', url: '/mcpe-worlds/mcpe-worlds' },
   { name: 'H2O Waterpark', category: 'MCPE Worlds', url: '/mcpe-worlds/mcpe-worlds' },
   { name: 'Herobrine Sighting World', category: 'MCPE Worlds', url: '/mcpe-worlds/mcpe-worlds' },
   { name: 'Metropolis', category: 'MCPE Worlds', url: '/mcpe-worlds/mcpe-worlds' },
   { name: 'Temple of Notch', category: 'MCPE Worlds', url: '/mcpe-worlds/mcpe-worlds' },
   { name: 'The City of MCPE', category: 'MCPE Worlds', url: '/mcpe-worlds/mcpe-worlds' },
-  { name: 'Beta 1.8 Panorama', category: 'Minecraft Seeds', url: '/java-edition-worlds/seeds' },
-  { name: 'Skull on Fire', category: 'Minecraft Seeds', url: '/java-edition-worlds/seeds' },
-  { name: 'The World of Herobrine', category: 'Minecraft Seeds', url: '/java-edition-worlds/seeds' },
-  { name: 'Pack.png', category: 'Minecraft Seeds', url: '/java-edition-worlds/seeds' },
+  { name: 'diamonds under spawn', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
+  { name: 'dumbocow', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
+  { name: 'epic', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
+  { name: 'herobrine', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
+  { name: 'I Am A Belieber', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
+  { name: 'infinity', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
+  { name: 'it\'s a pig', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
+  { name: 'jpgaming', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
+  { name: 'Massive Village', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
+  { name: 'nether', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
+  { name: 'nyan', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
+  { name: 'raygun', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
+  { name: 'super pig', category: 'Minecraft PE Seeds', url: '/mcpe-worlds/mcpe-seeds' },
   { name: '2016 Mini Game Lobby', category: 'Mini Game Lobbies', url: '/mini-game-maps/lobbies' },
   { name: '2017 Mini Game Lobby', category: 'Mini Game Lobbies', url: '/mini-game-maps/lobbies' }
 ];
@@ -1743,70 +1745,60 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </script>
 <script>
-// Renders every seed from PE_SEEDS. All shown inline on this one page,
-// matching how these were actually organized on the live site rather
-// than linking out to a detail page per seed.
+// Renders every trailer world from TRAILER_MAPS. All shown inline on
+// this one page, matching how these were actually organized on the
+// live site rather than linking out to a detail page per trailer.
 document.addEventListener('DOMContentLoaded', () => {
   const heroRoot = document.getElementById('mgHeroRoot');
   const bodyRoot = document.getElementById('mgBodyRoot');
   if (!heroRoot || !bodyRoot) return;
 
-  // Seeds from the earliest MCPE eras (v0.1.0-v0.8.0) shipped in a
-  // capped 256x256 world border, so those get both an Infinite and a
-  // Legacy-size download per platform. Later seeds only need Infinite.
-  const MINECRAFT_SEEDS = [
+  // Every trailer here uses the same 2-platform pattern (Java with two
+  // versions, Bedrock with one) except Siege on Castle Steve, which
+  // has real-world seed + coordinates instead of a third download.
+  const COMMUNITY_WORLDS = [
     {
-      name: 'Beta 1.8 Panorama',
-      seedValue: '8091867987493326313',
-      year: '2011',
-      version: 'Beta 1.7.3',
-      gallery: ['Beta 1.8 Panorama Image 1.png', 'Beta 1.8 Panorama Image 2.png'],
+      name: "Ez's World",
+      description: 'Likely the first Minecraft world ever created and preserved.',
+      gallery: ["Ez's World Image 1.png", "Ez's World Image 2.png", "Ez's World Image 3.png", "Ez's World Image 4.png"],
       platforms: [
-        { name: 'Java Edition', icon: JAVA_ICON, versions: [{ label: '1.8+', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Beta%201.8%20Panorama%20%5BJE%201.8+%5D.zip' }, { label: 'Beta 1.7.3', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Beta%201.8%20Panorama%20%5BBeta%201.7.3%5D.zip' }] },
-        { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Beta%201.8%20Panorama.mcworld' }] }
+        { name: 'Java Edition', icon: JAVA_ICON, versions: [{ label: '1.2+', url: "https://downloads.theminecraftarchitect.com/old-worlds/Ez's%20World%20%5BJE%201.2+%5D.zip" }, { label: 'pc-132128', url: "https://downloads.theminecraftarchitect.com/old-worlds/Ez's%20World%20%5Bpc-132128%5D.zip" }] },
+        { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: "https://downloads.theminecraftarchitect.com/old-worlds/Ez's%20World.mcworld" }] }
       ]
     },
     {
-      name: 'Skull on Fire',
-      seedValue: '-6984854390176336655',
-      year: '2010',
-      version: 'Alpha 1.1.2_01',
-      gallery: ['Skull on Fire Image 1.png', 'Skull on Fire Image 2.png', 'Skull on Fire Image 3.png'],
+      name: 'Royal Palace by Zyph',
+      description: 'Featured in the official Minecraft trailer.',
+      gallery: ['Royal Palace Image 1.png', 'Royal Palace Image 2.png', 'Royal Palace Image 3.png', 'Royal Palace Image 4.png'],
       platforms: [
-        { name: 'Java Edition', icon: JAVA_ICON, versions: [{ label: '1.8+', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Skull%20on%20Fire%20%5BJE%201.8+%5D.zip' }, { label: 'Alpha 1.1.2_01', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Skull%20on%20Fire%20%5BAlpha%201.1.2_01%5D.zip' }] },
-        { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Skull%20on%20Fire.mcworld' }] }
+        { name: 'Java Edition', icon: JAVA_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Royal%20Palace%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip' }, { label: '1.4+', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Royal%20Palace%20%5BJE%201.4+%5D%20%5BUNZIP%5D.zip' }, { label: 'Beta 1.7.3', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Royal%20Palace%20%5BJE%20Beta%201.7.3%5D%20%5BUNZIP%5D.zip' }] },
+        { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Royal%20Palace.mcworld' }] }
       ]
     },
     {
-      name: 'The World of Herobrine',
-      seedValue: '478868574082066804',
-      year: '2010',
-      version: 'Alpha 1.0.16_02',
-      gallery: ['The World of Herobrine Image 1.png', 'The World of Herobrine Image 2.png'],
+      name: 'The Shadow of Israphel by Yogscast',
+      gallery: ['The Shadow of Israphel Image 1.png', 'The Shadow of Israphel Image 2.png', 'The Shadow of Israphel Image 3.png', 'The Shadow of Israphel Image 4.png'],
       platforms: [
-        { name: 'Java Edition', icon: JAVA_ICON, versions: [{ label: '1.8+', url: 'https://downloads.theminecraftarchitect.com/old-worlds/The%20World%20of%20Herobrine%20%5BJE%201.8+%5D.zip' }, { label: 'Alpha 1.0.16', url: 'https://downloads.theminecraftarchitect.com/old-worlds/The%20World%20of%20Herobrine%20%5BAlpha%201.0.16%5D.zip' }] },
-        { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/old-worlds/The%20World%20of%20Herobrine.mcworld' }] }
+        { name: 'Java Edition', icon: JAVA_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/old-worlds/The%20Shadow%20of%20Israphel%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip' }, { label: '1.7+', url: 'https://downloads.theminecraftarchitect.com/old-worlds/The%20Shadow%20of%20Israphel%20%5BJE%201.7+%5D%20%5BUNZIP%5D.zip' }, { label: 'Beta 1.7.3', url: 'https://downloads.theminecraftarchitect.com/old-worlds/The%20Shadow%20of%20Israphel%20%5BJE%20Beta%201.7.3%5D%20%5BUNZIP%5D.zip' }] },
+        { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/old-worlds/The%20Shadow%20of%20Israphel%20%5BBE%20Latest%5D%20%5BUNZIP%5D.zip' }] }
       ]
     },
     {
-      name: 'Pack.png',
-      seedValue: '3257840388504953787',
-      year: '2010',
-      version: 'Alpha 1.2.2a',
-      gallery: ['Pack.png Image 1.png', 'Pack.png Image 2.png'],
+      name: 'The Temple of Notch by Disco',
+      gallery: ['The Temple of Notch by Disco Image 1.png', 'The Temple of Notch by Disco Image 2.png', 'The Temple of Notch by Disco Image 3.png', 'The Temple of Notch by Disco Image 4.png'],
       platforms: [
-        { name: 'Java Edition', icon: JAVA_ICON, versions: [{ label: '1.8+', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Pack.png%20%5BJE%201.8+%5D.zip' }, { label: 'Alpha 1.2.2a', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Pack.png%20%5BAlpha%201.2.2a%5D.zip' }] },
-        { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/old-worlds/Pack.png.mcworld' }] }
+        { name: 'Java Edition', icon: JAVA_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/old-worlds/The%20Temple%20of%20Notch%20%5BJE%20Latest%5D%20%5BUNZIP%5D.zip' }, { label: '1.4+', url: 'https://downloads.theminecraftarchitect.com/old-worlds/The%20Temple%20of%20Notch%20%5BJE%201.4+%5D%20%5BUNZIP%5D.zip' }, { label: 'Beta 1.7.3', url: 'https://downloads.theminecraftarchitect.com/old-worlds/The%20Temple%20of%20Notch%20by%20Disco%20%5BJE%20Beta%201.7.3%5D%20%5BUNZIP%5D.zip' }] },
+        { name: 'Bedrock Edition', icon: BEDROCK_ICON, versions: [{ label: 'Latest Version', url: 'https://downloads.theminecraftarchitect.com/old-worlds/The%20Temple%20of%20Notch.mcworld' }] }
       ]
     }
   ];
 
-    const maps = MINECRAFT_SEEDS;
+    const maps = COMMUNITY_WORLDS;
   const info = {
-    title: 'Minecraft Seeds',
-    tagline: 'Nostalgic seeds recreated from the earliest days of Java Edition.',
-    headerImage: 'Beta 1.8 Panorama Image 1.png',
-    footerImage: 'Pack.png Image 2.png'
+    title: 'Community Worlds',
+    tagline: 'Community-built Java Edition worlds, preserved for exploring.',
+    headerImage: 'The Shadow of Israphel Image 1.png',
+    footerImage: 'Royal Palace Image 1.png'
   };
 
   document.getElementById('pageTitle').textContent = `${info.title}: The Minecraft Architect`;
@@ -1838,7 +1830,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const versionRows = p.versions.map(v => `
         <div class="pc-version-row">
           <a href="${v.url}" class="pc-dl">${v.label}</a>
-          ${v.note ? `<div class="pc-note">${v.note}</div>` : ''}
         </div>
       `).join('');
       return `
@@ -1888,21 +1879,18 @@ document.addEventListener('DOMContentLoaded', () => {
             <div>
               <h3 class="display">${m.name}</h3>
               <div class="mg-map-meta">
-                ${(() => {
-                  const facts = [];
-                  if (m.seedValue) facts.push(`Seed: "${m.seedValue}"`);
-                  if (m.year) facts.push(`Year: ${m.year}`);
-                  if (m.version) facts.push(m.version);
-                  if (m.pack) facts.push(m.pack);
-                  if (m.releaseDate) facts.push(`Released ${m.releaseDate}`);
-                  if (m.texturePack) facts.push(`Texture Pack: ${m.texturePack}`);
-                  return facts.length ? `<span>${facts.join(' \u2022 ')}</span>` : '';
-                })()}
+                ${m.pack ? `<span>${m.pack}</span>` : ''}
+                ${m.releaseDate ? `<span>Released ${m.releaseDate}</span>` : ''}
+                ${m.texturePack ? `<span>Texture Pack: ${m.texturePack}</span>` : ''}
+                ${m.seedInfo ? `<span>${m.seedInfo}</span>` : ''}
+                ${m.credit ? `<span>${m.seedInfo ? '\u2022 ' : ''}Credit: ${m.credit}</span>` : ''}
               </div>
+              ${m.description ? `<div class="mg-map-meta"><span>${m.description}</span></div>` : ''}
               ${resourcePacksHTML}
             </div>
           </div>
           <div class="platform-grid platform-grid-detailed mg-platform-grid">${platformCards}</div>
+          ${m.disclaimer ? `<p class="pc-note" style="margin-top:16px;">${m.disclaimer}</p>` : ''}
         </div>
       </div>`;
   }).join('');
@@ -1912,7 +1900,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="footer-notes">
         <div class="footer-note">Have questions or feedback? Join <a href="https://discord.theminecraftarchitect.com">the Discord</a> to share your thoughts.</div>
         <div class="footer-note">Found a bug? Report it on <a href="https://github.com/theminecraftarchitect/theminecraftarchitect-comments/issues">GitHub</a>.</div>
-        <div class="footer-note">Seeds found by andrew_555, Earthcomputer, Cortex, Neil, and various other contributors from the <a href="https://minecraftathome.com/projects/list.html">Minecraft@Home team</a>.</div>
+        <div class="footer-note">Community-built worlds preserved from across Minecraft's early history.</div>
       </div>
     </div>`;
 

@@ -857,11 +857,14 @@
   .updates-section { padding: 56px 0 88px; }
   .update-post {
     max-width: 700px;
-    margin: 0 auto;
+    margin: 0 auto 40px;
     background: var(--surface-alt);
     border: 1px solid var(--border-c);
     border-radius: 10px;
     padding: 32px;
+  }
+  .update-post:last-child {
+    margin-bottom: 0;
   }
   .update-meta {
     font-family: 'IBM Plex Mono', monospace;
@@ -1134,6 +1137,51 @@
 
 <section class="updates-section">
   <div class="wrap">
+    <article class="update-post">
+      <div class="update-meta">New Maps &middot; August 2026</div>
+      <h2 class="display">Some new world downloads have been added</h2>
+      <img class="update-image" src="/images/Royal%20Palace%20Image%201.png" alt="">
+      <div class="update-body">
+        <p>I surfed the internet and found some maps that are nearly lost media. Now they're archived here and available for download:</p>
+        <p><strong>Minecraft Trailers:</strong></p>
+        <ul>
+          <li><a href="/java-edition-worlds/trailers#minecraft-1-5-trailer">Minecraft 1.5 Trailer</a> by The Farlanders</li>
+          <li><a href="/java-edition-worlds/trailers#minecraft-1-6-trailer">Minecraft 1.6 Trailer</a> by The Farlanders</li>
+          <li><a href="/java-edition-worlds/trailers#minecraft-1-12-trailer">Minecraft 1.12 Trailer worlds</a> by various community members (thanks to Ietser for archiving these!)</li>
+        </ul>
+        <p><strong>Seeds:</strong></p>
+        <ul>
+          <li><a href="/java-edition-worlds/seeds#beta-1-8-panorama">Beta 1.8 Panorama</a></li>
+          <li><a href="/java-edition-worlds/seeds#skull-on-fire">Skull on Fire Painting Background</a></li>
+          <li><a href="/java-edition-worlds/seeds#the-world-of-herobrine">The World of Herobrine</a></li>
+          <li><a href="/java-edition-worlds/seeds#pack-png">Pack.png</a></li>
+        </ul>
+        <p><strong>Community Worlds:</strong></p>
+        <ul>
+          <li><a href="/java-edition-worlds/community-worlds#ez-s-world">Ez's World</a></li>
+          <li><a href="/java-edition-worlds/community-worlds#royal-palace-by-zyph">Royal Palace</a> by Zyph</li>
+          <li><a href="/java-edition-worlds/community-worlds#the-shadow-of-israphel-by-yogscast">The Shadow of Israphel</a> by Yogscast</li>
+          <li><a href="/java-edition-worlds/community-worlds#the-temple-of-notch-by-disco">The Temple of Notch</a> by Disco</li>
+        </ul>
+        <p><strong>MCPE Seeds:</strong></p>
+        <ul>
+          <li><a href="/mcpe-worlds/mcpe-seeds#epic">epic</a></li>
+          <li><a href="/mcpe-worlds/mcpe-seeds#herobrine">herobrine</a></li>
+          <li><a href="/mcpe-worlds/mcpe-seeds#i-am-a-belieber">I Am A Belieber</a></li>
+          <li><a href="/mcpe-worlds/mcpe-seeds#infinity">infinity</a></li>
+          <li><a href="/mcpe-worlds/mcpe-seeds#jpgaming">jpgaming</a></li>
+          <li><a href="/mcpe-worlds/mcpe-seeds#nether">nether</a></li>
+          <li><a href="/mcpe-worlds/mcpe-seeds#raygun">raygun</a></li>
+        </ul>
+        <p><strong>Other updates:</strong></p>
+        <ul>
+          <li>Each world download now has its own unique link. For example, you can jump straight to the castle battle map here: <a href="https://theminecraftarchitect.com/mini-game-maps/battle#castle">theminecraftarchitect.com/mini-game-maps/battle#castle</a></li>
+        </ul>
+        <p>I hope you enjoy some of these new maps. Feel free to suggest changes, updates, or worlds I should add on the Discord as always :)</p>
+      </div>
+      <a href="https://discord.theminecraftarchitect.com" class="update-discord-btn">Join the Discord →</a>
+    </article>
+
     <article class="update-post">
       <div class="update-meta">New Site &middot; July 2026</div>
       <h2 class="display">The Site Has a New Look</h2>
@@ -1984,8 +2032,15 @@ const MAPS = [
   { name: 'Minecon 2011 Trailer', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
   { name: 'Minecraft 1.2 Trailer', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
   { name: 'Minecraft 1.4 Trailer', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
+  { name: 'Minecraft 1.5 Trailer', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
+  { name: 'Minecraft 1.6 Trailer', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
   { name: 'Minecraft 1.12 Trailer', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
   { name: 'Minecraft Seeds', category: 'Java Edition Worlds', url: '/java-edition-worlds/seeds' },
+  { name: 'Community Worlds', category: 'Java Edition Worlds', url: '/java-edition-worlds/community-worlds' },
+  { name: 'Ez\'s World', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
+  { name: 'Royal Palace by Zyph', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
+  { name: 'The Shadow of Israphel by Yogscast', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
+  { name: 'The Temple of Notch by Disco', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
   { name: 'Beta 1.8 Panorama', category: 'Minecraft Seeds', url: '/java-edition-worlds/seeds' },
   { name: 'Skull on Fire', category: 'Minecraft Seeds', url: '/java-edition-worlds/seeds' },
   { name: 'The World of Herobrine', category: 'Minecraft Seeds', url: '/java-edition-worlds/seeds' },
