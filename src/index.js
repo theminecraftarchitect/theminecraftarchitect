@@ -16,6 +16,24 @@ export default {
       '/old-minecraft-worlds/trailers': '/java-edition-worlds/trailers',
       '/old-minecraft-worlds/mcpe-worlds': '/mcpe-worlds/mcpe-worlds',
       '/java-edition-worlds/mcpe-worlds': '/mcpe-worlds/mcpe-worlds',
+      // Legacy Squarespace URLs that Google still had indexed after the
+      // migration. These never had a Cloudflare-side equivalent, so they
+      // were 404ing instead of redirecting.
+      '/mini-game-maps/2016-mini-game-lobby': '/mini-game-maps/lobbies',
+      '/mini-game-maps/2017-mini-game-lobby': '/mini-game-maps/lobbies',
+      '/tu19-nether': '/tutorial-worlds',
+      '/tu46-nether': '/tutorial-worlds',
+      '/tu31-nether': '/tutorial-worlds',
+      '/tu7-nether': '/tutorial-worlds',
+      '/tu5-nether': '/tutorial-worlds',
+      '/tu12-nether': '/tutorial-worlds',
+      '/tu9-nether': '/tutorial-worlds',
+      '/updates/legacy-console-mini-game-maps': '/updates',
+      '/updates/2024': '/updates',
+      '/updates/april2024': '/updates',
+      '/updates/a-fresh-coat-of-paint': '/updates',
+      '/all-downloads': '/',
+      '/livestream-worlds': '/',
     };
     if (redirects[path]) {
       return Response.redirect(url.origin + redirects[path] + url.search, 301);
