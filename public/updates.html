@@ -903,6 +903,7 @@
     margin-bottom: 10px;
   }
   .update-body strong { color: var(--text-strong); }
+  .update-body a { text-decoration: underline; text-underline-offset: 2px; }
   .update-discord-btn {
     display: inline-flex;
     align-items: center;
@@ -1147,15 +1148,26 @@
 <section class="updates-section">
   <div class="wrap">
     <article class="update-post">
+      <div class="update-meta">New Maps &middot; November 2026</div>
+      <h2 class="display">New Map November</h2>
+      <img class="update-image" src="/images/The%20Golden%20Coaster%20Image%204.png" alt="">
+      <div class="update-body">
+        <p>I've added 4 new <a href="https://theminecraftarchitect.com/java-edition-worlds/community-worlds">community maps</a>. A couple from alpha, Minecon 2010's world, and one impressive roller coaster. Shoutout to Dexern from Omniarchive for converting the Minecon map.</p>
+        <p>Worlds now have a button to copy their link for sharing.</p>
+        <p>Thanks for reading :D</p>
+      </div>
+      <a href="https://discord.theminecraftarchitect.com" class="update-discord-btn">Join the Discord →</a>
+    </article>
+
+    <article class="update-post">
       <div class="update-meta">New World &middot; October 2026</div>
       <h2 class="display">A Quick Autumn Update</h2>
       <img class="update-image" src="/images/Stampy's%20Lovely%20World%20Image%201.png" alt="">
       <div class="update-body">
-        <p>I've added EwanGaming's port of <a href="/java-edition-worlds/community-worlds#stampy-s-lovely-world-by-ewangaming">Stampy's Lovely World</a> to the site. It features the classic bedroom and everything you know from the series up until Episode 657, which premiered in 2019. If you'd like the latest version, support Stampy himself by <a href="https://www.minecraft.net/en-us/marketplace/pdp/4j-studios/stampy%E2%80%99s-lovely-world/2cac624e-2f90-4b3c-aa62-6dd0493ad20e">buying the world from the Marketplace</a>.</p>
+        <p>I've added <a href="https://nintendoclub.co.uk/">EwanGaming's re-creation</a> of <a href="/java-edition-worlds/community-worlds#stampy-s-lovely-world-by-ewangaming">Stampy's Lovely World</a> to the site. It features the classic bedroom and everything you know from the series up until Episode 657, which premiered in 2019. If you'd like the latest version, support Stampy himself by <a href="https://www.minecraft.net/en-us/marketplace/pdp/4j-studios/stampy%E2%80%99s-lovely-world/2cac624e-2f90-4b3c-aa62-6dd0493ad20e">buying the world from the Marketplace</a>.</p>
         <p>The website now has a fall theme for a limited time 🍁</p>
         <p>Thanks for stopping by :)</p>
       </div>
-      <a href="https://discord.theminecraftarchitect.com" class="update-discord-btn">Join the Discord →</a>
     </article>
 
     <article class="update-post">
@@ -1200,7 +1212,6 @@
         </ul>
         <p>I hope you enjoy some of these new maps. Feel free to suggest changes, updates, or worlds I should add on the Discord as always :)</p>
       </div>
-      <a href="https://discord.theminecraftarchitect.com" class="update-discord-btn">Join the Discord →</a>
     </article>
 
     <article class="update-post">
@@ -1217,7 +1228,6 @@
         </ul>
         <p>This is just the beginning. More maps, more features, and more updates are on the way. If you run into any bugs, have feedback, or just want to say hi, the Discord is the best place to find me.</p>
       </div>
-      <a href="https://discord.theminecraftarchitect.com" class="update-discord-btn">Join the Discord →</a>
     </article>
   </div>
 </section>
@@ -2058,9 +2068,13 @@ const MAPS = [
   { name: 'Minecraft 1.12 Trailer', category: 'Minecraft Trailers', url: '/java-edition-worlds/trailers' },
   { name: 'Minecraft Seeds', category: 'Java Edition Worlds', url: '/java-edition-worlds/seeds' },
   { name: 'Community Worlds', category: 'Java Edition Worlds', url: '/java-edition-worlds/community-worlds' },
+  { name: 'Compilation Map (Creators Unknown)', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
   { name: 'Ez\'s World', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
+  { name: 'Minecon 2010 Server World', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
+  { name: 'paulsoaresjr Tutorial World', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
   { name: 'Royal Palace by Zyph', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
   { name: 'Stampy\'s Lovely World by EwanGaming', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
+  { name: 'The Golden Coaster by CrespoChimp', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
   { name: 'The Shadow of Israphel by Yogscast', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
   { name: 'The Temple of Notch by Disco', category: 'Community Worlds', url: '/java-edition-worlds/community-worlds' },
   { name: 'Beta 1.8 Panorama', category: 'Minecraft Seeds', url: '/java-edition-worlds/seeds' },
